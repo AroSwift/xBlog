@@ -22,7 +22,7 @@
 
 <section>
 <h2>Sign Up</h2>
-<%= form_for :article, url: articles_path do |f| %>
+<%= form_for :signup, url: welcome_signup_path do |f| %>
   <p>
     <%= f.label :Username %><br>
     <%= f.text_field :Username %>
@@ -34,7 +34,7 @@
   </p>
  
   <p>
-    <%= f.submit %>
+    <%= f.submit "Sign Up" %>
   </p>
 <% end %>
 </section>
