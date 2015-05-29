@@ -7,4 +7,10 @@ class WelcomeController < ApplicationController
 
   def logout
   end
+
+  def contact
+  end
+
+  def post
+  end
 end

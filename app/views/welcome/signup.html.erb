@@ -21,7 +21,22 @@
 
 
 <section>
-<h2>Home</h2>
+<h2>Sign Up</h2>
+<%= form_for :article, url: articles_path do |f| %>
+  <p>
+    <%= f.label :Username %><br>
+    <%= f.text_field :Username %>
+  </p>
+ 
+  <p>
+    <%= f.label :Password %><br>
+    <%= f.text_field :Password %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
 </section>
 
 

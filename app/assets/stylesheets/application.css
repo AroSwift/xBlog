@@ -6,6 +6,21 @@ body {
 	font-size: 95%;
 }
 
+input {
+	border: none;
+	width: 40%;
+	height: 25px;
+	font-size: 100%;
+	background-color: #333333;
+	color: #D1D1D1;
+}
+
+input[type="submit"] {
+	border: none;
+	color: #919191;
+	background-color: #333333
+}
+
 header {
 	width:100%;
 	padding:30px;
@@ -15,7 +30,7 @@ header {
 }
 
 header h1 {
-	color: white;
+	color: #D1D1D1;
 }
 
 nav {
@@ -31,8 +46,19 @@ color: #919191;
 padding: 10px;
 }
 
+header nav a:hover {
+color: #D1D1D1;
+}
+
+
 section {
 	padding: 30px;
+	padding-top: 15px;
+}
+
+section h2 {
+	font-weight: bold;
+	color: #720000;
 }
 
 footer {

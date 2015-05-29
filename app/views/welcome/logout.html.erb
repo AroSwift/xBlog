@@ -9,35 +9,19 @@
   <body>
 
 <header>
-	<h1>xBlog</h1>
+  <h1>xBlog</h1>
 <nav>
-	<a href="login" class="login">Login</a>
-	<a href="logout" class="logout">Logout</a>
+    <%= link_to 'Home', welcome_index_path %>
+    <%= link_to 'Login', welcome_login_path %>
+    <%= link_to 'Sign Up', welcome_signup_path %>
+    <%= link_to 'Logout', welcome_logout_path %>
 
 </nav>
 </header>
 
 
 <section>
-<%= link_to 'My Blog', controller: 'articles' %>
-
-
-<%= form_for :article, url: articles_path do |f| %>
-<%= link_to 'New article', new_article_path %>
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
- 
-  <p>
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </p>
- 
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+<h2>Logging Out...</h2>
 </section>
 
 
