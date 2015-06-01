@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   def new
-  end
+  	@username = Username.new
+  	@password = Password.new
+  end 
 
-  def 
+  def create
+
+  end
 end
