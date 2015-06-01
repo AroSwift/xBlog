@@ -1,15 +1,17 @@
 class UsersController < ApplicationController
   def new
-  	@users = User.new
   end
 
   def create
-    user = User.find_by(username: params[:user][:username])
-    if user && user.authenticate(params[:user][:password])
-
+    user = User.find_by(username: params[:session][:username].downcase)
+    if user && user.authenticate(params[:session][:password])
+      # Log the user in and redirect to the user's show page.
     else
-      flash.now[:error] = 'Invalid username/password combination'
+      flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
     end
+  end
+
+  def destroy
   end
 end
