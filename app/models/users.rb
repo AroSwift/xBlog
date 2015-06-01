@@ -1,7 +1,5 @@
 class Users < ActiveRecord::Base
 
-	  attr_accessible :name, :password, :password_confirmation
-
  def user
     create_table :users do |t|
       t.string :username
