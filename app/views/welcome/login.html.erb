@@ -24,19 +24,21 @@
 <h2>Login</h2>
 <%= form_for :users, url: users_path do |f| %>
   <p>
-    <%= f.label :Username %><br>
-    <%= f.text_field :Username %>
+    <%= f.label :username, "Username" %><br>
+    <%= f.text_field :username %>
   </p>
  
   <p>
-    <%= f.label :Password %><br>
-    <%= f.text_field :Password %>
+    <%= f.label :password, "Password" %><br>
+    <%= f.text_field :password %>
   </p>
  
   <p>
     <%= f.submit "Login" %>
   </p>
 <% end %>
+<br />
+<%= link_to "Don't have an account? Sign up now!", welcome_signup_path %>
 </section>
 
 
