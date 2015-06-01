@@ -37,7 +37,7 @@ header h1 {
 
 nav {
 	position: absolute;
-	right: 5%;
+	right: 3%;
 	top: 45px;
 	padding: 0px;
 }
@@ -63,6 +63,12 @@ transition: all 500ms ease;
 
 header nav a:hover {
 color: #D1D1D1;
+}
+
+.error_msg {
+	color: #D1D1D1;
+	padding: 15px;
+	background-color: #333333;
 }
 
 
