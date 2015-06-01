@@ -1,8 +1,8 @@
 class CreateArticles < ActiveRecord::Migration
   def change
-    create_table :articles do |t|
-      t.string :title
-      t.text :text
+    create_table :users do |t|
+      t.string :name
+      t.text :password
 
       t.timestamps null: false
     end

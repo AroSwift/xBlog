@@ -4,11 +4,13 @@ body {
 	padding: 0px;
 	font-family: Verdana, Georgia;
 	font-size: 95%;
+	overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 input {
 	border: none;
-	width: 40%;
+	width: 45%;
 	height: 25px;
 	font-size: 100%;
 	background-color: #333333;
@@ -38,6 +40,14 @@ nav {
 	right: 5%;
 	top: 45px;
 	padding: 0px;
+}
+
+div.it {
+	display: inline;
+}
+
+div.it a {
+	color: #D1D1D1 !important;
 }
 
 header nav a {
@@ -71,6 +81,7 @@ footer {
 	margin-top: 40%;
 	/* FIX LATER */
 
+	width: 100%;
 	padding: 30px;
 	color: #919191;
 	background-color: #333333;
