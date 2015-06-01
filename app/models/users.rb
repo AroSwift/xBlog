@@ -8,7 +8,7 @@ class Users < ActiveRecord::Base
   end
 
   def log_in(user)
-    session[:user_id] = user.id
+    session[:users_id] = users.id
   end
 	
 end

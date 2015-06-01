@@ -4,14 +4,17 @@ class UsersController < ApplicationController
   end
 
   def create
-
+@username = Username.new(params[:username])
 @username = params[:users][:username]
-@password= params[:users][:password]
+@password = params[:users][:password]
     if @username.empty? && @password.empty? then
-      
+
+
+      flash[:error] = 'Your input can not be blank.'
+      redirect_to :back
     else
-      flash.now[:error] = 'Invalid email/password combination. Please try again.'
-      render 'create'
+
+      redirect_to :home
     end
   end
 
