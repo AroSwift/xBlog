@@ -1,13 +1,18 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
-    @password = Password.new(:password=>params[:password])
   end
 
   def show
   end
 
   def create
+    @user = User.new(params[:users])
+    if @user.save
+      flash[:error] = 'Account created'
+    end
+      flash[:error] = 'Account not created'
+
     @username = params[:users][:username]
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
@@ -37,13 +42,11 @@ if @username.length < 5 then
 
     else
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
-
-      @user.add(request.username, request.password)
+      add_user(@username, @password)
 
       redirect_to :home
     end
 end
-
 
   def destroy
   end

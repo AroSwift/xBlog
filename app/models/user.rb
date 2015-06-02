@@ -1,4 +1,10 @@
-class Users < ActiveRecord::Base
+class User < ActiveRecord::Base
+	attr_accessible :username, :password
+	has_secure_password
+  
+  before_save { 
+      # Do something before it saves
+   }
 
  def user
     create_table :users do |t|
@@ -14,5 +20,5 @@ class Users < ActiveRecord::Base
   def find_user(username, password)
   	self.user = username.to_s + password.to_s
   end
-  
+
 end
