@@ -1,16 +1,26 @@
 class SessionsController < ApplicationController
   def new
+    @user = User.new
+    @password = Password.new(:password=>params[:password])
   end
 
   def create
-    user = User.find_by(session: params[:session][:username])
-    if user && user.authenticate(params[:session][:password])
+    @username = params[:login][:username]
+    @password = params[:login][:password]
 
+
+
+if @username != @password then
+
+      flash[:error] = "Your username and password do not match"
+      redirect_to :back 
     else
-      flash.now[:error] = 'Invalid username/password combination'
-      render 'new'
+      # DATABASE AND SESSION STUFF AFTER ALL CONDITIONS MEET
+
+      redirect_to :home
     end
-  end
+end
+
 
   def destroy
   end
