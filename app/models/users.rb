@@ -7,8 +7,8 @@ class Users < ActiveRecord::Base
     end
   end
 
-  def log_in(user)
-    session[:users_id] = users.id
+  def add_user(username, password)
+  	self.user = username.to_s + password.to_s
   end
 	
 end

@@ -27,7 +27,7 @@ if @username.length < 5 then
 
       flash[:error] = 'Your password must not be greater than 20 characters'
       redirect_to :back
-     elsif @confirm_password.length != @password then
+     elsif @confirm_password != @password then
 
       flash[:error] = "Your passwords don't match"
       redirect_to :back 

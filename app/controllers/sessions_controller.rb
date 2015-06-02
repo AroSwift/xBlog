@@ -4,6 +4,10 @@ class SessionsController < ApplicationController
     @password = Password.new(:password=>params[:password])
   end
 
+  def show
+    @user = User.find_by_id(params[id])
+  end
+
   def create
     @username = params[:login][:username]
     @password = params[:login][:password]
