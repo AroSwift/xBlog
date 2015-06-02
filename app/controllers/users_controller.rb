@@ -43,17 +43,14 @@ if @username.length < 5 then
 
 
   @user = User.new(user_params)
-    if @user.save
+    if(request.post? && @user.save)
       flash[:error] = 'Account created'
-      redirect_to @user
+      redirect_to home_path
     else
       flash[:error] = 'Account not created'
-      redirect_to signup
+      redirect_to signup_path
     end
-
-
-
-      redirect_to :home
+    
     end
 end
 
