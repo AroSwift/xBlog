@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   end
 
   def show
+
   end
 
   def index
@@ -41,17 +42,24 @@ if @username.length < 5 then
     else
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
 
+cname = User.find_by_username(params[:username])
+if cname = @username then
+  flash[:error] = 'This username already exists'
+  redirect_to signup_path
+    else
 
   @user = User.new(user_params)
     if(request.post? && @user.save)
       flash[:error] = 'Account created'
-      redirect_to home_path
+      redirect_to signup_path
     else
       flash[:error] = 'Account not created'
       redirect_to signup_path
     end
-    
+
+  end
     end
+
 end
 
   def user_params
@@ -60,4 +68,5 @@ end
 
   def destroy
   end
+
 end
