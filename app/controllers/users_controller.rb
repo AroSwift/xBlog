@@ -6,12 +6,10 @@ class UsersController < ApplicationController
   def show
   end
 
+  def index
+  end
+
   def create
-    @user = User.new(params[:users])
-    if @user.save
-      flash[:error] = 'Account created'
-    end
-      flash[:error] = 'Account not created'
 
     @username = params[:users][:username]
     @password = params[:users][:password]
@@ -42,11 +40,26 @@ if @username.length < 5 then
 
     else
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
-      add_user(@username, @password)
+
+
+  @user = User.new(user_params)
+    if @user.save
+      flash[:error] = 'Account created'
+      redirect_to @user
+    else
+      flash[:error] = 'Account not created'
+      redirect_to signup
+    end
+
+
 
       redirect_to :home
     end
 end
+
+  def user_params
+    params.require(:users).permit(:username, :password)
+  end
 
   def destroy
   end
