@@ -3,9 +3,10 @@ Rails.application.routes.draw do
 
   get     'login'   => 'sessions#login'
   post    'login'   => 'sessions#create'
+  get     'logout'  => 'sessions#logout'
   delete  'logout'  => 'sessions#destroy'
 
-  get     'signup'  => 'welcome#signup'
+  get     'signup'  => 'users#signup'
   get     'home'    => 'welcome#index'
   get     'post'    => 'welcome#post'
   get     'post'    => 'welcome#post'

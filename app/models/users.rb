@@ -11,4 +11,8 @@ class Users < ActiveRecord::Base
   	self.user = username.to_s + password.to_s
   end
 	
+  def find_user(username, password)
+  	self.user = username.to_s + password.to_s
+  end
+  
 end

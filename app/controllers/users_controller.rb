@@ -4,6 +4,9 @@ class UsersController < ApplicationController
     @password = Password.new(:password=>params[:password])
   end
 
+  def show
+  end
+
   def create
     @username = params[:users][:username]
     @password = params[:users][:password]
@@ -34,6 +37,8 @@ if @username.length < 5 then
 
     else
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
+
+      @user.add(request.username, request.password)
 
       redirect_to :home
     end
