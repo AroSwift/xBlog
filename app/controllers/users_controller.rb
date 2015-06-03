@@ -41,14 +41,12 @@ if @username.length < 5 then
     else
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
 
-    @cname = User.find_by_username params[:username]
-    if @cname = @username then
-      flash[:error] = 'That username already exists'
-      redirect_to signup_path
-    else
+    cname = User.find_by(username: @username)
+    if cname.nil? then
+
 
     user = User.create(user_params)
-    if(request.post? && @user.save)
+    if(request.post? && user.save)
       flash[:error] = 'Account created'
       redirect_to signup_path
     else
@@ -56,10 +54,19 @@ if @username.length < 5 then
       redirect_to signup_path
     end
 
-  end
+
+    else
+      flash[:error] == 'That username already exists'
+      redirect_to signup_path
+    end
+
   end
 
 end
+
+  def user_search
+    params.require(:users).permit(:username)
+  end
 
   def user_params
     params.require(:users).permit(:username, :password)
