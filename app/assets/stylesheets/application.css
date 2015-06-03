@@ -43,7 +43,7 @@ nav {
 }
 
 div.it {
-	display: inline;
+	display: inline !important;
 }
 
 div.it a {

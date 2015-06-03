@@ -47,7 +47,7 @@ if @username.length < 5 then
         user = User.create(user_params)
         if(request.post? && user.save)
           flash[:error] = 'Account created. Please login.'
-            redirect_to :login
+            redirect_to :home
 
 
           # Create Session
