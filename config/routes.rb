@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'users#index'
 
   get     'post'    => 'posts#post'
   post     'post'    => 'posts#create'  
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get     'index'   => 'users#signup'
   get     'signup'  => 'users#signup'
   post    'signup'  => 'users#create'
-  get     'home'    => 'welcome#index'
+  get     'home'    => 'users#index'
 
   resources :users
   resources :sessions
