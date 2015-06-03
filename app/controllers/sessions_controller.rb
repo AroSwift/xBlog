@@ -1,11 +1,9 @@
 class SessionsController < ApplicationController
   def new
     @user = User.new
-    @password = Password.new(:password=>params[:password])
   end
 
   def show
-    @user = User.find_by_id(params[id])
   end
 
   def create
@@ -25,8 +23,10 @@ if @username.empty? then
 
     else
         # DATABASE AND SESSION STUFF AFTER ALL CONDITIONS MEET
-        dbuser = User.find_by(username: @username, password: @password)
-        if dbuser.nil? then
+        #dbuser = User.find_by(username: @username, password: @password)
+        dbusername = User.find_by(username: @username)
+        dbpassword = User.find_by(password: @password)
+        if dbusername.nil? && dbpassword.nil? then
       
             session[:current_user_id] = user.id
             session[:current_username] = user.username
@@ -43,6 +43,7 @@ end
  def destroy
     # Logout
     @_current_user = session[:current_user_id] = nil
+    @_current_user = session[:current_username] = nil    
     redirect_to :home
   end
 end
