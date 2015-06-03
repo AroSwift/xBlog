@@ -13,16 +13,30 @@ class SessionsController < ApplicationController
     @password = params[:login][:password]
 
 
+# Check if paramaters are met
+if @username.empty? then
 
-if @username != @password then
-
-      flash[:error] = "Your username and password do not match"
+      flash[:error] = "Please enter a username"
       redirect_to :back 
-    else
-      # DATABASE AND SESSION STUFF AFTER ALL CONDITIONS MEET
+    elsif @password.empty? then
 
-      redirect_to :home
-    end
+      flash[:error] = "Please enter a password"
+      redirect_to :back 
+
+    else
+        # DATABASE AND SESSION STUFF AFTER ALL CONDITIONS MEET
+        dbuser = User.find_by(username: @username, password: @password)
+        if dbuser.nil? then
+      
+            session[:current_user_id] = user.id
+            session[:current_username] = user.username
+
+        redirect_to :home
+        else
+        flash[:error] = "Your username and password did not match. Please try again."
+        redirect_to :back 
+        end
+end
 end
 
 
