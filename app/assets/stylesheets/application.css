@@ -1,3 +1,7 @@
+/*
+GENERAL CSS
+ */
+
 body {
 	background-color: #D1D1D1;
 	margin: 0px;
@@ -37,6 +41,14 @@ textarea {
 	background-color: #333333;
 }
 
+
+
+
+
+/*
+HEADER AREA
+*/
+
 header {
 	width:100%;
 	padding:30px;
@@ -48,6 +60,13 @@ header {
 header h1 {
 	color: #D1D1D1;
 }
+
+
+
+
+/*
+NAVIGATION
+*/
 
 nav {
 	position: absolute;
@@ -79,12 +98,13 @@ header nav a:hover {
 color: #D1D1D1;
 }
 
-.error_msg {
-	color: #D1D1D1;
-	padding: 15px;
-	background-color: #333333;
-}
 
+
+
+
+/*
+CONTENT AREA
+*/
 
 section {
 	padding: 30px;
@@ -101,6 +121,15 @@ section h2 {
 	color: #720000;
 }
 
+
+
+
+
+
+/*
+FOOTER AREA
+*/
+
 footer {
 	/* FIX LATER */
 	margin-top: 300px;
@@ -111,4 +140,24 @@ footer {
 	color: #919191;
 	background-color: #333333;
 }
+
+
+
+
+
+/*
+miscellaneous
+*/
+
+.error_msg {
+	color: #D1D1D1;
+	padding: 15px;
+	background-color: #333333;
+}
+
+p label {
+	font-weight: bold;
+}
+
+
 

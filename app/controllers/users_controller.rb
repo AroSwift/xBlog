@@ -43,7 +43,7 @@ if @username.length < 5 then
 
         user = User.create(user_params)
         if(request.post? && user.save)
-          flash[:error] = 'Account created. Please login.'
+          flash[:error] = 'Account created.'
             redirect_to :home
 
 
@@ -72,6 +72,7 @@ end
  def destroy
     # Logout
     @_current_user = session[:current_user_id] = nil
+    @_current_user = session[:current_username] = nil    
     redirect_to :home
   end
 
