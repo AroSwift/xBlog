@@ -21,6 +21,8 @@
 
 <section>
 
+<%= content_tag :div, @users = User.first, class: "error_msg" %>
+
   <%flash.each do |msg| %>
 <%= content_tag :div, msg, class: "error_msg" %>
   <% end %>

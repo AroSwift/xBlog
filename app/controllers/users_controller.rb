@@ -17,7 +17,6 @@ class UsersController < ApplicationController
     @confirm_password = params[:users][:confirm_password]
 
 
-
 if @username.length < 5 then
 
       flash[:error] = 'Your username must be at least 5 characters'
@@ -42,13 +41,13 @@ if @username.length < 5 then
     else
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
 
-    cname = User.find_by_id(params[:id])
-    if cname === @username then
+    @cname = User.find_by_username params[:username]
+    if @cname = @username then
       flash[:error] = 'That username already exists'
       redirect_to signup_path
     else
 
-    @user = User.new(user_params)
+    user = User.create(user_params)
     if(request.post? && @user.save)
       flash[:error] = 'Account created'
       redirect_to signup_path
