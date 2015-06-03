@@ -23,12 +23,12 @@
 
 
 <section>
+<h2>Sign Up</h2>
 
 <%flash.each do |key,msg| %>
 <%= content_tag :div, msg, class: "error_msg" %>
 <% end %>
 
-<h2>Sign Up</h2>
 <%= form_for :users, url: users_path do |f| %>
   <p>
     <%= f.label :username, "Username" %><br>

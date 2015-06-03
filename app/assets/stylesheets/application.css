@@ -20,7 +20,13 @@ input {
 input[type="submit"] {
 	border: none;
 	color: #D1D1D1;
-	background-color: #333333
+	background-color: #333333;
+}
+
+input[type="textarea"] {
+	border: none;
+	color: #D1D1D1;
+	background-color: #333333;
 }
 
 header {
