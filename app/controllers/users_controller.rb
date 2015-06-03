@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
 
-
+# Check if paramaters are met
 if @username.length < 5 then
 
       flash[:error] = 'Your username must be at least 5 characters'
@@ -44,35 +44,38 @@ if @username.length < 5 then
     cname = User.find_by(username: @username)
     if cname.nil? then
 
+        user = User.create(user_params)
+        if(request.post? && user.save)
+          flash[:error] = 'Account created. Please login.'
+            redirect_to :login
 
-    user = User.create(user_params)
-    if(request.post? && user.save)
-      flash[:error] = 'Account created'
-      redirect_to signup_path
+
+          # Create Session
+            session[:current_user_id] = user.id
+            session[:current_username] = user.username
+
+
+        else
+          flash[:error] = 'Account not created. Try again.'
+          redirect_to :signup
+        end
+
     else
-      flash[:error] = 'Account not created'
-      redirect_to signup_path
+        flash[:error] = 'That username already exists'
+        redirect_to :signup
     end
-
-
-    else
-      flash[:error] == 'That username already exists'
-      redirect_to signup_path
     end
-
-  end
 
 end
-
-  def user_search
-    params.require(:users).permit(:username)
-  end
 
   def user_params
     params.require(:users).permit(:username, :password)
   end
 
-  def destroy
+ def destroy
+    # Logout
+    @_current_user = session[:current_user_id] = nil
+    redirect_to :home
   end
 
 end

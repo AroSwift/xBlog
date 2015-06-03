@@ -26,6 +26,9 @@ if @username != @password then
 end
 
 
-  def destroy
+ def destroy
+    # Logout
+    @_current_user = session[:current_user_id] = nil
+    redirect_to :home
   end
 end

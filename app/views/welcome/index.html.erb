@@ -23,6 +23,11 @@
 
 <section>
 <h2>Home</h2>
+
+<%flash.each do |key,msg| %>
+<%= content_tag :div, msg, class: "error_msg" %>
+<% end %>
+
 </section>
 
 
