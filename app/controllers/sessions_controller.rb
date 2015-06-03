@@ -7,16 +7,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @username = params[:login][:username]
-    @password = params[:login][:password]
+    @lusername = params[:login][:lusername]
+    @lpassword = params[:login][:lpassword]
 
 
 # Check if paramaters are met
-if @username.empty? then
+if @lusername.empty? then
 
       flash[:error] = "Please enter a username"
       redirect_to :back 
-    elsif @password.empty? then
+    elsif @lpassword.empty? then
 
       flash[:error] = "Please enter a password"
       redirect_to :back 
@@ -24,12 +24,12 @@ if @username.empty? then
     else
         # DATABASE AND SESSION STUFF AFTER ALL CONDITIONS MEET
         #dbuser = User.find_by(username: @username, password: @password)
-        dbusername = User.find_by(username: @username)
-        dbpassword = User.find_by(password: @password)
-        if dbusername.nil? && dbpassword.nil? then
+        dbusername = User.find_by(username: @lusername)
+        dbpassword = User.find_by(password: @lpassword)
+        if !dbusername.nil? && !dbpassword.nil? then
       
-            session[:current_user_id] = user.id
-            session[:current_username] = user.username
+            session[:current_user_id] = dbusername.id
+            session[:current_username] = dbusername.username
 
         redirect_to :home
         else

@@ -16,7 +16,7 @@
 
     <div class="it"><%= link_to 'Home', home_path %></div>
     <%= link_to 'Post', post_path %>
-    <%= link_to 'Logout', logout_path %>
+    <%= link_to 'Logout', logout_path, :method => :delete %>
 
 <% else %>
 
