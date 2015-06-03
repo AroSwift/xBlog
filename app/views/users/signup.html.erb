@@ -1,3 +1,7 @@
+<% if session[:current_user_id].present? && session[:current_username].present? then  %>
+<% controller.redirect_to :home %>
+<% else %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,19 +15,9 @@
 <header>
 	<h1>xBlog</h1>
 <nav>
-<% if session[:current_user_id].present? && session[:current_username].present? then  %>
-
-    <%= link_to 'Home', home_path %>
-    <%= link_to 'Post', post_path %>
-    <%= link_to 'Logout', logout_path %>
-
-<% else %>
-
     <%= link_to 'Home', home_path %>
     <%= link_to 'Login', login_path %>
     <div class="it"><%= link_to 'Sign Up', signup_path %></div>
-
-<% end %>
 </nav>
 </header>
 
@@ -64,3 +58,4 @@ barlowat@ORNL.gov
 
   </body>
 </html>
+<% end %>

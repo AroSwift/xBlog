@@ -7,10 +7,9 @@ Rails.application.routes.draw do
 
   get     'index'   => 'users#signup'
   get     'signup'  => 'users#signup'
+  get     'post'    => 'users#post'
   post    'signup'  => 'users#create'
   get     'home'    => 'welcome#index'
-  get     'post'    => 'welcome#post'
-  get     'post'    => 'welcome#post'
 
   resources :users
   resources :sessions
