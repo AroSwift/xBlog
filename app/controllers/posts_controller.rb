@@ -85,7 +85,7 @@ end
     @dcontent = params[:dcontent]
 
   Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
-
+  flash[:error] = "The post " + @dtitle + " was successfully deleted"
   redirect_to :home
   end
 
