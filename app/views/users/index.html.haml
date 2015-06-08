@@ -1,0 +1,69 @@
+:erb
+!!! 5
+%html
+  %head
+    %meta{charset => "utf-8"}
+
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+
+
+<header>
+	<h1>xBlog</h1>
+<nav>
+<% if session[:current_user_id].present? && session[:current_username].present? then  %>
+
+    <div class="it"><%= link_to 'Home', home_path %></div>
+    <%= link_to 'Post', post_path %>
+    <%= link_to 'Logout', logout_path, :method => :delete %>
+
+<% else %>
+
+    <div class="it"><%= link_to 'Home', home_path %></div>
+    <%= link_to 'Login', login_path %>
+    <%= link_to 'Sign Up', signup_path %>
+
+<% end %>
+</nav>
+</header>
+
+
+<section>
+<h2>Home</h2>
+
+<%if flash[:error].present? %>
+<%= content_tag :div, flash[:error], class: "error_msg" %>
+<% end %>
+
+
+
+<% Post.all.order("id desc").each do |post| %>
+<article class="posts">
+  <p class="title"><%= post.title %> by 
+  <%= post.author %>
+
+  <% if session[:current_user_id].present? && session[:current_username].present? then  %>
+  <%= link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost" %>
+  <% end %>
+  </p>
+  <p class="content"><%= post.content %></p>
+  </article>
+<% end %>
+
+
+
+
+</section>
+
+
+<footer>
+barlowat@ORNL.gov 
+</footer>
+
+  </body>
+</html>

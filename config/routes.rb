@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
-  get     'post'    => 'posts#post'
+  get     'post'    => 'posts#show'
   post    'post'    => 'posts#create'  
   delete  'post'   => 'posts#destroy'
 
@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   post    'login'   => 'sessions#create'
   delete  'logout'  => 'sessions#destroy'
 
-  get     'index'   => 'users#signup'
   get     'signup'  => 'users#signup'
   post    'signup'  => 'users#create'
   get     'home'    => 'users#index'
