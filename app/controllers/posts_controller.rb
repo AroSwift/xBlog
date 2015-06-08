@@ -16,14 +16,18 @@ class PostsController < ApplicationController
     @author = params[:posts][:author]
     @content = params[:posts][:content]
 
+    flash[:title] = @title
+    flash[:author] = @author
+    flash[:content] = @content
+
 
     if @title.length < 3 then
 
       flash[:error] = 'The title must be at least 3 characters'
       redirect_to :back
-    elsif @title.length > 40 then
+    elsif @title.length > 50 then
 
-      flash[:error] = 'The title must not be more than 40 characters'
+      flash[:error] = 'The title must not be more than 50 characters'
       redirect_to :back
     elsif @author.length < 5 then
 
@@ -39,9 +43,9 @@ class PostsController < ApplicationController
 
       flash[:error] = "The post must be at least 20 characters"
       redirect_to :back 
-    elsif @content.length > 5000 then
+    elsif @content.length > 10000 then
 
-      flash[:error] = 'The post must not be more than 5000 characters'
+      flash[:error] = 'The post must not be more than 10,000 characters'
       redirect_to :back 
 
 

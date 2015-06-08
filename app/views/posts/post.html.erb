@@ -23,25 +23,29 @@
 <section>
 <h2>Post</h2>
 
-<%flash.each do |key,msg| %>
-<%= content_tag :div, msg, class: "error_msg" %>
+<%if flash[:error].present? %>
+<%= content_tag :div, flash[:error], class: "error_msg" %>
 <% end %>
 
 <%= form_for :posts, url: post_path do |f| %>
   <p>
 
     <%= f.label :title, "Title" %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :value => flash[:title] %>
   </p>
  
   <p>
     <%= f.label :author, "Author" %><br>
-    <%= f.text_field :author %>
+    <%if flash[:author].present? %>
+    <%= f.text_field :author, :value => flash[:author] %>
+    <% else %>
+    <%= f.text_field :author, :value => session[:current_username] %>
+    <% end %>
   </p>
 
    <p>
     <%= f.label :content, "Post" %><br>
-    <%= f.text_area :content  %>
+    <%= f.text_area :content, :value => flash[:content]  %>
   </p>
  
   <p>

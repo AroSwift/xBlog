@@ -32,8 +32,8 @@
 <section>
 <h2>Home</h2>
 
-<%flash.each do |key,msg| %>
-<%= content_tag :div, msg, class: "error_msg" %>
+<%if flash[:error].present? %>
+<%= content_tag :div, flash[:error], class: "error_msg" %>
 <% end %>
 
 

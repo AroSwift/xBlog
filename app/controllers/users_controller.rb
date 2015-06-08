@@ -12,6 +12,9 @@ class UsersController < ApplicationController
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
 
+    flash[:username] = @username
+
+
 # Check if paramaters are met
 if @username.length < 5 then
 

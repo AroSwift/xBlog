@@ -10,6 +10,10 @@ class SessionsController < ApplicationController
     @lusername = params[:login][:lusername]
     @lpassword = params[:login][:lpassword]
 
+    flash[:lusername] = @lusername
+    flash[:lpassword] = @lpassword
+
+
 
 # Check if paramaters are met
 if @lusername.empty? then
