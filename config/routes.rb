@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get     'post'    => 'posts#post'
   post     'post'    => 'posts#create'  
 
-  get     'login'   => 'sessions#login'
+  get     'login'   => 'users#login'
   post    'login'   => 'sessions#create'
   delete  'logout'  => 'sessions#destroy'
 
