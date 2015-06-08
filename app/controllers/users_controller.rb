@@ -11,6 +11,8 @@ class UsersController < ApplicationController
     @username = params[:users][:username]
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
+    @code = params[:users][:code]
+    @verifycode =params[:users][:verifycode]
 
     flash[:username] = @username
 
@@ -20,24 +22,32 @@ if @username.length < 5 then
 
       flash[:error] = 'Your username must be at least 5 characters'
       redirect_to :back
-    elsif @username.length > 12 then
 
+    elsif @username.length > 12 then
       flash[:error] = 'Your username must not be greater than 12 characters'
       redirect_to :back
-    elsif @password.length < 8 then
 
+    elsif @password.length < 8 then
       flash[:error] = 'Your password must be at least 8 characters'
       redirect_to :back
-    elsif @password.length > 20 then
 
+    elsif @password.length > 20 then
       flash[:error] = 'Your password must not be greater than 20 characters'
       redirect_to :back
-     elsif @confirm_password != @password then
 
+     elsif @confirm_password != @password then
       flash[:error] = "Your passwords don't match"
       redirect_to :back 
 
-    else
+      elsif @code.empty? then
+      flash[:error] = "Please enter the security key"
+      redirect_to :back 
+
+      elsif !@code = @codeverify then
+      flash[:error] = "You did not add"
+      redirect_to :back 
+        
+
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
 
     cname = User.find_by(username: @username)

@@ -145,6 +145,13 @@ a.dpost {
 	margin: 0px;
 }
 
+div.code {
+	text-align: center;
+	padding: 20px;
+	color: #720000;
+	font-weight: bold;
+}
+
 
 
 
@@ -178,7 +185,7 @@ miscellaneous
 	background-color: #333333;
 }
 
-p label {
+label {
 	font-weight: bold;
 }
 
