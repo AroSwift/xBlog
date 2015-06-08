@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # bundle exec rake routes
+
   root 'users#index'
 
   get     'post'    => 'posts#post'
@@ -16,4 +18,5 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions
+  resources :posts
 end

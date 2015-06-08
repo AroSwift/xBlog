@@ -42,7 +42,10 @@
 <article class="posts">
   <p class="title"><%= post.title %> by 
   <%= post.author %>
+
+  <% if session[:current_user_id].present? && session[:current_username].present? then  %>
   <%= link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost" %>
+  <% end %>
   </p>
   <p class="content"><%= post.content %></p>
   </article>
