@@ -79,10 +79,14 @@ end
   end
 
  def destroy
-    # Logout
-    @_current_user = session[:current_user_id] = nil
-    @_current_user = session[:current_username] = nil    
-    redirect_to :home
+
+    @dtitle = params[:dtitle]
+    @dauthor = params[:dauthor]
+    @dcontent = params[:dcontent]
+
+  Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
+
+  redirect_to :home
   end
 
 

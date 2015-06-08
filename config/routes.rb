@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root 'users#index'
 
   get     'post'    => 'posts#post'
-  post     'post'    => 'posts#create'  
+  post    'post'    => 'posts#create'  
+  delete  'post'   => 'posts#destroy'
 
   get     'login'   => 'users#login'
   post    'login'   => 'sessions#create'

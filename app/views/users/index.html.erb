@@ -41,7 +41,9 @@
 <% Post.all.each do |post| %>
 <article class="posts">
   <p class="title"><%= post.title %> by 
-  <%= post.author %></p>
+  <%= post.author %>
+  <%= link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost" %>
+  </p>
   <p class="content"><%= post.content %></p>
   </article>
 <% end %>
