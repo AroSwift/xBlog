@@ -38,7 +38,7 @@
 
 
 
-<% Post.all.each do |post| %>
+<% Post.all.order("id desc").each do |post| %>
 <article class="posts">
   <p class="title"><%= post.title %> by 
   <%= post.author %>
