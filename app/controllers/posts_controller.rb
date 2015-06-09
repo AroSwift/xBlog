@@ -19,7 +19,11 @@ class PostsController < ApplicationController
     flash[:pcontent] = @pcontent
 
     pst = Post.new
-    Post.where(:title => @ptitle, :author => @pauthor, :content => @pcontent).update_all
+    
+    # this updates the ENTIRE database, but at leaset works - figure out ..... 
+    #Post.update_all(:title => @ptitle, :author => @pauthor, :content => @pcontent)
+    
+
     pst.valid?
     flash[:error] = pst.errors.full_messages
 
