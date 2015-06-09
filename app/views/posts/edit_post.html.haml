@@ -2,7 +2,7 @@
   %h2 Edit Post
   - if flash[:error].present?
     = content_tag :div, flash[:error], class: "error_msg"
-  = form_for :posts, url: post_path, :method => :patch do |f|
+  = form_for :edit_post, url: edit_post_path, :method => :patch do |f|
     %p
       = f.label :title, "Title"
       %br/

@@ -5,7 +5,6 @@ class PostsController < ApplicationController
   end
 
   def patch
-
     @ptitle = params[:posts][:title]
     @pauthor = params[:posts][:author]
     @pcontent = params[:posts][:content]
@@ -14,17 +13,19 @@ class PostsController < ApplicationController
     flash[:pauthor] = @pauthor
     flash[:pcontent] = @pcontent
 
+    pst = Post.new
+    pst.valid?
+    pst.errors.full_messages
 
-    
+    pst.errors.empty?
+    pst.save
 
-
-
-    
-
+    redirect_to :home
   end
 
-  def create
 
+
+  def create
     @title = params[:posts][:title]
     @author = params[:posts][:author]
     @content = params[:posts][:content]
@@ -61,7 +62,6 @@ class PostsController < ApplicationController
       flash[:error] = 'The post must not be more than 10,000 characters'
       redirect_to :back 
 
-
     else
       # DATABASE STUFF AFTER ALL CONDITIONS MEET
 
@@ -83,12 +83,15 @@ class PostsController < ApplicationController
         redirect_to :back
     end
     end
-
-end
+  end
 
 
   def post_params
     params.require(:posts).permit(:title, :author, :content)
+  end
+
+  def post_patch_params
+    params.require(:edit_post).permit(:ptitle, :pauthor, :pcontent)
   end
 
  def destroy
