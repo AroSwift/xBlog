@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   end
 
 
+  # PLEASE FIX ME, THIS IS REALLY MESSED UP
   def update
     @ptitle = params[:dtitle]
     @pauthor = params[:dauthor]
@@ -18,12 +19,13 @@ class PostsController < ApplicationController
     flash[:pcontent] = @pcontent
 
     pst = Post.new
-    @pst = Post.find_by(title: @ptitle, author: @pauthor, content: @pcontent)
+    Post.where(:title => @ptitle, :author => @pauthor, :content => @pcontent).update_all
     pst.valid?
     flash[:error] = pst.errors.full_messages
 
     if pst.errors.empty? then
     pst.save
+    post.update_columns(title: @ptitle, content: @pcontent)
     redirect_to :home
     else
     redirect_to :back
@@ -97,8 +99,8 @@ class PostsController < ApplicationController
     params.require(:posts).permit(:title, :author, :content)
   end
 
-  def post_patch_params
-    params.require(:edit_post).permit(:ptitle, :pauthor, :pcontent)
+  def post_update_params
+    params.require(:posts).permit(:ptitle, :pauthor, :pcontent)
   end
 
  def destroy
