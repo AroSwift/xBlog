@@ -5,6 +5,10 @@ class PostsController < ApplicationController
   end
 
   def edit
+  end
+
+  
+  def update
     @ptitle = params[:dtitle]
     @pauthor = params[:dauthor]
     @pcontent = params[:dcontent]
