@@ -142,7 +142,21 @@ a.dpost {
 	color: #919191;
 	font-size: 70%;
 	text-align: right;
-	margin: 0px;
+	position: absolute;
+	left: 84%;
+}
+
+a.pedit {
+	color: #919191;
+	font-size: 70%;
+	text-align: right;
+	padding-left: 10px;
+	position: absolute;
+	left: 90%;
+}
+
+a.dpost:hover, a.pedit:hover {
+
 }
 
 div.code {

@@ -2,7 +2,7 @@
   %h2 Home
   - if flash[:error].present?
     = content_tag :div, flash[:error], class: "error_msg"
-  - Post.all.order("id desc").each do |post|
+  - Post.all.order("id desc LIMIT 10").each do |post|
     %article.posts
       %p.title
         = post.title
@@ -11,4 +11,5 @@
         - if session[:current_user_id].present? && session[:current_username].present? then
           - if post.author == session[:current_username] then
             = link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost"
+            = link_to 'Edit', edit_post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :patch, class: "pedit"              
       %p.content= post.content

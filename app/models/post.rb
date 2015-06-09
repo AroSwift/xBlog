@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 
-	validates :content, presence: true 
+	validates :title, :author, :content, presence: true 
 
 	def title_length
 		return self.title.length
