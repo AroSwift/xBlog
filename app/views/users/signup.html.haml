@@ -1,8 +1,7 @@
 %section
-  - if @user && @user.errors.any? then
-    - @user.errors.full_messages.each do |error_message|
-      = error_message if @user.errors.full_messages.first == error_message
-      %br/
+  - if flash[:error].present?
+    = content_tag :div, flash[:error], class: "error_msg"
+    %br/
   %h2 Sign Up
   = form_for :signup, url: signup_path do |f|
     %p
