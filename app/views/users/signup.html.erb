@@ -46,16 +46,6 @@
     <%= f.label :confim_password, "Comfirm Password" %><br>
     <%= f.text_field :confirm_password  %>
   </p>
-  
- <% if false %>
-   <p>
-   <% gcode = [*('a'..'z'),*('0'..'9')].shuffle[0,4].join.upcase %>
-    <%= content_tag :div, gcode, class: "code" %>
-    <%= hidden_field(:verifycode, :value => gcode) %>
-    <%= f.label :code, "Please Enter Security Key" %><br>
-    <%= f.text_field :code  %>
-  </p>
-  <% end %>
 
   <p>
     <%= f.submit "Sign Up" %>
