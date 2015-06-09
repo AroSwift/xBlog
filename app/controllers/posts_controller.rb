@@ -4,8 +4,8 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def patch
-    @ptitle = params[:posts][:title]
+  def edit
+    @ptitle = params[:edit_post][:title]
     @pauthor = params[:posts][:author]
     @pcontent = params[:posts][:content]
 
@@ -14,8 +14,9 @@ class PostsController < ApplicationController
     flash[:pcontent] = @pcontent
 
     pst = Post.new
+    @pst = Post.find_by(title: @ptitle, author: @author, content: @pcontent)
     pst.valid?
-    pst.errors.full_messages
+    flash[:error] = pst.errors.full_messages
 
     pst.errors.empty?
     pst.save
