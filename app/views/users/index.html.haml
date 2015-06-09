@@ -9,5 +9,6 @@
         by
         \#{post.author}
         - if session[:current_user_id].present? && session[:current_username].present? then
-          = link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost"
+          - if post.author == session[:current_username] then
+            = link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost"
       %p.content= post.content
