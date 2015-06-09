@@ -1,54 +1,30 @@
-!!! 5
-
+!!!
 %html
   %head
+    %meta{:charset => "utf-8"}/
     %title Home
-    %link(href="style.css" rel="stylesheet")
-    %script(src="script.js")
-= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-= javascript_include_tag 'application', 'data-turbolinks-track' => true
-= csrf_meta_tags
-%body
-%header
-%h1 Blog
-%nav
-
-= yield
-
-
-= if session[:current_user_id].present? && session[:current_username].present? then
-
-  = link_to 'Home', home_path, class: "it"
-  = link_to 'Post', post_path
-  = link_to 'Logout', logout_path, :method => :delete
-
-- else
-
-
-= link_to 'Home', home_path, class: "it"
-= link_to 'Login', login_path
-= link_to 'Sign Up', signup_path
-
-:erb
-
-
-<div class="it"><%= link_to 'Home', home_path %></div>
-<%= link_to 'Login', login_path %>
-<%= link_to 'Sign Up', signup_path %>
-
-<% end %>
-</header>
-
-<%= yield %>
-
-
-<footer>
-barlowat@ORNL.gov 
-</footer>
-
-</body>
-</html>
-<br />
-I am located in application.html.erb: 
-<br />
-<%= debug(params) if Rails.env.development? %>
+    %link{:href => "style.css", :rel => "stylesheet"}/
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    %script{:src => "script.js"}
+  %body
+    %header
+      %h1 xBlog
+      %nav
+        - if session[:current_user_id].present? && session[:current_username].present? then
+          .it= link_to 'Home', home_path
+          = link_to 'Post', post_path
+          = link_to 'Logout', logout_path, :method => :delete
+        - else
+          .it= link_to 'Home', home_path
+          = link_to 'Login', login_path
+          = link_to 'Sign Up', signup_path
+    = yield
+    %footer
+      barlowat@ORNL.gov
+%html
+  %p
+    I am located in application.html.erb:
+    %br/
+    = debug(params) if Rails.env.development?
