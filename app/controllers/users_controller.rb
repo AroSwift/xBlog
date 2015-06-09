@@ -41,16 +41,7 @@ if @username.length < 5 then
       flash[:error] = "Your passwords don't match"
       redirect_to :back 
 
-      #elsif @code.empty? then
-      #flash[:error] = "Please enter the security key"
-      #redirect_to :back 
-
-      #elsif !@code = @codeverify then
-      #flash[:error] = "You did not add"
-      #redirect_to :back 
-        
-
-      # DATABASE STUFF AFTER ALL CONDITIONS MEET
+      else
 
     cname = User.find_by(username: @username)
     if cname.nil? then
@@ -75,17 +66,12 @@ if @username.length < 5 then
         flash[:error] = 'That username already exists'
         redirect_to :signup
     end
-
-    else
-        flash[:error] = 'There was an unknown error'
-        redirect_to :signup
-
     end
 
 end
 
   def user_params
-    params.require(:users).permit(:username, :password)
+    params.require(:signup).permit(:username, :password)
   end
 
  def destroy
