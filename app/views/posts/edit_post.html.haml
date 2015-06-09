@@ -6,17 +6,23 @@
     %p
       = f.label :title, "Title"
       %br/
+    - if flash[:pitle].present?
+      = f.text_field :title, :value => flash[:ptitle]
+    - else
       = f.text_field :title, :value => params[:dtitle]
     %p
       = f.label :author, "Author"
       %br/
-      - if flash[:author].present?
-        = f.text_field :author, :readonly => true, :value => flash[:author]
+      - if flash[:pauthor].present?
+        = f.text_field :author, :readonly => true, :value => flash[:pauthor]
       - else
         = f.text_field :author, :readonly => true, :value => session[:current_username]
     %p
       = f.label :content, "Post"
       %br/
+    - if flash[:pcontent].present?
+      = f.text_area :content, :value => flash[:pcontent]
+    - else
       = f.text_area :content, :value => params[:dcontent]
     %p
       = f.submit "Post"

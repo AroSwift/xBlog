@@ -14,14 +14,16 @@ class PostsController < ApplicationController
     flash[:pcontent] = @pcontent
 
     pst = Post.new
-    @pst = Post.find_by(title: @ptitle, author: @author, content: @pcontent)
+    @pst = Post.find_by(title: @ptitle, author: @pauthor, content: @pcontent)
     pst.valid?
     flash[:error] = pst.errors.full_messages
 
-    pst.errors.empty?
+    if pst.errors.empty? then
     pst.save
-
     redirect_to :home
+    else
+    redirect_to :back
+    end
   end
 
 
