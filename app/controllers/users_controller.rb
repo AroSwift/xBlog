@@ -3,19 +3,16 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def show
-  end
+  #def show
+  #end
 
-  def index
-  end
+  #def index
+  #end
 
   def create
     @username = params[:signup][:username]
     @password = params[:signup][:password]
     @confirm_password = params[:signup][:confirm_password]
-    #@code = params[:users][:code]
-    #@verifycode =params[:users][:verifycode]
-
     flash[:username] = @username
 
 

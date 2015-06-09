@@ -1,15 +1,25 @@
 class User < ActiveRecord::Base
 validates :username, :password, presence: true
-validates :username, length: {minimum: 5, too_short: "Your username must be at least %{count} characters"}
-validates :username, length: {maximum: 12, too_long: "Your username must not be more than %{count} characters"}
-validates :password, length: {minimum: 8, too_short: "Your password must be at least %{count} characters"}
-validates :password, length: {maximum: 20, too_long: "Your password must not be more thab %{count} characters"}
+validates :username, length: { in: 5..12 }
+validates :password, length: { in: 8..20 }
 
 user = User.new
 user.valid?
-user.errors[:error]
+user.errors.full_messages
 
 user.errors.empty?
 user.save
+
+def create
+  @user = User.create[params[:user]]
+
+  if @user.save # .save checks .valid?
+    redirect_to :home
+  else
+    redirect_to :back
+  end
+end
+
+
 
 end

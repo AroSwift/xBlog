@@ -24,14 +24,17 @@
 
 <section>
 
-<%if flash[:error].present? %>
-<% flash.each do |error,msg| %>
-<%= content_tag :div, msg, class: "error_msg" %>
+
+<% if @user && @user.errors.any? then %>
+<% @user.errors.full_messages.each do |error_message| %>
+<%= error_message if @user.errors.full_messages.first == error_message %> <br />
 <% end %>
 <% end %>
 
+
+
 <h2>Sign Up</h2>
-<%= form_for :signup, url: signup_path, :method => :post do |f| %>
+<%= form_for :signup, url: signup_path do |f| %>
   <p>
     <%= f.label :username, "Username" %><br>
     <%= f.text_field :username, :value => flash[:username] %>
