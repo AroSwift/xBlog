@@ -4,9 +4,22 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def show
+  def patch
+
+    @ptitle = params[:posts][:title]
+    @pauthor = params[:posts][:author]
+    @pcontent = params[:posts][:content]
+
+    flash[:ptitle] = @ptitle
+    flash[:pauthor] = @pauthor
+    flash[:pcontent] = @pcontent
 
 
+    
+
+
+
+    
 
   end
 
