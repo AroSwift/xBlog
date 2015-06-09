@@ -5,9 +5,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @ptitle = params[:edit_post][:title]
-    @pauthor = params[:posts][:author]
-    @pcontent = params[:posts][:content]
+    @ptitle = params[:dtitle]
+    @pauthor = params[:dauthor]
+    @pcontent = params[:dcontent]
 
     flash[:ptitle] = @ptitle
     flash[:pauthor] = @pauthor
