@@ -10,12 +10,11 @@ class UsersController < ApplicationController
   end
 
   def create
-
-    @username = params[:users][:username]
-    @password = params[:users][:password]
-    @confirm_password = params[:users][:confirm_password]
-    @code = params[:users][:code]
-    @verifycode =params[:users][:verifycode]
+    @username = params[:signup][:username]
+    @password = params[:signup][:password]
+    @confirm_password = params[:signup][:confirm_password]
+    #@code = params[:users][:code]
+    #@verifycode =params[:users][:verifycode]
 
     flash[:username] = @username
 
@@ -42,13 +41,13 @@ if @username.length < 5 then
       flash[:error] = "Your passwords don't match"
       redirect_to :back 
 
-      elsif @code.empty? then
-      flash[:error] = "Please enter the security key"
-      redirect_to :back 
+      #elsif @code.empty? then
+      #flash[:error] = "Please enter the security key"
+      #redirect_to :back 
 
-      elsif !@code = @codeverify then
-      flash[:error] = "You did not add"
-      redirect_to :back 
+      #elsif !@code = @codeverify then
+      #flash[:error] = "You did not add"
+      #redirect_to :back 
         
 
       # DATABASE STUFF AFTER ALL CONDITIONS MEET

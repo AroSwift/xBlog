@@ -31,7 +31,7 @@
 <% end %>
 
 <h2>Sign Up</h2>
-<%= form_for :users, url: users_path do |f| %>
+<%= form_for :signup, url: signup_path, :method => :post do |f| %>
   <p>
     <%= f.label :username, "Username" %><br>
     <%= f.text_field :username, :value => flash[:username] %>
