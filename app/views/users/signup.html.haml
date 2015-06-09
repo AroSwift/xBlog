@@ -1,0 +1,21 @@
+%section
+  - if @user && @user.errors.any? then
+    - @user.errors.full_messages.each do |error_message|
+      = error_message if @user.errors.full_messages.first == error_message
+      %br/
+  %h2 Sign Up
+  = form_for :signup, url: signup_path do |f|
+    %p
+      = f.label :username, "Username"
+      %br/
+      = f.text_field :username, :value => flash[:username]
+    %p
+      = f.label :password, "Password"
+      %br/
+      = f.text_field :password
+    %p
+      = f.label :confim_password, "Comfirm Password"
+      %br/
+      = f.text_field :confirm_password
+    %p
+      = f.submit "Sign Up"

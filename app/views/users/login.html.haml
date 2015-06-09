@@ -1,0 +1,17 @@
+%section
+  - if flash[:error].present?
+    = content_tag :div, flash[:error], class: "error_msg"
+  %h2 Login
+  = form_for :login, url: login_path do |f|
+    %p
+      = f.label :lusername, "Username"
+      %br/
+      = f.text_field :lusername, :value => flash[:lusername]
+    %p
+      = f.label :lpassword, "Password"
+      %br/
+      = f.password_field :lpassword, :value => flash[:lpassword]
+    %p
+      = f.submit "Login"
+  %br/
+  = link_to "Don't have an account? Sign up now!", signup_path
