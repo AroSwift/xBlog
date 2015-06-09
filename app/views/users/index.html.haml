@@ -1,0 +1,13 @@
+%section
+  %h2 Home
+  - if flash[:error].present?
+    = content_tag :div, flash[:error], class: "error_msg"
+  - Post.all.order("id desc").each do |post|
+    %article.posts
+      %p.title
+        = post.title
+        by
+        \#{post.author}
+        - if session[:current_user_id].present? && session[:current_username].present? then
+          = link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost"
+      %p.content= post.content
