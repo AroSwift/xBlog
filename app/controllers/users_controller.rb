@@ -75,6 +75,11 @@ if @username.length < 5 then
         flash[:error] = 'That username already exists'
         redirect_to :signup
     end
+
+    else
+        flash[:error] = 'There was an unknown error'
+        redirect_to :signup
+
     end
 
 end
