@@ -7,29 +7,24 @@ class PostsController < ApplicationController
 
   # THIS REQUIRES WORK
   def update
-    #if params[:ptitle].present? || params[:pcontent].present? then
-      @ptitle = params[:posts][:ptitle]
-      @pauthor = params[:posts][:pauthor]
-      @pcontent = params[:posts][:pcontent]
-    #else
-      #@ptitle = flash[:ptitle]
-      #@pcontent = flash[:pcontent]  
-    #end
-    #flash[:ptitle] = @ptitle
-    #flash[:pcontent] = @pcontent
+    @ptitle = params[:ptitle]
+    @pauthor = params[:pauthor]
+    @pcontent = params[:pcontent]
+    @origt = params[:origt]
+    @origc = params[:origc]
+    @id = params[:id]
 
-    @id = params[:posts][:id]
     post = Post.new
-
-
-    Post.create(title: @ptitle, author: session[:current_username], content: @pcontent).valid?
-    Post.where(id: @id).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
+    Post.where(id: @id).update_all(title: @ptitle, content: @pcontent)
+    
+    #Post.update(@id, title: @ptitle, content: @pcontent)
     #post = Post.find_by(@id)
     #post.title = @ptitle
     #post.content = @pcontent
+    #post.valid?
     post.save
 
-    if post.save && post.errors.empty? then
+    if post.errors.empty? then
     flash[:error] = 'Your post was updated'
     redirect_to :home
     else
