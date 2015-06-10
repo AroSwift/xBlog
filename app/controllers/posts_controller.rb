@@ -15,17 +15,16 @@ class PostsController < ApplicationController
       @ptitle   = params[:posts][:ptitle]
       @pcontent = params[:posts][:pcontent]
     end
-    flash[:otitle] = @otitle
-    flash[:ocontent] = @ocontent
-
     pst = Post.new
     flash[:ptitle] = @ptitle
     flash[:pcontent] = @pcontent
+    flash[:otitle] = @otitle
+    @otitle = flash[:otitle]
 
     Post.create(title: @title, author: @pauthor, content: @pcontent).valid?
 
     if pst.errors.empty? then
-      Post.where(title: @otitle, author: session[:current_username], content: @ocontent).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
+      Post.where(title: @otitle, author: session[:current_username]).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
       pst.save
 
         if pst.save
@@ -103,10 +102,6 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:posts).permit(:title, :author, :content)
-  end
-
-  def post_update_params
-    params.require(:posts).permit(:title, :content)
   end
 
  def destroy
