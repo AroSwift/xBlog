@@ -4,35 +4,37 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def edit
-  end
-
 
   # PLEASE FIX ME, THIS IS REALLY MESSED UP
   def update
-    @ptitle = params[:dtitle]
-    @pauthor = params[:dauthor]
-    @pcontent = params[:dcontent]
+
+    if flash[:ptitle].present? && flash[:pcontent].present? then
+      @ptitle = flash[:ptitle]
+      @pcontent = flash[:pcontent]
+    elsif params[:ptitle].present? && params[:pcontent].present?
+      @ptitle = params[:ptitle]
+      @pcontent = params[:pcontent]
+    end
 
     flash[:ptitle] = @ptitle
-    flash[:pauthor] = @pauthor
     flash[:pcontent] = @pcontent
 
     pst = Post.new
-    
-    # this updates the ENTIRE database, but at leaset works - figure out ..... 
-    #Post.update_all(:title => @ptitle, :author => @pauthor, :content => @pcontent)
-    
+    Post.find_by_title(params[:ptitle])
+    Post.update_all(post_update_params)
+    if pst.valid?
+      flash[:error] = pst.errors.full_messages
 
-    pst.valid?
-    flash[:error] = pst.errors.full_messages
-
-    if pst.errors.empty? then
-    pst.save
-    post.update_columns(title: @ptitle, content: @pcontent)
-    redirect_to :home
+      if pst.errors.empty? then
+      redirect_to :signup
+      pst.save
+      post.update_all(title: @ptitle, content: @pcontent)
+      redirect_to :home
+      else
+      redirect_to :edit_post
+      end
     else
-    redirect_to :back
+      redirect_to :edit_post
     end
   end
 
@@ -104,7 +106,7 @@ class PostsController < ApplicationController
   end
 
   def post_update_params
-    params.require(:posts).permit(:ptitle, :pauthor, :pcontent)
+    params.require(:posts).permit(:title, :author, :content)
   end
 
  def destroy

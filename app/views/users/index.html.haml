@@ -11,5 +11,5 @@
         - if session[:current_user_id].present? && session[:current_username].present? then
           - if post.author == session[:current_username] then
             = link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, class: "dpost"
-            = link_to 'Edit', edit_post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), class: "pedit"              
+            = link_to 'Edit', edit_post_path(:ptitle => post.title, :pauthor => post.author, :pcontent => post.content), class: "pedit"              
       %p.content= post.content
