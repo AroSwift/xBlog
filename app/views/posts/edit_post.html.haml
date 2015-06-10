@@ -1,7 +1,8 @@
 %section
   %h2 Edit Post
-  - if flash[:error].present?
-    = content_tag :div, flash[:error], class: "error_msg"
+  - if !params[:errors].nil?
+    - params[:errors].each do |msg|
+      = content_tag :div, msg, class: "error_msg"
   = form_for :posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
     %p
       = f.label :ptitle, "Title"
