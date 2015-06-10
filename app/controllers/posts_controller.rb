@@ -7,29 +7,28 @@ class PostsController < ApplicationController
 
   # THIS REQUIRES WORK
   def update
-    @ptitle = params[:ptitle]
-    @pauthor = params[:pauthor]
-    @pcontent = params[:pcontent]
-    @origt = params[:origt]
-    @origc = params[:origc]
+    @ptitle = params[:posts][:ptitle]
+    @pcontent = params[:posts][:pcontent]
+
+    # MIGHT NEED TO TAKE OUT [:POSTS]........
+    #@ptitle = params[:posts][:ptitle]
+    #@pcontent = params[:posts][:pcontent]
     @id = params[:id]
 
     post = Post.new
-    Post.where(id: @id).update_all(title: @ptitle, content: @pcontent)
-    
+
     #Post.update(@id, title: @ptitle, content: @pcontent)
-    #post = Post.find_by(@id)
-    #post.title = @ptitle
-    #post.content = @pcontent
-    #post.valid?
+    post = Post.find_by(@id)
+    post.title = @ptitle
+    post.content = @pcontent
+    post.valid?
     post.save
 
     if post.errors.empty? then
     flash[:error] = 'Your post was updated'
     redirect_to :home
     else
-    flash[:error] = 'Your post was not updated. Try again.'
-    flash[:error] = post.errors.full_messages
+    flash[:error] = "Your post was not updated. Try again. #{post.errors.full_messages}"
     redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id)
     end
   end
