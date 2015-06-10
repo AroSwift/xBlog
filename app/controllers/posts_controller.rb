@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
 
 
-  # PLEASE FIX ME, THIS IS REALLY MESSED UP
+  # THIS REQUIRES WORK
   def update
 
     if flash[:ptitle].present? && flash[:pcontent].present? then
@@ -15,26 +15,20 @@ class PostsController < ApplicationController
       @ptitle = params[:ptitle]
       @pcontent = params[:pcontent]
     end
-
+    pst = Post.new
     flash[:ptitle] = @ptitle
     flash[:pcontent] = @pcontent
 
-    pst = Post.new
-    Post.find_by_title(params[:ptitle])
-    Post.update_all(post_update_params)
-    if pst.valid?
-      flash[:error] = pst.errors.full_messages
-
-      if pst.errors.empty? then
-      redirect_to :signup
+    Post.where(post_update_params).update_all(post_update_params)
+    Post.create(title: @ptitle, author: @pauthor, content: @pcontent).valid?
+    # pst.valid?
+    if !pst.errors.empty? then
+      Post.update_all(title: @ptitle, content: @pcontent)
       pst.save
-      post.update_all(title: @ptitle, content: @pcontent)
       redirect_to :home
-      else
-      redirect_to :edit_post
-      end
     else
-      redirect_to :edit_post
+      flash[:error] = pst.errors.full_messages
+      redirect_to :back
     end
   end
 
@@ -115,8 +109,8 @@ class PostsController < ApplicationController
     @dauthor = params[:dauthor]
     @dcontent = params[:dcontent]
 
+  flash[:error] = "The post #{@dtitle} was successfully deleted"
   Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
-  flash[:error] = "The post " + @dtitle + " was successfully deleted"
   redirect_to :home
   end
 
