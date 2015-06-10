@@ -22,9 +22,17 @@ class PostsController < ApplicationController
     Post.create(title: @ptitle, author: @pauthor, content: @pcontent).valid?
 
     if !pst.errors.nil? then
-      Post.where(params[:id]).update_all(title: @ptitle, content: @pcontent)
+      Post.where(author: session[:current_username]).update_all(title: @ptitle, content: @pcontent)
       pst.save
-      redirect_to :home
+
+        if pst.save
+        flash[:error] = 'Your post was updated'
+        redirect_to :home
+        else
+        flash[:error] = 'Your post was not updated. Try again.'
+        redirect_to :edit_post
+        end
+
     else
       flash[:error] = pst.errors.full_messages
       redirect_to :edit_post
