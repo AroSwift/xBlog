@@ -21,5 +21,8 @@
       = f.text_area :pcontent, :value => flash[:pcontent]
     - else
       = f.text_area :pcontent, :value => params[:pcontent]
+
+      = f.hidden_field :otitle, :value => flash[:otitle]
+      = f.hidden_field :ocontent, :value => flash[:ocontent]
     %p
       = f.submit "Post"

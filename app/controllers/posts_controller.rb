@@ -15,14 +15,17 @@ class PostsController < ApplicationController
       @ptitle   = params[:posts][:ptitle]
       @pcontent = params[:posts][:pcontent]
     end
+    flash[:otitle] = @otitle
+    flash[:ocontent] = @ocontent
+
     pst = Post.new
     flash[:ptitle] = @ptitle
     flash[:pcontent] = @pcontent
 
-    Post.create(title: @ptitle, author: @pauthor, content: @pcontent).valid?
+    Post.create(title: @title, author: @pauthor, content: @pcontent).valid?
 
-    if !pst.errors.nil? then
-      Post.where(author: session[:current_username]).update_all(title: @ptitle, content: @pcontent)
+    if pst.errors.empty? then
+      Post.where(title: @otitle, author: session[:current_username], content: @ocontent).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
       pst.save
 
         if pst.save
