@@ -11,24 +11,27 @@ class PostsController < ApplicationController
     if flash[:ptitle].present? && flash[:pcontent].present? then
       @ptitle   = flash[:ptitle]
       @pcontent = flash[:pcontent]
-    elsif params[:posts][:ptitle].present? && params[:posts][:pcontent].present? then
-      @ptitle   = params[:posts][:ptitle]
-      @pcontent = params[:posts][:pcontent]
+      flash[:ptitle] = @ptitle
+      flash[:pcontent] = @pcontent
+    elsif params[:ptitle].present? && params[:pcontent].present? then
+      @ptitle   = params[:ptitle]
+      @pcontent = params[:pcontent]
+      params[:ptitle] = @ptitle
+      params[:pcontent] = @pcontent
     end
-    pst = Post.new
-    flash[:ptitle] = @ptitle
-    flash[:pcontent] = @pcontent
-    flash[:otitle] = @otitle
-    @otitle = flash[:otitle]
 
-    #Post.create(title: @title, author: @pauthor, content: @pcontent).valid?
-
-    post = Post.find_by(title: @ptitle, author: session[:current_username])
+    @id = params[:id]
+    post = Post.new
 
 
-    if pst.errors.empty? then
-      #Post.where(title: @otitle, author: session[:current_username]).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
-      pst.save
+    Post.create(title: @title, author: @pauthor, content: @pcontent).valid?
+    #post = Post.find_by(@id)
+    #post.title = @ptitle
+    #post.content = @pcontent
+
+    if post.errors.empty? then
+      Post.where(id: @id).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
+      post.save
 
         if pst.save
         flash[:error] = 'Your post was updated'
