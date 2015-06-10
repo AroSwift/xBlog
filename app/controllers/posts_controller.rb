@@ -21,10 +21,13 @@ class PostsController < ApplicationController
     flash[:otitle] = @otitle
     @otitle = flash[:otitle]
 
-    Post.create(title: @title, author: @pauthor, content: @pcontent).valid?
+    #Post.create(title: @title, author: @pauthor, content: @pcontent).valid?
+
+    post = Post.find_by(title: @ptitle, author: session[:current_username])
+
 
     if pst.errors.empty? then
-      Post.where(title: @otitle, author: session[:current_username]).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
+      #Post.where(title: @otitle, author: session[:current_username]).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
       pst.save
 
         if pst.save
