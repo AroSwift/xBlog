@@ -7,42 +7,35 @@ class PostsController < ApplicationController
 
   # THIS REQUIRES WORK
   def update
-    if params[:posts][:ptitle].present? || params[:posts][:pcontent].present? then
+    #if params[:ptitle].present? || params[:pcontent].present? then
       @ptitle = params[:posts][:ptitle]
       @pauthor = params[:posts][:pauthor]
       @pcontent = params[:posts][:pcontent]
-    else
-      @ptitle = flash[:ptitle]
-      @pcontent = flash[:pcontent]  
+    #else
+      #@ptitle = flash[:ptitle]
+      #@pcontent = flash[:pcontent]  
+    #end
+    #flash[:ptitle] = @ptitle
+    #flash[:pcontent] = @pcontent
 
-    flash[:ptitle] = @ptitle
-    flash[:pcontent] = @pcontent
-    end
-
-    @id = params[:id]
+    @id = params[:posts][:id]
     post = Post.new
 
 
-    Post.create(title: @title, author: @pauthor, content: @pcontent).valid?
+    Post.create(title: @ptitle, author: session[:current_username], content: @pcontent).valid?
+    Post.where(id: @id).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
     #post = Post.find_by(@id)
     #post.title = @ptitle
     #post.content = @pcontent
+    post.save
 
-    if post.errors.empty? then
-      Post.where(id: @id).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
-      post.save
-
-        if post.save
-        flash[:error] = 'Your post was updated'
-        redirect_to :home
-        else
-        flash[:error] = 'Your post was not updated. Try again.'
-        redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id)
-        end
-
+    if post.save && post.errors.empty? then
+    flash[:error] = 'Your post was updated'
+    redirect_to :home
     else
-      flash[:error] = pst.errors.full_messages
-      redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id)
+    flash[:error] = 'Your post was not updated. Try again.'
+    flash[:error] = post.errors.full_messages
+    redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id)
     end
   end
 

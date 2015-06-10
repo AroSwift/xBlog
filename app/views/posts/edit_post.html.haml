@@ -6,7 +6,7 @@
     %p
       = f.label :ptitle, "Title"
       %br/
-    - if !flash[:pitle].nil?
+    - if flash[:pitle].present?
       = f.text_field :ptitle, :value => flash[:ptitle]
     - else
       = f.text_field :ptitle, :value => params[:ptitle]
@@ -21,7 +21,5 @@
       = f.text_area :pcontent, :value => flash[:pcontent]
     - else
       = f.text_area :pcontent, :value => params[:pcontent]
-    = f.hidden_field :ptitle, :value => params[:ptitle]
-    = f.hidden_field :pcontent, :value => params[:pcontent]
     %p
       = f.submit "Post"
