@@ -5,14 +5,13 @@ class PostsController < ApplicationController
   end
 
 
-  # THIS REQUIRES WORK
   def update
+    # This is for forms
     @ptitle = params[:posts][:ptitle]
     @pcontent = params[:posts][:pcontent]
-
-    # MIGHT NEED TO TAKE OUT [:POSTS]........
-    #@ptitle = params[:posts][:ptitle]
-    #@pcontent = params[:posts][:pcontent]
+    # This is for the database
+    #@datatitle = params[:datatitle]
+    #@datacontent = params[:datacontent]
     @id = params[:id]
 
     post = Post.new
@@ -21,6 +20,8 @@ class PostsController < ApplicationController
     post = Post.find_by(@id)
     post.title = @ptitle
     post.content = @pcontent
+    post.author = session[:current_username]
+    post.id = @id
     post.valid?
     post.save
 
