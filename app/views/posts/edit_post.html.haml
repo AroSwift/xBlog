@@ -4,25 +4,22 @@
     = content_tag :div, flash[:error], class: "error_msg"
   = form_for :posts, url: edit_post_path, :method => :put do |f|
     %p
-      = f.label :title, "Title"
+      = f.label :ptitle, "Title"
       %br/
     - if flash[:pitle].present?
       = f.text_field :ptitle, :value => flash[:ptitle]
     - else
       = f.text_field :ptitle, :value => params[:ptitle]
     %p
-      = f.label :author, "Author"
+      = f.label :pauthor, "Author"
       %br/
-      - if flash[:pauthor].present?
-        = f.text_field :author, :readonly => true, :value => flash[:pauthor]
-      - else
-        = f.text_field :author, :readonly => true, :value => session[:current_username]
+      = f.text_field :pauthor, :readonly => true, :value => session[:current_username]
     %p
-      = f.label :content, "Post"
+      = f.label :pcontent, "Post"
       %br/
     - if flash[:pcontent].present?
-      = f.text_area :content, :value => flash[:pcontent]
+      = f.text_area :pcontent, :value => flash[:pcontent]
     - else
-      = f.text_area :content, :value => params[:pcontent]
+      = f.text_area :pcontent, :value => params[:pcontent]
     %p
       = f.submit "Post"

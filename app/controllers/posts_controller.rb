@@ -9,26 +9,25 @@ class PostsController < ApplicationController
   def update
 
     if flash[:ptitle].present? && flash[:pcontent].present? then
-      @ptitle = flash[:ptitle]
+      @ptitle   = flash[:ptitle]
       @pcontent = flash[:pcontent]
-    elsif params[:ptitle].present? && params[:pcontent].present?
-      @ptitle = params[:ptitle]
-      @pcontent = params[:pcontent]
+    elsif params[:posts][:ptitle].present? && params[:posts][:pcontent].present? then
+      @ptitle   = params[:posts][:ptitle]
+      @pcontent = params[:posts][:pcontent]
     end
     pst = Post.new
     flash[:ptitle] = @ptitle
     flash[:pcontent] = @pcontent
 
-    Post.where(post_update_params).update_all(post_update_params)
     Post.create(title: @ptitle, author: @pauthor, content: @pcontent).valid?
-    # pst.valid?
-    if !pst.errors.empty? then
-      Post.update_all(title: @ptitle, content: @pcontent)
+
+    if !pst.errors.nil? then
+      Post.where(params[:id]).update_all(title: @ptitle, content: @pcontent)
       pst.save
       redirect_to :home
     else
       flash[:error] = pst.errors.full_messages
-      redirect_to :back
+      redirect_to :edit_post
     end
   end
 
@@ -72,25 +71,21 @@ class PostsController < ApplicationController
       redirect_to :back 
 
     else
-      # DATABASE STUFF AFTER ALL CONDITIONS MEET
+      dbtitle = Post.find_by(title: @title)
+      if dbtitle.nil? then
 
-    dbtitle = Post.find_by(title: @title)
-    if dbtitle.nil? then
-
-        post = Post.create(post_params)
-        if(request.post? && post.save)
-          flash[:error] = 'Your post was submited'
-            redirect_to :home
-
-		else
-          flash[:error] = 'Your post was not submitted. Try again.'
+          post = Post.create(post_params)
+          if(request.post? && post.save)
+            flash[:error] = 'Your post was submited'
+              redirect_to :home
+  		    else
+            flash[:error] = 'Your post was not submitted. Try again.'
+            redirect_to :back
+          end
+      else
+          flash[:error] = 'That title is already in use'
           redirect_to :back
-        end
-
-    else
-        flash[:error] = 'That title is already in use'
-        redirect_to :back
-    end
+      end
     end
   end
 
@@ -100,18 +95,17 @@ class PostsController < ApplicationController
   end
 
   def post_update_params
-    params.require(:posts).permit(:title, :author, :content)
+    params.require(:posts).permit(:title, :content)
   end
 
  def destroy
-
     @dtitle = params[:dtitle]
     @dauthor = params[:dauthor]
     @dcontent = params[:dcontent]
 
-  flash[:error] = "The post #{@dtitle} was successfully deleted"
-  Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
-  redirect_to :home
+    flash[:error] = "The post #{@dtitle} was successfully deleted"
+    Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
+    redirect_to :home
   end
 
 
