@@ -2,11 +2,11 @@
   %h2 Edit Post
   - if flash[:error].present?
     = content_tag :div, flash[:error], class: "error_msg"
-  = form_for :posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
+  = form_for :posts, url: edit_post_path(:ptitle => flash[:ptitle], :pauthor => session[:current_username], :pcontent => flash[:pcontent], :id => flash[:id]), :method => :put do |f|
     %p
       = f.label :ptitle, "Title"
       %br/
-    - if flash[:pitle].present?
+    - if !flash[:pitle].nil?
       = f.text_field :ptitle, :value => flash[:ptitle]
     - else
       = f.text_field :ptitle, :value => params[:ptitle]
@@ -21,5 +21,7 @@
       = f.text_area :pcontent, :value => flash[:pcontent]
     - else
       = f.text_area :pcontent, :value => params[:pcontent]
+    = f.hidden_field :ptitle, :value => params[:ptitle]
+    = f.hidden_field :pcontent, :value => params[:pcontent]
     %p
       = f.submit "Post"

@@ -7,17 +7,16 @@ class PostsController < ApplicationController
 
   # THIS REQUIRES WORK
   def update
+    if params[:posts][:ptitle].present? || params[:posts][:pcontent].present? then
+      @ptitle = params[:posts][:ptitle]
+      @pauthor = params[:posts][:pauthor]
+      @pcontent = params[:posts][:pcontent]
+    else
+      @ptitle = flash[:ptitle]
+      @pcontent = flash[:pcontent]  
 
-    if flash[:ptitle].present? && flash[:pcontent].present? then
-      @ptitle   = flash[:ptitle]
-      @pcontent = flash[:pcontent]
-      flash[:ptitle] = @ptitle
-      flash[:pcontent] = @pcontent
-    elsif params[:ptitle].present? && params[:pcontent].present? then
-      @ptitle   = params[:ptitle]
-      @pcontent = params[:pcontent]
-      params[:ptitle] = @ptitle
-      params[:pcontent] = @pcontent
+    flash[:ptitle] = @ptitle
+    flash[:pcontent] = @pcontent
     end
 
     @id = params[:id]
@@ -33,17 +32,17 @@ class PostsController < ApplicationController
       Post.where(id: @id).update_all(title: @ptitle, author: session[:current_username], content: @pcontent)
       post.save
 
-        if pst.save
+        if post.save
         flash[:error] = 'Your post was updated'
         redirect_to :home
         else
         flash[:error] = 'Your post was not updated. Try again.'
-        redirect_to :edit_post
+        redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id)
         end
 
     else
       flash[:error] = pst.errors.full_messages
-      redirect_to :edit_post
+      redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id)
     end
   end
 
