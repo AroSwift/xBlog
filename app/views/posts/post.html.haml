@@ -1,7 +1,5 @@
 - content_for :current_page do
   Post
-- if flash[:error].present?
-  = content_tag :div, flash[:error], class: "error_msg"
 = form_for :posts, url: post_path do |f|
   %p
     = f.label :title, "Title"

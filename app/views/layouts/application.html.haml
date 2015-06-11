@@ -24,11 +24,16 @@
           = link_to 'Sign Up', signup_path
     %section
       %h2= yield :current_page
+      - if !params[:errors].nil?
+        - params[:errors].each do |msg|
+          = content_tag :div, msg, class: "error_msg"
+      - if flash[:errors].present?
+        = content_tag :div, flash[:errors], class: "error_msg"
       = yield
     %footer
       barlowat@ORNL.gov
 %html
   %p
-    I am located in application.html.erb:
+    I am located in application.html.haml:
     %br/
     = debug(params) if Rails.env.development?

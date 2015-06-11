@@ -1,10 +1,5 @@
 - content_for :current_page do
   Edit Post
-- if !params[:errors].nil?
-  - params[:errors].each do |msg|
-    = content_tag :div, msg, class: "error_msg"
-- if flash[:errors].present?
-  = content_tag :div, flash[:errors], class: "error_msg"
 = form_for :posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
   %p
     = f.label :ptitle, "Title"

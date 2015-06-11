@@ -1,7 +1,5 @@
 - content_for :current_page do
   SignUp
-- if flash[:error].present?
-  = content_tag :div, flash[:error], class: "error_msg"
   %br/
 = form_for :signup, url: signup_path do |f|
   %p
