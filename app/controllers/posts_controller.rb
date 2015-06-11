@@ -9,12 +9,12 @@ class PostsController < ApplicationController
     @ptitle = params[:posts][:ptitle]
     @pcontent = params[:posts][:pcontent]
     @id = params[:id]
+
     post = Post.new
     post = Post.find_by(@id)
     post.title = @ptitle
     post.content = @pcontent
     post.author = session[:current_username]
-    post.id = @id
     post.valid?
     post.save
 
@@ -71,6 +71,7 @@ class PostsController < ApplicationController
       if dbtitle.nil? then
 
           post = Post.create(post_params)
+          #post.valid?
           if(request.post? && post.save)
             flash[:error] = 'Your post was submited'
               redirect_to :home
@@ -87,7 +88,7 @@ class PostsController < ApplicationController
 
 
   def post_params
-    params.require(:posts).permit(:title, :author, :content)
+    params.require(:posts).permit(:title, :author, :content, :admin)
   end
 
  def destroy
