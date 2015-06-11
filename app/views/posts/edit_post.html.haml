@@ -1,22 +1,22 @@
-%section
-  %h2 Edit Post
-  - if !params[:errors].nil?
-    - params[:errors].each do |msg|
-      = content_tag :div, msg, class: "error_msg"
-  - if flash[:errors].present?
-    = content_tag :div, flash[:errors], class: "error_msg"
-  = form_for :posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
-    %p
-      = f.label :ptitle, "Title"
-      %br/
-      = f.text_field :ptitle, :value => params[:ptitle]
-    %p
-      = f.label :pauthor, "Author"
-      %br/
-      = f.text_field :pauthor, :readonly => true, :value => session[:current_username]
-    %p
-      = f.label :pcontent, "Post"
-      %br/
-      = f.text_area :pcontent, :value => params[:pcontent]
-    %p
-      = f.submit "Post"
+- content_for :current_page do
+  Edit Post
+- if !params[:errors].nil?
+  - params[:errors].each do |msg|
+    = content_tag :div, msg, class: "error_msg"
+- if flash[:errors].present?
+  = content_tag :div, flash[:errors], class: "error_msg"
+= form_for :posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
+  %p
+    = f.label :ptitle, "Title"
+    %br/
+    = f.text_field :ptitle, :value => params[:ptitle]
+  %p
+    = f.label :pauthor, "Author"
+    %br/
+    = f.text_field :pauthor, :readonly => true, :value => session[:current_username]
+  %p
+    = f.label :pcontent, "Post"
+    %br/
+    = f.text_area :pcontent, :value => params[:pcontent]
+  %p
+    = f.submit "Post"

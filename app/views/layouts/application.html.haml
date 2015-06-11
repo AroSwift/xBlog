@@ -1,9 +1,9 @@
-!!! 5
+!!!
 %html
   %head
-    %meta{:charset => "utf-8"}
+    %meta{:charset => "utf-8"}/
     %title= yield :current_page
-    %link{:href => "style.css", :rel => "stylesheet"}
+    %link{:href => "style.css", :rel => "stylesheet"}/
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -13,14 +13,18 @@
       %h1 xBlog
       %nav
         - if session[:current_user_id].present? && session[:current_username].present? then
-          .it= link_to 'Home', home_path
+          .it
+            = link_to 'Home', home_path
           = link_to 'Post', post_path
           = link_to 'Logout', logout_path, :method => :delete
         - else
-          .it= link_to 'Home', home_path
+          .it
+            = link_to 'Home', home_path
           = link_to 'Login', login_path
           = link_to 'Sign Up', signup_path
-    = yield
+    %section
+      %h2= yield :current_page
+      = yield
     %footer
       barlowat@ORNL.gov
 %html

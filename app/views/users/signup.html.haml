@@ -1,20 +1,20 @@
-%section
-  - if flash[:error].present?
-    = content_tag :div, flash[:error], class: "error_msg"
+- content_for :current_page do
+  SignUp
+- if flash[:error].present?
+  = content_tag :div, flash[:error], class: "error_msg"
+  %br/
+= form_for :signup, url: signup_path do |f|
+  %p
+    = f.label :username, "Username"
     %br/
-  %h2 Sign Up
-  = form_for :signup, url: signup_path do |f|
-    %p
-      = f.label :username, "Username"
-      %br/
-      = f.text_field :username, :value => flash[:username]
-    %p
-      = f.label :password, "Password"
-      %br/
-      = f.text_field :password
-    %p
-      = f.label :confim_password, "Comfirm Password"
-      %br/
-      = f.text_field :confirm_password
-    %p
-      = f.submit "Sign Up"
+    = f.text_field :username, :value => flash[:username]
+  %p
+    = f.label :password, "Password"
+    %br/
+    = f.text_field :password
+  %p
+    = f.label :confim_password, "Comfirm Password"
+    %br/
+    = f.text_field :confirm_password
+  %p
+    = f.submit "Sign Up"
