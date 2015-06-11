@@ -96,7 +96,7 @@ class PostsController < ApplicationController
     @dauthor = params[:dauthor]
     @dcontent = params[:dcontent]
 
-    flash[:error] = "The post #{@dtitle} was successfully deleted"
+    flash[:errors] = "The post #{@dtitle} was successfully deleted"
     Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
     redirect_to :home
   end
