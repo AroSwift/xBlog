@@ -5,30 +5,16 @@ class UsersController < ApplicationController
     @password = params[:signup][:password]
     @confirm_password = params[:signup][:confirm_password]
     flash[:username] = @username
+    flash[:password] = @password
 
-# Check if paramaters are met
-    if @username.length < 5 then
 
-        flash[:error] = 'Your username must be at least 5 characters'
-        redirect_to :back
+    user = User.new
+    user.username = @username
+    user.password = @password
+    user.valid?
 
-      elsif @username.length > 12 then
-        flash[:error] = 'Your username must not be greater than 12 characters'
-        redirect_to :back
-
-      elsif @password.length < 8 then
-      flash[:error] = 'Your password must be at least 8 characters'
-      redirect_to :back
-
-      elsif @password.length > 20 then
-        flash[:error] = 'Your password must not be greater than 20 characters'
-        redirect_to :back
-
-      elsif @confirm_password != @password then
-        flash[:error] = "Your passwords don't match"
-        redirect_to :back 
-
-      else
+    if user.errors.empty? then
+      if @password == @confirm_password then
 
         cname = User.find_by(username: @username)
         if cname.nil? then
@@ -45,17 +31,20 @@ class UsersController < ApplicationController
 
 
           else
-          flash[:error] = 'Account not created. Try again.'
-          redirect_to :signup
+            redirect_to signup_path(:errors => user.errors.full_messages)
           end
 
-        else
-          flash[:error] = 'That username already exists'
-          redirect_to :signup
-        end
+      else
+        redirect_to signup_path(:display => 'The passwords do not match')
+      end
+      else
+        redirect_to signup_path(:display => 'Username already exists')
+      end
+    else
+      redirect_to signup_path(:errors => user.errors.full_messages)
     end
-
   end
+
 
 
   def show

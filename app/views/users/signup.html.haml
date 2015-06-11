@@ -9,7 +9,7 @@
   %p
     = f.label :password, "Password"
     %br/
-    = f.text_field :password
+    = f.text_field :password, :value => flash[:password]
   %p
     = f.label :confim_password, "Comfirm Password"
     %br/

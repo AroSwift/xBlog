@@ -25,8 +25,8 @@
       - if !params[:errors].nil?
         - params[:errors].each do |msg|
           = content_tag :div, msg, class: "error_msg"
-      - if flash[:errors].present?
-        = content_tag :div, flash[:errors], class: "error_msg"
+      - if !params[:display].nil?
+        = content_tag :div, params[:display], class: "error_msg"
       = yield
     %footer
       barlowat@ORNL.gov
