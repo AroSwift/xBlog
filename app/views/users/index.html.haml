@@ -1,10 +1,5 @@
 - content_for :current_page do
   Home
-- if !params[:errors].nil?
-  - params[:errors].each do |msg|
-    = content_tag :div, msg, class: "error_msg"
-- if flash[:errors].present?
-  = content_tag :div, flash[:errors], class: "error_msg"
 - Post.all.order("id desc LIMIT 10").each do |post|
   %article.posts
     %p.title
