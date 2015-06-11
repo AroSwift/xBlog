@@ -57,55 +57,6 @@ class PostsController < ApplicationController
       flash[:error] = post.errors.full_messages
       redirect_to post_path(:errors => post.errors.full_messages)
     end
-
-
-=begin
-    if @title.length < 3 then
-
-      flash[:error] = 'The title must be at least 3 characters'
-      redirect_to :back
-    elsif @title.length > 50 then
-
-      flash[:error] = 'The title must not be more than 50 characters'
-      redirect_to :back
-    elsif @author.length < 5 then
-
-      flash[:error] = 'The author must be at least 5 characters'
-      redirect_to :back
-    elsif @author.length > 12 then
-
-      flash[:error] = 'The author must not be more than 12 characters'
-      redirect_to :back
-
-      # CHANGE THE MIN LENGTH LATER...
-    elsif @content.length < 20 then
-
-      flash[:error] = "The post must be at least 20 characters"
-      redirect_to :back 
-    elsif @content.length > 10000 then
-
-      flash[:error] = 'The post must not be more than 10,000 characters'
-      redirect_to :back 
-
-    else
-      dbtitle = Post.find_by(title: @title)
-      if dbtitle.nil? then
-
-          post = Post.create(post_params)
-          post.valid?
-          if(request.post? && post.save)
-            flash[:error] = 'Your post was submited'
-              redirect_to :home
-  		    else
-            flash[:error] = 'Your post was not submitted. Try again.'
-            redirect_to :back
-          end
-      else
-          flash[:error] = 'That title is already in use'
-          redirect_to :back
-      end
-    end
-=end
   end
 
 
