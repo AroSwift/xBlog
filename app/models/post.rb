@@ -1,8 +1,9 @@
 class Post < ActiveRecord::Base
 
-	validates :title, presence: true, uniqueness: true
-	validates :author, presence: true 
-	validates :content, presence: true 
+	validates :title, presence: true, uniqueness: true, on: :create
+	validates :title, presence: true, on: :update
+	validates :author, presence: true
+	validates :content, presence: true, uniqueness: true, on: :create 
 
 	validates :title, length: { in: 5..40,    
 	too_short: "must have at least %{count} characters",

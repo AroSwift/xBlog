@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   def update
     @ptitle = params[:posts][:ptitle]
     @pcontent = params[:posts][:pcontent]
-    @id = params[:id]
+    @id = params[:posts][:id]
 
     post = Post.new
     post = Post.find_by(@id)
@@ -39,6 +39,25 @@ class PostsController < ApplicationController
     flash[:content] = @content
 
 
+    post = Post.new
+    post.title = @title
+    post.content = @content
+    post.author = @author
+    # add later: post.admin = false
+    post.valid?
+    post.save
+
+
+    if post.errors.empty? then
+      flash[:error] = 'Your post was updated'
+      redirect_to :home
+    else
+      flash[:error] = post.errors.full_messages
+      redirect_to post_path(:errors => post.errors.full_messages)
+    end
+
+
+=begin
     if @title.length < 3 then
 
       flash[:error] = 'The title must be at least 3 characters'
@@ -71,7 +90,7 @@ class PostsController < ApplicationController
       if dbtitle.nil? then
 
           post = Post.create(post_params)
-          #post.valid?
+          post.valid?
           if(request.post? && post.save)
             flash[:error] = 'Your post was submited'
               redirect_to :home
@@ -84,6 +103,7 @@ class PostsController < ApplicationController
           redirect_to :back
       end
     end
+=end
   end
 
 
