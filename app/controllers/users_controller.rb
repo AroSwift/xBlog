@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
 
-  def new
-    @user = User.new
-  end
-
   def create
     @username = params[:signup][:username]
     @password = params[:signup][:password]
@@ -60,6 +56,44 @@ class UsersController < ApplicationController
     end
 
   end
+
+
+  def show
+    @lusername = params[:login][:lusername]
+    @lpassword = params[:login][:lpassword]
+    flash[:lusername] = @lusername
+    flash[:lpassword] = @lpassword
+
+    user = User.new
+    user.username = @lusername
+    user.password = @lpassword
+    user.valid?
+
+    if @lusername.empty? then
+      flash.keep[:error] = "Please enter a username"
+      redirect_to login_path(:errors => user.errors.full_messages)
+
+    elsif @lpassword.empty? then
+      flash[:error] = "Please enter a password"
+      redirect_to login_path(:errors => user.errors.full_messages)
+
+    else
+      dbusername = User.find_by(username: @lusername)
+      dbpassword = User.find_by(password: @lpassword)
+
+      if !dbusername.nil? && !dbpassword.nil? then
+
+        session[:current_user_id] = dbusername.id
+        session[:current_username] = dbusername.username
+        redirect_to :home
+
+      else
+        flash[:error] = "Your username and password did not match. Please try again."
+        redirect_to :login 
+      end
+    end
+  end
+
 
   def user_params
     params.require(:signup).permit(:username, :password)

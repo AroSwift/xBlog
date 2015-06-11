@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   get     'edit_post' => 'posts#edit_post'
 
   get     'login'     => 'users#login'
-  post    'login'     => 'sessions#show'
-  delete  'logout'    => 'sessions#destroy'
+  post    'login'     => 'users#show'
+  delete  'logout'    => 'users#destroy'
 
   get     'index'     => 'users#signup'
   get     'signup'    => 'users#signup'
