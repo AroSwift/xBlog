@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
 	validates :content, length: { in: 20..10000, 	 # Change MIN value later
 	too_short: "must have at least %{count} characters",
     too_long: "must not have more than %{count} characters" }
-
+    
 end
 
 

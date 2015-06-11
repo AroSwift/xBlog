@@ -1,17 +1,9 @@
 class PostsController < ApplicationController
 
-  def new
-    @post = Post.new
-  end
-
-
   def update
     @ptitle = params[:edit_posts][:ptitle]
     @pcontent = params[:edit_posts][:pcontent]
     @id = params[:id]
-
-    #Post.where(:id => @id).limit(1).update_all(title: @ptitle, content: @pcontent, id: @id)
-    #redirect_to :home
 
     post = Post.find_by_id(@id)
     post.title = @ptitle
@@ -28,7 +20,6 @@ class PostsController < ApplicationController
       redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id, :errors => post.errors.full_messages)
     end
   end
-
 
 
   def create
@@ -74,6 +65,5 @@ class PostsController < ApplicationController
     Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
     redirect_to :home
   end
-
 
 end

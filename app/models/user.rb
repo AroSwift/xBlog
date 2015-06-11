@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+	#foreign key somewhere here or in post.rb
 	has_many :posts
 
 	validates :username, :password, presence: true
