@@ -10,10 +10,9 @@ class PostsController < ApplicationController
     @pcontent = params[:edit_posts][:pcontent]
     @id = params[:id]
 
+    #Post.where(:id => @id).limit(1).update_all(title: @ptitle, content: @pcontent, id: @id)
+    #redirect_to :home
 
-    Post.where(:id => @id).limit(1).update_all(title: @ptitle, content: @pcontent, id: @id)
-redirect_to :home
-=begin
     post = Post.find_by_id(@id)
     post.title = @ptitle
     post.content = @pcontent
@@ -28,7 +27,6 @@ redirect_to :home
       flash[:error] = post.errors.full_messages
       redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id, :errors => post.errors.full_messages)
     end
-=end
   end
 
 
