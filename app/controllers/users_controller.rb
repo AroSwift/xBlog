@@ -69,15 +69,8 @@ class UsersController < ApplicationController
     user.password = @lpassword
     user.valid?
 
-    if @lusername.empty? then
-      flash.keep[:error] = "Please enter a username"
-      redirect_to login_path(:errors => user.errors.full_messages)
+    if user.errors.empty? then
 
-    elsif @lpassword.empty? then
-      flash[:error] = "Please enter a password"
-      redirect_to login_path(:errors => user.errors.full_messages)
-
-    else
       dbusername = User.find_by(username: @lusername)
       dbpassword = User.find_by(password: @lpassword)
 
@@ -88,9 +81,13 @@ class UsersController < ApplicationController
         redirect_to :home
 
       else
-        flash[:error] = "Your username and password did not match. Please try again."
-        redirect_to :login 
+
+        flash[:error] = 'The username and password do not match'
+        redirect_to login_path(:errors => user.errors.full_messages)
+
       end
+    else
+      redirect_to login_path(:errors => user.errors.full_messages)
     end
   end
 

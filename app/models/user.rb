@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
 	validates :username, :password, presence: true
-	validates :username, uniqueness: true, on: :create
+	#validates :username, uniqueness: true on: :create
 	validates :username, length: { in: 5..12 }
 	validates :password, length: { in: 8..20 }
 	#validates :admin, :inclusion => { in: true, false }, on: :create
