@@ -11,6 +11,11 @@ class SessionsController < ApplicationController
     flash[:lusername] = @lusername
     flash[:lpassword] = @lpassword
 
+     @user = User.new(params[:lusername])
+     @user.valid?
+    if @user.save
+      redirect_to :home
+    end
 
 
 # Check if paramaters are met
@@ -25,6 +30,7 @@ class SessionsController < ApplicationController
     else
       dbusername = User.find_by(username: @lusername)
       dbpassword = User.find_by(password: @lpassword)
+
       if !dbusername.nil? && !dbpassword.nil? then
 
         session[:current_user_id] = dbusername.id
