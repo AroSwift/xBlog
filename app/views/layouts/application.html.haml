@@ -13,13 +13,13 @@
       %h1 xBlog
       %nav
         - if session[:current_user_id].present? && session[:current_username].present? then
-          = link_to 'Home', home_path, :class => ("it" unless yield :link == 'H ' )
-          = link_to 'Post', post_path, :class => ("it" unless yield(:current_page) == 'Post')
-          = link_to 'Logout', logout_path, :method => :delete
+          = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
+          = link_to 'Post', post_path, :class => ("it" unless !current_page?(:post))
+          = link_to 'Logout', logout_path, :method => :delete, :class => ("it" unless !current_page?(:logout))
         - else
-          .it= link_to 'Home', home_path
-          = link_to 'Login', login_path
-          = link_to 'Sign Up', signup_path
+          = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
+          = link_to 'Login', login_path, :class => ("it" unless !current_page?(:login))
+          = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
     %section
       %h2= yield :current_page
       - if !params[:errors].nil?

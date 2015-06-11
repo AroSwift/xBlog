@@ -1,7 +1,5 @@
 - content_for :current_page do
   Home
-- content_for :link do
-  H
 - if !params[:errors].nil?
   - params[:errors].each do |msg|
     = content_tag :div, msg, class: "error_msg"
