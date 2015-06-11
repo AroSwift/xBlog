@@ -6,12 +6,15 @@ class PostsController < ApplicationController
 
 
   def update
-    @ptitle = params[:posts][:ptitle]
-    @pcontent = params[:posts][:pcontent]
-    @id = params[:posts][:id]
+    @ptitle = params[:edit_posts][:ptitle]
+    @pcontent = params[:edit_posts][:pcontent]
+    @id = params[:id]
 
-    post = Post.new
-    post = Post.find_by(@id)
+
+    Post.where(:id => @id).limit(1).update_all(title: @ptitle, content: @pcontent, id: @id)
+redirect_to :home
+=begin
+    post = Post.find_by_id(@id)
     post.title = @ptitle
     post.content = @pcontent
     post.author = session[:current_username]
@@ -25,6 +28,7 @@ class PostsController < ApplicationController
       flash[:error] = post.errors.full_messages
       redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id, :errors => post.errors.full_messages)
     end
+=end
   end
 
 
@@ -43,7 +47,7 @@ class PostsController < ApplicationController
     post.title = @title
     post.content = @content
     post.author = @author
-    # add later: post.admin = false
+    #post.admin = false
     post.valid?
     post.save
 
@@ -108,7 +112,11 @@ class PostsController < ApplicationController
 
 
   def post_params
-    params.require(:posts).permit(:title, :author, :content, :admin)
+    params.require(:posts).permit(:title, :author, :content, :admin, :id)
+  end
+
+  def update_post_params
+    params.require(:edit_posts).permit(:title, :author, :content, :admin, :id)
   end
 
  def destroy

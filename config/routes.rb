@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   post    'post'      => 'posts#create'  
   delete  'post'      => 'posts#destroy'
 
-  put     'edit_post' => 'posts#update'  
-  post    'edit_post' => 'posts#edit_post'
+  put     'edit_post' => 'posts#update'
   get     'edit_post' => 'posts#edit_post'
 
   get     'login'     => 'users#login'

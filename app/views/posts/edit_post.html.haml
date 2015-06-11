@@ -1,6 +1,6 @@
 - content_for :current_page do
   Edit Post
-= form_for :posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
+= form_for :edit_posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
   %p
     = f.label :ptitle, "Title"
     %br/
