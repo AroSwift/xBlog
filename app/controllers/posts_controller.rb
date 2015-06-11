@@ -63,10 +63,7 @@ class PostsController < ApplicationController
   def post_params
     params.require(:posts).permit(:title, :author, :content, :admin, :id)
   end
-
-  def update_post_params
-    params.require(:edit_posts).permit(:title, :author, :content, :admin, :id)
-  end
+  
 
  def destroy
     @dtitle = params[:dtitle]

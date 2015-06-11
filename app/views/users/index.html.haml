@@ -1,5 +1,6 @@
 - content_for :current_page do
   Home
+%br
 - Post.all.order("id desc LIMIT 10").each do |post|
   %article.posts
     %p.title

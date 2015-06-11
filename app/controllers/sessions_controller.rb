@@ -4,28 +4,23 @@ class SessionsController < ApplicationController
     @user = User.new
   end
 
-  def create
+  def show
     @lusername = params[:login][:lusername]
     @lpassword = params[:login][:lpassword]
 
     flash[:lusername] = @lusername
     flash[:lpassword] = @lpassword
 
-     @user = User.new(params[:lusername])
-     @user.valid?
-    if @user.save
-      redirect_to :home
-    end
+    user = User.new
+    user.valid?
 
-
-# Check if paramaters are met
     if @lusername.empty? then
-      flash[:error] = "Please enter a username"
-      redirect_to :back 
+      flash.keep[:error] = "Please enter a username"
+      redirect_to login_path(:errors => user.errors.full_messages)
 
     elsif @lpassword.empty? then
       flash[:error] = "Please enter a password"
-      redirect_to :back 
+      redirect_to login_path(:errors => user.errors.full_messages)
 
     else
       dbusername = User.find_by(username: @lusername)
@@ -39,7 +34,7 @@ class SessionsController < ApplicationController
 
       else
         flash[:error] = "Your username and password did not match. Please try again."
-        redirect_to :back 
+        redirect_to :login 
       end
     end
   end

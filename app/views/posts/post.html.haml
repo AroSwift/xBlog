@@ -1,5 +1,6 @@
 - content_for :current_page do
   Post
+%br
 = form_for :posts, url: post_path do |f|
   %p
     = f.label :title, "Title"
@@ -8,10 +9,7 @@
   %p
     = f.label :author, "Author"
     %br/
-    - if flash[:author].present?
-      = f.text_field :author, :readonly => true, :value => flash[:author]
-    - else
-      = f.text_field :author, :readonly => true, :value => session[:current_username]
+    = f.text_field :author, :readonly => true, :value => session[:current_username]
   %p
     = f.label :content, "Post"
     %br/
