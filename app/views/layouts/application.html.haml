@@ -1,4 +1,4 @@
-!!!
+!!! 5
 %html
   %head
     %meta{:charset => "utf-8"}/
@@ -13,13 +13,11 @@
       %h1 xBlog
       %nav
         - if session[:current_user_id].present? && session[:current_username].present? then
-          .it
-            = link_to 'Home', home_path
-          = link_to 'Post', post_path
+          = link_to 'Home', home_path, :class => [("it" unless :current_page === 'Home')]
+          .it= link_to 'Post', post_path
           = link_to 'Logout', logout_path, :method => :delete
         - else
-          .it
-            = link_to 'Home', home_path
+          .it= link_to 'Home', home_path
           = link_to 'Login', login_path
           = link_to 'Sign Up', signup_path
     %section
@@ -37,3 +35,5 @@
     I am located in application.html.haml:
     %br/
     = debug(params) if Rails.env.development?
+
+    
