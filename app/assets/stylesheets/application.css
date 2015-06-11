@@ -79,7 +79,7 @@ div.it {
 	display: inline !important;
 }
 
-div.it a {
+div.it a, a.it {
 	color: #D1D1D1 !important;
 }
 

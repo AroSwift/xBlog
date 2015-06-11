@@ -13,8 +13,8 @@
       %h1 xBlog
       %nav
         - if session[:current_user_id].present? && session[:current_username].present? then
-          = link_to 'Home', home_path, :class => [("it" unless :current_page === 'Home')]
-          .it= link_to 'Post', post_path
+          = link_to 'Home', home_path, :class => ("it" unless yield :link == 'H ' )
+          = link_to 'Post', post_path, :class => ("it" unless yield(:current_page) == 'Post')
           = link_to 'Logout', logout_path, :method => :delete
         - else
           .it= link_to 'Home', home_path
