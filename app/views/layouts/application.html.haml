@@ -14,7 +14,7 @@
       %nav
         - if session[:current_user_id].present? && session[:current_username].present? then
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
-          = link_to 'Post', post_path, :class => ("it" unless !current_page?(:post))
+          = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', logout_path, :method => :delete, :class => ("it" unless !current_page?(:logout))
         - else
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
