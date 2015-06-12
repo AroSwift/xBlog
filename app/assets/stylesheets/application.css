@@ -23,13 +23,8 @@ input {
 }
 
 input[type="submit"] {
-	width: 101%;
-	border: none;
+	width: 100.9%;
 	height: 40px;
-	font-size: 100%;
-	background-color: #333333;
-	color: #D1D1D1;
-	padding: 5px;
 }
 
 textarea {
@@ -133,11 +128,6 @@ p.title {
 	padding: 10px;
 }
 
-
-p.content {
-
-}
-
 a.dpost {
 	color: #919191;
 	font-size: 70%;
@@ -156,7 +146,13 @@ a.pedit {
 }
 
 a.dpost:hover, a.pedit:hover {
-
+	text-decoration: none;
+	color: #D1D1D1;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
 }
 
 div.code {
