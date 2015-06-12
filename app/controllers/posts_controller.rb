@@ -57,9 +57,8 @@ class PostsController < ApplicationController
     redirect_to home_path(:display => "The post #{@dtitle} was successfully deleted")
   end
 
-  private
-    def post_params
-      params.require(:posts).permit(:title, :author, :content, :id)
-    end
+  def post_params
+    params.require(:posts).permit(:title, :author, :content, :id)
+  end
 
 end

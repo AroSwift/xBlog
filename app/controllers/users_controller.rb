@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
           user = User.create(user_params)
           if(request.post? && user.save)
+            user.save(user_params)
             flash[:error] = 'Account created.'
 
             # Create Session
@@ -33,10 +34,10 @@ class UsersController < ApplicationController
           end
 
         else
-        redirect_to signup_path(:display => 'The passwords do not match')
+          redirect_to signup_path(:display => 'Username already exists')
         end
       else
-        redirect_to signup_path(:display => 'Username already exists')
+        redirect_to signup_path(:display => 'The passwords do not match')
       end
     else
       redirect_to signup_path(:errors => user.errors.full_messages)
@@ -76,11 +77,10 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.require(:signup).permit(:username, :password)
+    params.require(:signup).permit(:username, :password, :id, :admin)
   end
 
  def destroy
-    # Logout
     @_current_user = session[:current_user_id] = nil
     @_current_user = session[:current_username] = nil    
     redirect_to :home
