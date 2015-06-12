@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   get     'index'     => 'users#signup'
   get     'signup'    => 'users#signup'
-  post    'signup'    => 'users#c reate'
+  post    'signup'    => 'users#create'
   get     'home'      => 'users#index'
 
   resources :users

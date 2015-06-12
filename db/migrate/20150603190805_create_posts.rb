@@ -3,11 +3,11 @@ class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
       t.string :title
-      t.string :author #Add connection to table users
       t.text   :content
-
+      t.references :author, index: true, class: 'User'
       t.timestamps null: false
     end
-
+    add_foreign_key :posts, :author
   end
+
 end
