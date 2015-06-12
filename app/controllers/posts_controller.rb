@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
 
   def update
-    @ptitle = params[:edit_posts][:ptitle]
-    @pcontent = params[:edit_posts][:pcontent]
+    @ptitle = params[:posts][:ptitle]
+    @pcontent = params[:posts][:pcontent]
     @id = params[:id]
 
     post = Post.find_by_id(@id)
@@ -10,9 +10,9 @@ class PostsController < ApplicationController
     post.content = @pcontent
     post.author = session[:current_username]
     post.valid?
-    post.save
 
     if post.errors.empty? then
+      post.save(post_params)
       flash[:error] = 'Your post was updated'
       redirect_to :home
     else
@@ -36,12 +36,10 @@ class PostsController < ApplicationController
     post.title = @title
     post.content = @content
     post.author = @author
-    #post.admin = false
     post.valid?
-    post.save
-
 
     if post.errors.empty? then
+      post.save(post_params)
       flash[:error] = 'Your post was updated'
       redirect_to :home
     else
@@ -50,20 +48,18 @@ class PostsController < ApplicationController
     end
   end
 
-
-  def post_params
-    params.require(:posts).permit(:title, :author, :content, :admin, :id)
-  end
-  
-
  def destroy
     @dtitle = params[:dtitle]
     @dauthor = params[:dauthor]
     @dcontent = params[:dcontent]
 
-    flash[:errors] = "The post #{@dtitle} was successfully deleted"
     Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
-    redirect_to :home
+    redirect_to home_path(:display => "The post #{@dtitle} was successfully deleted")
   end
+
+  private
+    def post_params
+      params.require(:posts).permit(:title, :author, :content, :id)
+    end
 
 end
