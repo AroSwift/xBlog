@@ -27,7 +27,7 @@ class UsersController < ApplicationController
             # Create Session
             session[:current_user_id] = user.id
             session[:current_username] = user.username
-            redirect_to :home
+            redirect_to home_path(:display => 'Your account has been successfully created')
 
           else
             redirect_to signup_path(:errors => user.errors.full_messages)

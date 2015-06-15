@@ -36,6 +36,7 @@ class PostsController < ApplicationController
     post.title = @title
     post.content = @content
     post.author = @author
+    post.author_id = session[:current_user_id]
     post.valid?
 
     if post.errors.empty? then
@@ -58,7 +59,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:posts).permit(:title, :author, :content, :id)
+    params.require(:posts).permit(:title, :author, :content, :id, :author_id)
   end
 
 end

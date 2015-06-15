@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609195549) do
+ActiveRecord::Schema.define(version: 20150603190805) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
-    t.string   "author"
     t.text     "content"
+    t.string   "author"
+    t.integer  "author_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -24,9 +25,9 @@ ActiveRecord::Schema.define(version: 20150609195549) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "admin"
+    t.boolean  "admin",      default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end
