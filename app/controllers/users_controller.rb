@@ -63,9 +63,11 @@ class UsersController < ApplicationController
 
       if !dbusername.nil? && !dbpassword.nil? then
 
-        if user.admin == true then
+        admin_status = User.find_by_username(@lusername)
 
+        if admin_status.admin == true || admin_status.admin == t || admin_status.admin == 't' then
 
+redirect_to :signup
 
         else
           session[:current_user_id] = dbusername.id
@@ -74,8 +76,7 @@ class UsersController < ApplicationController
         end
 
       else
-        flash[:error] = 'The username and password do not match'
-        redirect_to login_path(:errors => user.errors.full_messages)
+        redirect_to login_path(:display => 'The username and password do not match')
       end
     else
       redirect_to login_path(:errors => user.errors.full_messages)
