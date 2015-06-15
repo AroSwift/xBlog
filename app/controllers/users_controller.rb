@@ -62,9 +62,16 @@ class UsersController < ApplicationController
       dbpassword = User.find_by(password: @lpassword)
 
       if !dbusername.nil? && !dbpassword.nil? then
-        session[:current_user_id] = dbusername.id
-        session[:current_username] = dbusername.username
-        redirect_to :home
+
+        if user.admin == true then
+
+
+
+        else
+          session[:current_user_id] = dbusername.id
+          session[:current_username] = dbusername.username
+          redirect_to :home
+        end
 
       else
         flash[:error] = 'The username and password do not match'

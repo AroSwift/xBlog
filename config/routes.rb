@@ -3,23 +3,24 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
-  get     'post'      => 'posts#post'
-  post    'post'      => 'posts#create'  
-  delete  'post'      => 'posts#destroy'
+  get     'signup'      => 'users#signup'
+  post    'signup'      => 'users#create'
+  get     'home'        => 'users#index'
 
-  put     'edit_post' => 'posts#update'
-  get     'edit_post' => 'posts#edit_post'
+  get     'login'       => 'users#login'
+  post    'login'       => 'users#show'
+  delete  'logout'      => 'users#destroy'
 
-  get     'login'     => 'users#login'
-  post    'login'     => 'users#show'
-  delete  'logout'    => 'users#destroy'
+  get     'post'        => 'posts#post'
+  post    'post'        => 'posts#create'  
+  delete  'post'        => 'posts#destroy'
 
-  get     'index'     => 'users#signup'
-  get     'signup'    => 'users#signup'
-  post    'signup'    => 'users#create'
-  get     'home'      => 'users#index'
+  put     'edit_post'   => 'posts#update'
+  get     'edit_post'   => 'posts#edit_post'
+
+  get     'admin_home'=> 'admin#index'
 
   resources :users
-  resources :sessions
   resources :posts
+  resources :admin
 end
