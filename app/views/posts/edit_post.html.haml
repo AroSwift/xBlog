@@ -9,7 +9,7 @@
   %p
     = f.label :pauthor, "Author"
     %br/
-    = f.text_field :pauthor, :readonly => true, :value => session[:current_username]
+    = f.text_field :pauthor, :readonly => true, :value => params[:pauthor]
   %p
     = f.label :pcontent, "Post"
     %br/

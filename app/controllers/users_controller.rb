@@ -65,9 +65,12 @@ class UsersController < ApplicationController
 
         admin_status = User.find_by_username(@lusername)
 
-        if admin_status.admin == true || admin_status.admin == t || admin_status.admin == 't' then
+        if admin_status.admin == true then
 
-redirect_to :signup
+          redirect_to :admin_home
+          session[:current_user_id] = dbusername.id
+          session[:current_username] = dbusername.username
+          session[:admin] = true
 
         else
           session[:current_user_id] = dbusername.id

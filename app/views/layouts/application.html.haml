@@ -12,10 +12,14 @@
     %header
       %h1 xBlog
       %nav
-        - if session[:current_user_id].present? && session[:current_username].present? then
+        - if session[:current_user_id].present? && session[:current_username].present? && session[:admin].nil? then
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', logout_path, :method => :delete, :class => ("it" unless !current_page?(:logout))
+        - elsif session[:current_user_id].present? && session[:current_username].present? && session[:admin] == true then
+          = link_to 'Home', admin_home_path, :class => ("it" unless !current_page?(:admin_home))
+          = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
+          = link_to 'Logout', admin_logout_path, :method => :delete, :class => ("it" unless !current_page?(:admin_logout))
         - else
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
           = link_to 'Login', login_path, :class => ("it" unless !current_page?(:login))
