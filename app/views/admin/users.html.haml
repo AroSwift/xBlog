@@ -11,4 +11,8 @@
       \#{user.password}
       - if session[:current_user_id].present? && session[:current_username].present? && session[:admin] == true then
         = link_to 'Delete', users_path(:dusername => user.username, :dpassword => user.password, :dadmin => user.admin), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{user.username}?'"}, class: "dpost"
-        = link_to 'Edit', admin_edit_users_path(:pusername => user.username, :ppassword => user.password, :padmin => user.admin, :id => user.id), class: "pedit"       
+        = link_to 'Edit', admin_edit_users_path(:pusername => user.username, :ppassword => user.password, :padmin => user.admin, :id => user.id), class: "pedit"    
+    - Post.where(author: user.username).each do |post|  
+      %h3
+        = post.title
+      = post.content
