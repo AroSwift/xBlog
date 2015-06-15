@@ -1,13 +1,13 @@
 - content_for :current_page do
   Admin
-%br
-- Post.all.order("id desc LIMIT 10").each do |post|
-  %article.posts
-    %p.title
-      = post.title
-      by
-      \#{post.author}
-      - if session[:current_user_id].present? && session[:current_username].present? && session[:admin] == true then
+- if session[:current_user_id].present? && session[:current_username].present? && session[:admin] == true then  
+  %br
+  - Post.all.order("id desc LIMIT 10").each do |post|
+    %article.posts
+      %p.title
+        = post.title
+        by
+        \#{post.author}
         = link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
         = link_to 'Edit', edit_post_path(:ptitle => post.title, :pauthor => post.author, :pcontent => post.content, :id => post.id), class: "pedit"       
-  %p.content= post.content
+    %p.content= post.content
