@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     params.require(:signup).permit(:username, :password, :id, :admin)
   end
 
- def destroy
+ def logout
     @_current_user = session[:current_user_id] = nil
     @_current_user = session[:current_username] = nil    
     redirect_to :home
