@@ -143,6 +143,12 @@ a.dall {
 	margin-left: 20%;
 }
 
+a.user_dpost {
+	font-size: 70%;
+	color: #720000;
+	padding-left: 5%;
+}
+
 a.pedit {
 	color: #919191;
 	font-size: 70%;

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get     'admin_users'         => 'admin#users'
   put     'admin_edit_users'    => 'admin#update'
   delete  'admin_logout'        => 'admin#logout'
+  delete  'admin_users'         => 'admin#destroy'
 
   resources :users
   resources :posts
