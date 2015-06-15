@@ -132,28 +132,34 @@ a.dpost {
 	color: #919191;
 	font-size: 70%;
 	position: relative;
-	padding-left: 3%;
+	float:right;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 a.dall {
 	color: #919191;
 	font-size: 70%;
 	position: relative;
-	padding-left: 20%;
-	margin-left: 20%;
+	float:right;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 a.user_dpost {
 	font-size: 70%;
 	color: #720000;
-	padding-left: 5%;
+	float:right;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 a.pedit {
 	color: #919191;
 	font-size: 70%;
-	padding-left: 3%;
-	text-align: right;
+	float:right;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 a.dpost:hover, a.pedit:hover, a.dall:hover {
