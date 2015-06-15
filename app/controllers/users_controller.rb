@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  # Create User
   def create
     @username = params[:signup][:username]
     @password = params[:signup][:password]
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
     user.password = @password
     user.valid?
 
+    # Checks for errors
     if user.errors.empty? then
       if @password == @confirm_password then
 
@@ -45,7 +47,7 @@ class UsersController < ApplicationController
   end
 
 
-
+  # Login User
   def show
     @lusername = params[:login][:lusername]
     @lpassword = params[:login][:lpassword]
@@ -57,6 +59,7 @@ class UsersController < ApplicationController
     user.password = @lpassword
     user.valid?
 
+    # Checks for errors
     if user.errors.empty? then
       dbusername = User.find_by(username: @lusername)
       dbpassword = User.find_by(password: @lpassword)
@@ -65,6 +68,7 @@ class UsersController < ApplicationController
 
         admin_status = User.find_by_username(@lusername)
 
+        # If user is admin
         if admin_status.admin == true then
 
           redirect_to :admin_home
@@ -73,6 +77,7 @@ class UsersController < ApplicationController
           session[:admin] = true
 
         else
+          # If user is not admin
           session[:current_user_id] = dbusername.id
           session[:current_username] = dbusername.username
           redirect_to :home
@@ -91,6 +96,7 @@ class UsersController < ApplicationController
     params.require(:signup).permit(:username, :password, :id, :admin)
   end
 
+  # Logout User
  def logout
     @_current_user = session[:current_user_id] = nil
     @_current_user = session[:current_username] = nil    

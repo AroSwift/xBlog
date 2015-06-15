@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
 
+  # User updates post
   def update
     @ptitle = params[:posts][:ptitle]
     @pcontent = params[:posts][:pcontent]
@@ -11,6 +12,7 @@ class PostsController < ApplicationController
     post.author = session[:current_username]
     post.valid?
 
+    # Checks for errors
     if post.errors.empty? then
       post.save(post_params)
       flash[:error] = 'Your post was updated'
@@ -22,11 +24,13 @@ class PostsController < ApplicationController
   end
 
 
+  # Creates Post
   def create
     @title = params[:posts][:title]
     @author = params[:posts][:author]
     @content = params[:posts][:content]
 
+    # Populates fields in view
     flash[:title] = @title
     flash[:author] = @author
     flash[:content] = @content
@@ -39,6 +43,7 @@ class PostsController < ApplicationController
     post.author_id = session[:current_user_id]
     post.valid?
 
+    # Checks for errors
     if post.errors.empty? then
       post.save(post_params)
       flash[:error] = 'Your post was updated'
@@ -49,6 +54,7 @@ class PostsController < ApplicationController
     end
   end
 
+  # Deletes user
  def destroy
     @dtitle = params[:dtitle]
     @dauthor = params[:dauthor]
