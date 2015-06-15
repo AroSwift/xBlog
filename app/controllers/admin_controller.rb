@@ -7,11 +7,20 @@ class AdminController < ApplicationController
 
 	def update
 
-		@username = params[:users][:pusername]
-    @password = params[:users][:ppassword]
+		@username = params[:users][:username]
+    @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
-    @admin = params[:users][:padmin]
+    @admin = params[:users][:admin]
     @id = params[:id]
+
+    if @admin == 'true' || @admin == '1' then
+    	@admin = true
+    elsif @admin == 'false' || @admin == '0' then
+    	@admin = false
+    else
+    	@admin = false
+    end
+
 
     user = User.find_by_id(@id)
     user.username = @username
@@ -30,12 +39,12 @@ class AdminController < ApplicationController
       redirect_to :admin_home
 
     	else
-    		redirect_to admin_edit_users_path(:display => 'Your passwords do not match', :pusername => @username, :ppassword => @password, :padmin => @admin, :id => @id, :errors => user.errors.full_messages)
+    		redirect_to admin_edit_users_path(:display => 'Your passwords do not match', :username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
     	end
 
     else
       flash[:error] = user.errors.full_messages
-      redirect_to admin_edit_users_path(:pusername => @username, :ppassword => @password, :padmin => @admin, :id => @id, :errors => user.errors.full_messages)
+      redirect_to admin_edit_users_path(:user => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
     end
 
 	end
