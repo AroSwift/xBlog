@@ -1,7 +1,7 @@
 - content_for :current_page do
   Edit User
 %br
-= form_for :posts, url: admin_edit_users_path(:pusername => params[:pusername], :ppassword => params[:ppassword], :padmin => params[:padmin], :id => params[:id]), :method => :put do |f|
+= form_for :users, url: admin_edit_users_path(:pusername => params[:pusername], :ppassword => params[:ppassword], :padmin => params[:padmin], :id => params[:id]), :method => :put do |f|
   %p
     = f.label :pusername, "Username"
     %br/
@@ -17,6 +17,6 @@
   %p
     = f.label :admin, "Admin Privileges?"
     %br/
-    = f.check_box :admin, :value => params[:admin]
+    = f.check_box :admin, :value => params[:padmin]
   %p
     = f.submit "Change"
