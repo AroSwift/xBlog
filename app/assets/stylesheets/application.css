@@ -156,7 +156,7 @@ a.pedit {
 	text-align: right;
 }
 
-a.dpost:hover, a.pedit:hover {
+a.dpost:hover, a.pedit:hover, a.dall:hover {
 	text-decoration: none;
 	color: #D1D1D1;
 	-webkit-transition: all 500ms ease;

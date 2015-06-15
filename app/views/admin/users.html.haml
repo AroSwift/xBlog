@@ -16,7 +16,6 @@
     - Post.where(author: user.username).each do |post|  
       %h3
         = post.title
-        = link_to 'Delete', post_path(:dtitle => post.title, :dauthor => post.author, :dcontent => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "user_dpost"
       = post.content
       %br
       %br
