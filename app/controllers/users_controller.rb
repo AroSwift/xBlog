@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 
           session[:current_user_id] = dbusername.id
           session[:current_username] = dbusername.username
-          session[:current_pasword] = dbpassword.password
+          session[:current_password] = dbpassword.password
           session[:admin] = true
           redirect_to :admin_home
 
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
           # If user is not admin
           session[:current_user_id] = dbusername.id
           session[:current_username] = dbusername.username
-          session[:current_pasword] = dbpassword.password
+          session[:current_password] = dbpassword.password
           redirect_to :home
         end
 

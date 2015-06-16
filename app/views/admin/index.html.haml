@@ -3,6 +3,7 @@
     %center.daccess
       You don't have access to this page.
 - else 
+
   - content_for :current_page do
     Admin
   - if session[:current_user_id].present? && session[:current_username].present? && session[:admin] == true then  

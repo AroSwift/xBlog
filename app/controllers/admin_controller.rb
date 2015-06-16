@@ -8,6 +8,9 @@ class AdminController < ApplicationController
     @confirm_password = params[:users][:confirm_password]
     @admin = params[:users][:admin]
     @id = params[:id]
+
+    flash[:username] = @username
+    flash[:password] = @password
     
 
     # Determines if admin wants edited user to be admin
@@ -29,15 +32,21 @@ class AdminController < ApplicationController
     if user.errors.empty? then
     	if @confirm_password == @password then
           user.save(user_params)
-          flash[:error] = "The user '#{@username}' was updated"
-          redirect_to :admin_home
+
+          # Update session to match new username, password, and admin privileges
+          session[:current_username] = @username
+          session[:current_password] = @password
+          session[:admin] = @admin
+
+
+          redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
     	else
-    		redirect_to admin_edit_users_path(:display => 'Your passwords do not match', :username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
+    		redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages, :display => 'Your passwords do not match')
     	end
 
     else
       flash[:error] = user.errors.full_messages
-      redirect_to admin_edit_users_path(:user => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
+      redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
     end
 
 	end

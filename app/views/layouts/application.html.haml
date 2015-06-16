@@ -11,6 +11,7 @@
   %body
     %header
       %h1 
+
         - if admin? then
           = link_to 'xBlog', admin_home_path, :class => 'xBlog'
         - else
@@ -29,7 +30,9 @@
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
           = link_to 'Login', login_path, :class => ("it" unless !current_page?(:login))
           = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
+
     %section
+
       - if admin? || logged_in? then
         %h2
           = yield :current_page
@@ -39,7 +42,7 @@
             = link_to 'Account', account_path, :class => 'account'
       - else
         %h2= yield :current_page
-
+        
       - if !params[:errors].nil?
         - params[:errors].each do |msg|
           = content_tag :div, msg, class: "error_msg"

@@ -3,6 +3,7 @@
     %center.daccess
       You don't have access to this page.
 - else 
+
   - content_for :current_page do
     Edit User
   %br
@@ -10,15 +11,15 @@
     %p
       = f.label :username, "Username"
       %br/
-      = f.text_field :username, :value => params[:username]
+      = f.text_field :username, :value => flash[:username] || params[:username]
     %p
       = f.label :password, "Password"
       %br/
-      = f.text_field :password, :value => params[:password]
+      = f.text_field :password, :value => flash[:password] || params[:password]
     %p
-      = f.label :confirm_password, "confirm_password"
+      = f.label :confirm_password, "confirm Password"
       %br/
-      = f.text_field :confirm_password, :value => params[:confirm_password]
+      = f.text_field :confirm_password
     %p
       = f.label :admin, "Admin Privileges?"
       %br/
