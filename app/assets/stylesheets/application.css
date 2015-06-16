@@ -274,6 +274,21 @@ p.title a.delete:hover {
 
 }
 
+p.content {
+	font-style: italic;
+	padding-left: 15px;
+}
+
+.small {
+	font-size: 70%;
+	color: #919191;
+	float: right;
+	padding: 3px;
+	padding-right: 15px;
+	padding-left: 30px;
+	padding-bottom: 30px;
+}
+
 
 
 
@@ -288,8 +303,9 @@ footer {
 	padding: 25px;
 	color: #919191;
 	background-color: #333333;
-	position: absolute;
-	bottom: 0px;
+	position: relative;
+	//bottom: -200px;
+	margin-top: 17%;
 }
 
 
