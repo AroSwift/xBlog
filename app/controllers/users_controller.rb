@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
       if !dbusername.nil? && !dbpassword.nil? then
 
-        astatus = User.find_by_username(@lusername)
+        astatus = User.find_by_username(@username)
 
         # If user is admin
         if astatus.admin == true || astatus.admin == 't'then
