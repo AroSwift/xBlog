@@ -1,0 +1,18 @@
+- content_for :current_page do
+  Account
+%br/
+= form_for :signup, url: signup_path do |f|
+  %p
+    = f.label :username, "Username"
+    %br/
+    = f.text_field :username, :value => flash[:username]
+  %p
+    = f.label :password, "Password"
+    %br/
+    = f.text_field :password, :value => flash[:password]
+  %p
+    = f.label :confim_password, "Comfirm Password"
+    %br/
+    = f.text_field :confirm_password
+  %p
+    = f.submit "Sign Up"

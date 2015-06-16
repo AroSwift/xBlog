@@ -18,13 +18,11 @@
       %nav
         - if admin? then
           = link_to 'Home', admin_home_path, :class => ("it" unless !current_page?(:admin_home))
-          = link_to 'Settings', settings_path, :class => ("it" unless !current_page?(:admin_home))
           = link_to 'Users', admin_users_path, :class => ("it" if current_page?(:admin_users) || current_page?(:admin_edit_users))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', admin_logout_path, :method => :delete
         - elsif logged_in? then
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
-          = link_to 'Settings', settings_path, :class => ("it" unless !current_page?(:admin_home))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', logout_path, :method => :delete
         - else
@@ -33,8 +31,12 @@
           = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
     %section
       - if admin? || logged_in? then
-        %h2= yield :current_page
-        = link_to 'Settings', settings_path, :class => "settings"
+        %h2
+          = yield :current_page
+          - if current_page?(:account) then
+            = link_to 'Account', account_path, :class => 'cur_account'
+          -else
+            = link_to 'Account', account_path, :class => 'account'
       - else
         %h2= yield :current_page
 

@@ -80,18 +80,23 @@ div.it a, a.it {
 }
 
 header nav a {
-text-decoration: none;
-color: #919191;
-padding: 10px;
--webkit-transition: all 500ms ease;
--moz-transition: all 500ms ease;
--ms-transition: all 500ms ease;
--o-transition: all 500ms ease;
-transition: all 500ms ease;
+	text-decoration: none;
+	color: #919191;
+	padding: 10px;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
 }
 
 header nav a:hover {
-color: #D1D1D1;
+	color: #D1D1D1;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
 }
 
 
@@ -178,6 +183,36 @@ div.code {
 	padding: 20px;
 	color: #720000;
 	font-weight: bold;
+}
+
+a.account {
+	float: right;
+	font-size: 70%;
+	font-weight: normal;
+	padding: 7px;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+a.cur_account {
+	float: right;
+	font-size: 70%;
+	font-weight: normal;
+	padding: 7px;
+	padding-right: 20px;
+	padding-left: 20px;
+	color: #D1D1D1;
+	background-color: #333333;
+}
+
+a.account:hover {
+	color: #D1D1D1;
+	background-color: #333333;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
 }
 
 
