@@ -52,8 +52,9 @@ header {
 	background-color: #333333;
 }
 
-header h1 {
+header h1 a.xBlog {
 	color: #D1D1D1;
+	text-decoration: none;
 }
 
 

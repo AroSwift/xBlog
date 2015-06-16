@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
+  get     'home'                => 'users#index'
   get     'signup'              => 'users#signup'
   post    'signup'              => 'users#create'
-  get     'home'                => 'users#index'
 
   get     'login'               => 'users#login'
   post    'login'               => 'users#show'
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   put     'edit_post'           => 'posts#update'
   get     'edit_post'           => 'posts#edit_post'
+
+  get     'settings'             => 'account#settings'
 
   get     'admin_home'          => 'admin#index'
   get     'admin_users'         => 'admin#users'

@@ -10,15 +10,21 @@
     %script{:src => "script.js"}
   %body
     %header
-      %h1 xBlog
+      %h1 
+        - if admin? then
+          = link_to 'xBlog', admin_home_path, :class => 'xBlog'
+        - else
+          = link_to 'xBlog', home_path, :class => 'xBlog'
       %nav
         - if admin? then
           = link_to 'Home', admin_home_path, :class => ("it" unless !current_page?(:admin_home))
+          = link_to 'Account', settings_path, :class => ("it" unless !current_page?(:admin_home))
           = link_to 'Users', admin_users_path, :class => ("it" if current_page?(:admin_users) || current_page?(:admin_edit_users))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', admin_logout_path, :method => :delete
         - elsif logged_in? then
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
+          = link_to 'Account', settings_path, :class => ("it" unless !current_page?(:admin_home))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', logout_path, :method => :delete
         - else
