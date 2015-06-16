@@ -49,6 +49,9 @@ textarea {
 
 
 
+
+
+
 /*
 HEADER AREA
 */
@@ -216,10 +219,22 @@ a.cur_account {
 
 a.cur_account:hover {
 	background-color: #404040;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
 }
 
 a.account:hover {
+	float: right;
+	font-size: 70%;
+	font-weight: normal;
+	padding: 7px;
+	padding-right: 20px;
+	padding-left: 20px;
 	color: #D1D1D1;
+	background-color: #333333;
 	-webkit-transition: all 500ms ease;
 	-moz-transition: all 500ms ease;
 	-ms-transition: all 500ms ease;
@@ -269,14 +284,12 @@ FOOTER AREA
 */
 
 footer {
-	/* FIX LATER */
-	margin-top: 33%;
-	/* FIX LATER */
-
 	width: 100%;
-	padding: 30px;
+	padding: 25px;
 	color: #919191;
 	background-color: #333333;
+	position: absolute;
+	bottom: 0px;
 }
 
 

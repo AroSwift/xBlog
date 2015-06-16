@@ -6,7 +6,7 @@
     %p.title
       = post.title
       by
-      \#{post.author}
+      = post.author
       - if session[:current_user_id].present? && session[:current_username].present? then
         - if post.author == session[:current_username] then
           = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
