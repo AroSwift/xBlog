@@ -69,12 +69,12 @@ class UsersController < ApplicationController
         astatus = User.find_by_username(@lusername)
 
         # If user is admin
-        if astatus.admin == true then
+        if astatus.admin == true || astatus.admin == 't'then
 
-          redirect_to :admin_home
           session[:current_user_id] = dbusername.id
           session[:current_username] = dbusername.username
           session[:admin] = true
+          redirect_to :admin_home
 
         else
           # If user is not admin
