@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  # User updates post
+  # Updates Post
   def update
     @ptitle = params[:posts][:ptitle]
     @pcontent = params[:posts][:pcontent]
@@ -64,6 +64,7 @@ class PostsController < ApplicationController
     redirect_to home_path(:display => "The post #{@dtitle} was successfully deleted")
   end
 
+  # What fields can be saved to Database
   def post_params
     params.require(:posts).permit(:title, :author, :content, :id, :author_id)
   end

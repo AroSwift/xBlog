@@ -1,18 +1,23 @@
-- content_for :current_page do
-  Post
-%br
-= form_for :posts, url: post_path do |f|
-  %p
-    = f.label :title, "Title"
-    %br/
-    = f.text_field :title, :value => flash[:title]
-  %p
-    = f.label :author, "Author"
-    %br/
-    = f.text_field :author, :readonly => true, :value => session[:current_username]
-  %p
-    = f.label :content, "Post"
-    %br/
-    = f.text_area :content, :value => flash[:content]
-  %p
-    = f.submit "Post"
+- if !logged_in? && !admin? then
+  %h2
+    %center.daccess
+      You don't have access to this page.
+- else 
+  - content_for :current_page do
+    Post
+  %br
+  = form_for :posts, url: post_path do |f|
+    %p
+      = f.label :title, "Title"
+      %br/
+      = f.text_field :title, :value => flash[:title]
+    %p
+      = f.label :author, "Author"
+      %br/
+      = f.text_field :author, :readonly => true, :value => session[:current_username]
+    %p
+      = f.label :content, "Post"
+      %br/
+      = f.text_area :content, :value => flash[:content]
+    %p
+      = f.submit "Post"

@@ -66,10 +66,10 @@ class UsersController < ApplicationController
 
       if !dbusername.nil? && !dbpassword.nil? then
 
-        admin_status = User.find_by_username(@lusername)
+        astatus = User.find_by_username(@lusername)
 
         # If user is admin
-        if admin_status.admin == true then
+        if astatus.admin == true then
 
           redirect_to :admin_home
           session[:current_user_id] = dbusername.id
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
     end
   end
 
-
+  # What fields can be saved to Database
   def user_params
     params.require(:signup).permit(:username, :password, :id, :admin)
   end
@@ -100,6 +100,7 @@ class UsersController < ApplicationController
  def logout
     @_current_user = session[:current_user_id] = nil
     @_current_user = session[:current_username] = nil    
+    @_current_user = session[:admin] = nil    
     redirect_to :home
   end
 

@@ -1,25 +1,30 @@
-- content_for :current_page do
-  Edit User
-%br
-= form_for :users, url: admin_edit_users_path(:username => params[:username], :password => params[:password], :admin => params[:admin], :id => params[:id]), :method => :put do |f|
-  %p
-    = f.label :username, "Username"
-    %br/
-    = f.text_field :username, :value => params[:username]
-  %p
-    = f.label :password, "Password"
-    %br/
-    = f.text_field :password, :value => params[:password]
-  %p
-    = f.label :confirm_password, "confirm_password"
-    %br/
-    = f.text_field :confirm_password, :value => params[:confirm_password]
-  %p
-    = f.label :admin, "Admin Privileges?"
-    %br/
-    - if params[:admin] == 'true' then
-      = f.check_box :admin, :value => params[:admin], :checked => 'checked'
-    - else
-      = f.check_box :admin, :value => params[:admin]
-  %p
-    = f.submit "Change"
+- if !logged_in? && !admin? then
+  %h2
+    %center.daccess
+      You don't have access to this page.
+- else 
+  - content_for :current_page do
+    Edit User
+  %br
+  = form_for :users, url: admin_edit_users_path(:username => params[:username], :password => params[:password], :admin => params[:admin], :id => params[:id]), :method => :put do |f|
+    %p
+      = f.label :username, "Username"
+      %br/
+      = f.text_field :username, :value => params[:username]
+    %p
+      = f.label :password, "Password"
+      %br/
+      = f.text_field :password, :value => params[:password]
+    %p
+      = f.label :confirm_password, "confirm_password"
+      %br/
+      = f.text_field :confirm_password, :value => params[:confirm_password]
+    %p
+      = f.label :admin, "Admin Privileges?"
+      %br/
+      - if params[:admin] == 'true' then
+        = f.check_box :admin, :value => params[:admin], :checked => 'checked'
+      - else
+        = f.check_box :admin, :value => params[:admin]
+    %p
+      = f.submit "Change"
