@@ -230,6 +230,27 @@ a.acc_link:hover {
 	transition: all 500ms ease;
 }
 
+p.title a.delete {
+	color: #919191;
+	font-size: 90%;
+	padding: 10px;
+
+}
+
+p.title a.delete:hover {
+	color: #720000;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+
+}
+
+
+
+
+
 
 
 
