@@ -73,6 +73,7 @@ class UsersController < ApplicationController
 
           session[:current_user_id] = dbusername.id
           session[:current_username] = dbusername.username
+          session[:current_pasword] = dbpassword.password
           session[:admin] = true
           redirect_to :admin_home
 
@@ -80,6 +81,7 @@ class UsersController < ApplicationController
           # If user is not admin
           session[:current_user_id] = dbusername.id
           session[:current_username] = dbusername.username
+          session[:current_pasword] = dbpassword.password
           redirect_to :home
         end
 
@@ -100,6 +102,7 @@ class UsersController < ApplicationController
  def logout
     @_current_user = session[:current_user_id] = nil
     @_current_user = session[:current_username] = nil    
+    @_current_user = session[:current_pasword] = nil  
     @_current_user = session[:admin] = nil    
     redirect_to :home
   end

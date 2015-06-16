@@ -9,7 +9,7 @@
   %article.posts
     %center  
       %p.title
-        = link_to 'Edit Username or Password', admin_edit_users_path, class: "acc_link" 
+        = link_to 'Edit Username or Password', admin_edit_users_path(:username => session[:current_username], :password => session,[:current_password] :admin => session[:admin], :id => session[:current_user_id]), class: "acc_link" 
       %p.title  
         = link_to 'Delete Account', admin_edit_users_path, class: "acc_link"  
       %p.title   
