@@ -3,13 +3,13 @@
 %br
 = form_for :login, url: login_path do |f|
   %p
-    = f.label :lusername, "Username"
+    = f.label :username, "Username"
     %br/
-    = f.text_field :lusername, :value => flash[:lusername]
+    = f.text_field :username, :value => flash[:username]
   %p
-    = f.label :lpassword, "Password"
+    = f.label :password, "Password"
     %br/
-    = f.password_field :lpassword, :value => flash[:lpassword]
+    = f.password_field :password, :value => flash[:password]
   %p
     = f.submit "Login"
 %br/

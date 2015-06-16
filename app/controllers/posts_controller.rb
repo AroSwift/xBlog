@@ -2,13 +2,13 @@ class PostsController < ApplicationController
 
   # Updates Post
   def update
-    @ptitle = params[:posts][:ptitle]
-    @pcontent = params[:posts][:pcontent]
+    @ptitle = params[:posts][:title]
+    @pcontent = params[:posts][:content]
     @id = params[:id]
 
     post = Post.find_by_id(@id)
-    post.title = @ptitle
-    post.content = @pcontent
+    post.title = @title
+    post.content = @content
     post.author = session[:current_username]
     post.valid?
 
@@ -19,7 +19,7 @@ class PostsController < ApplicationController
       redirect_to :home
     else
       flash[:error] = post.errors.full_messages
-      redirect_to edit_post_path(:ptitle => @ptitle, :pauthor => session[:current_username], :pcontent => @pcontent, :id => @id, :errors => post.errors.full_messages)
+      redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
     end
   end
 
@@ -56,12 +56,12 @@ class PostsController < ApplicationController
 
   # Deletes user
  def destroy
-    @dtitle = params[:dtitle]
-    @dauthor = params[:dauthor]
-    @dcontent = params[:dcontent]
+    @title = params[:title]
+    @author = params[:author]
+    @content = params[:content]
 
-    Post.where(:title => @dtitle, :author => @dauthor, :content => @dcontent).destroy_all
-    redirect_to home_path(:display => "The post #{@dtitle} was successfully deleted")
+    Post.where(:title => @title, :author => @author, :content => @content).destroy_all
+    redirect_to home_path(:display => "The post '#{@title}' was successfully deleted")
   end
 
   # What fields can be saved to Database

@@ -6,18 +6,18 @@
   - content_for :current_page do
     Edit Post
   %br
-  = form_for :posts, url: edit_post_path(:ptitle => params[:ptitle], :pauthor => session[:current_username], :pcontent => params[:pcontent], :id => params[:id]), :method => :put do |f|
+  = form_for :posts, url: edit_post_path(:title => params[:title], :author => session[:current_username], :content => params[:content], :id => params[:id]), :method => :put do |f|
     %p
-      = f.label :ptitle, "Title"
+      = f.label :title, "Title"
       %br/
-      = f.text_field :ptitle, :value => params[:ptitle]
+      = f.text_field :title, :value => params[:title]
     %p
-      = f.label :pauthor, "Author"
+      = f.label :author, "Author"
       %br/
-      = f.text_field :pauthor, :readonly => true, :value => params[:pauthor]
+      = f.text_field :author, :readonly => true, :value => params[:author]
     %p
       = f.label :pcontent, "Post"
       %br/
-      = f.text_area :pcontent, :value => params[:pcontent]
+      = f.text_area :content, :value => params[:content]
     %p
       = f.submit "Post"

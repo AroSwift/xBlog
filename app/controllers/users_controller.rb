@@ -49,20 +49,20 @@ class UsersController < ApplicationController
 
   # Login User
   def show
-    @lusername = params[:login][:lusername]
-    @lpassword = params[:login][:lpassword]
-    flash[:lusername] = @lusername
-    flash[:lpassword] = @lpassword
+    @username = params[:login][:username]
+    @password = params[:login][:password]
+    flash[:username] = @username
+    flash[:password] = @password
 
     user = User.new
-    user.username = @lusername
-    user.password = @lpassword
+    user.username = @username
+    user.password = @password
     user.valid?
 
     # Checks for errors
     if user.errors.empty? then
-      dbusername = User.find_by(username: @lusername)
-      dbpassword = User.find_by(password: @lpassword)
+      dbusername = User.find_by(username: @username)
+      dbpassword = User.find_by(password: @password)
 
       if !dbusername.nil? && !dbpassword.nil? then
 

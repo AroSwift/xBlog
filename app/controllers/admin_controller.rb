@@ -8,7 +8,7 @@ class AdminController < ApplicationController
     @confirm_password = params[:users][:confirm_password]
     @admin = params[:users][:admin]
     @id = params[:id]
-
+    
 
     # Determines if admin wants edited user to be admin
     if @admin == 'true' || @admin == '1' then
