@@ -3,14 +3,14 @@ class AdminController < ApplicationController
 
     # Admin Updates User
 	def update
-	@username = params[:users][:username]
+	  @username = params[:users][:username]
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
     @admin = params[:users][:admin]
     @id = params[:id]
 
 
-    # Determines if admin wants user to be admin
+    # Determines if admin wants edited user to be admin
     if @admin == 'true' || @admin == '1' then
     	@admin = true
     elsif @admin == 'false' || @admin == '0' then

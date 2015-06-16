@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   delete  'admin_logout'        => 'admin#logout'
   delete  'admin_users'         => 'admin#destroy'
 
+  # If no page exists, redirect to home
+  get '*a' => redirect("/")
+
+
   resources :users
   resources :posts
   resources :admin
