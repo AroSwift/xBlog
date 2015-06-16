@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
 
+include UsersHelper
 
     # Admin Updates User
 	def update
@@ -38,8 +39,13 @@ class AdminController < ApplicationController
           session[:current_password] = @password
           session[:admin] = @admin
 
-
+          # Where to send user after updated
+        if admin? then
           redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
+        else
+          redirect_to home_path(:display => "The user '#{@username}' was updated")
+        end
+
     	else
     		redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages, :display => 'Your passwords do not match')
     	end

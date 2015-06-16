@@ -1,4 +1,4 @@
-- if !admin? || !logged_in? then
+- if !logged_in? then
   %h2
     %center.daccess
       You don't have access to this page.
@@ -20,12 +20,13 @@
       = f.label :confirm_password, "confirm Password"
       %br/
       = f.text_field :confirm_password
-    %p
-      = f.label :admin, "Admin Privileges?"
-      %br/
-      - if params[:admin] == 'true' then
-        = f.check_box :admin, :value => params[:admin], :checked => 'checked'
-      - else
-        = f.check_box :admin, :value => params[:admin]
+    - if admin? then
+      %p
+        = f.label :admin, "Admin Privileges?"
+        %br/
+        - if params[:admin] == 'true' then
+          = f.check_box :admin, :value => params[:admin], :checked => 'checked'
+        - else
+          = f.check_box :admin, :value => params[:admin]
     %p
       = f.submit "Change"
