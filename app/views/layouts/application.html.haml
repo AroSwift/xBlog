@@ -18,13 +18,13 @@
       %nav
         - if admin? then
           = link_to 'Home', admin_home_path, :class => ("it" unless !current_page?(:admin_home))
-          = link_to 'Account', settings_path, :class => ("it" unless !current_page?(:admin_home))
+          = link_to 'Settings', settings_path, :class => ("it" unless !current_page?(:admin_home))
           = link_to 'Users', admin_users_path, :class => ("it" if current_page?(:admin_users) || current_page?(:admin_edit_users))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', admin_logout_path, :method => :delete
         - elsif logged_in? then
           = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
-          = link_to 'Account', settings_path, :class => ("it" unless !current_page?(:admin_home))
+          = link_to 'Settings', settings_path, :class => ("it" unless !current_page?(:admin_home))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', logout_path, :method => :delete
         - else
@@ -32,7 +32,12 @@
           = link_to 'Login', login_path, :class => ("it" unless !current_page?(:login))
           = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
     %section
-      %h2= yield :current_page
+      - if admin? || logged_in? then
+        %h2= yield :current_page
+        = link_to 'Settings', settings_path, :class => "settings"
+      - else
+        %h2= yield :current_page
+
       - if !params[:errors].nil?
         - params[:errors].each do |msg|
           = content_tag :div, msg, class: "error_msg"
