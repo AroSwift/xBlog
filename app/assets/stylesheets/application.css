@@ -215,6 +215,20 @@ a.account:hover {
 	transition: all 500ms ease;
 }
 
+a.acc_link {
+	color: #919191;
+	font-size: 90%
+}
+
+a.acc_link:hover {
+	color: #D1D1D1;
+	font-size: 90%
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
 
 
 
