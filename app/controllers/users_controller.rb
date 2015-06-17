@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
     if first_user? then
       user.admin = true
+      @ufirst = true
     end
 
     user.valid?
@@ -38,12 +39,12 @@ class UsersController < ApplicationController
             session[:current_username] = user.username
             session[:current_password] = user.username
 
-            if first_user? then
+            if first_user? || @ufirst == true then
               session[:admin] = true
             end
 
             if admin?
-              redirect_to admin_home(:display => 'Your account has been successfully created')
+              redirect_to admin_home_path(:display => 'Your account has been successfully created')
             else
               redirect_to home_path(:display => 'Your account has been successfully created')
             end
