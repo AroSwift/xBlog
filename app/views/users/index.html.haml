@@ -5,10 +5,12 @@
   %h3
     %center
       = link_to "Setup Up Account as Admin", signup_path, :class => 'firstup'
-- elsif first_post? && logged_in? || admin?
+
+- if first_post? && logged_in?
   %h3
     %center
       = link_to "Create First Post", post_path, :class => 'firstup' 
+
 - Post.all.order("id desc LIMIT 10").each do |post|
   %article.posts
     %p.title

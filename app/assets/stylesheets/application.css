@@ -298,7 +298,15 @@ p.content {
 	padding-bottom: 20px;
 }
 
+.utitle {
+	padding-left: 15px;
+}
 
+p.ucontent {
+	font-style: italic;
+	padding-left: 15px;
+	margin-bottom: 0px;
+}
 
 
 
@@ -343,8 +351,3 @@ center.daccess {
 section h3 center {
 	margin-top: 10%;
 }
-
-p.utitle {
-	padding-left: 15px;
-}
-
