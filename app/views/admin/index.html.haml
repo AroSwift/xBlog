@@ -15,7 +15,7 @@
 
   - content_for :current_page do
     Admin
-  - if session[:current_user_id].present? && session[:current_username].present? && session[:admin] == true then  
+  - if logged_in? || admin? then  
     %br
     - Post.all.order("id desc LIMIT 10").each do |post|
       %article.posts

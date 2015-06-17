@@ -59,7 +59,7 @@ include UsersHelper
 
 
   # Logout Admin
-	def logout
+	def logout 
 		@_current_user = session[:current_user_id] = nil
 		@_current_user = session[:current_username] = nil 
     @_current_user = session[:current_password] = nil      

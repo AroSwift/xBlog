@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20150603190805) do
     t.string   "title"
     t.text     "content"
     t.string   "author"
-    t.integer  "author_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150603190805) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password"
-    t.boolean  "admin",      default: false
+    t.boolean  "admin",      default: false, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end

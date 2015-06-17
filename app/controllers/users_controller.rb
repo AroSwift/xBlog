@@ -10,16 +10,14 @@ class UsersController < ApplicationController
     flash[:username] = @username
     flash[:password] = @password
 
+    if first_user? then
+      @firstu = 'true'
+    end
+
 
     user = User.new
     user.username = @username
     user.password = @password
-
-    if first_user? then
-      user.admin = true
-      @ufirst = true
-    end
-
     user.valid?
 
     # Checks for errors
@@ -37,9 +35,14 @@ class UsersController < ApplicationController
             # Create Session
             session[:current_user_id] = user.id
             session[:current_username] = user.username
-            session[:current_password] = user.username
+            session[:current_password] = user.password
 
-            if first_user? || @ufirst == true then
+            if @firstu == 'true' then
+
+              admin_user = User.find_by(username: @username, password: @password)
+              admin_user.admin = true
+              admin_user.save(user_params)
+
               session[:admin] = true
             end
 
@@ -86,20 +89,17 @@ class UsersController < ApplicationController
 
         astatus = User.find_by_username(@username)
 
+        session[:current_user_id] = dbusername.id
+        session[:current_username] = dbusername.username
+        session[:current_password] = dbpassword.password
+
         # If user is admin
         if astatus.admin == true || astatus.admin == 't'then
 
-          session[:current_user_id] = dbusername.id
-          session[:current_username] = dbusername.username
-          session[:current_password] = dbpassword.password
           session[:admin] = true
           redirect_to :admin_home
-
         else
           # If user is not admin
-          session[:current_user_id] = dbusername.id
-          session[:current_username] = dbusername.username
-          session[:current_password] = dbpassword.password
           redirect_to :home
         end
 
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
 
   # What fields can be saved to Database
   def user_params
-    params.require(:signup).permit(:username, :password, :id, :admin)
+    params.require(:signup).permit(:username, :password, :admin, :id, :created_at, :updated_at)
   end
 
   # Logout User
