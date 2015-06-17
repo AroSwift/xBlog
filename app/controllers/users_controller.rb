@@ -68,6 +68,25 @@ class UsersController < ApplicationController
   end
 
 
+  def request_admin
+    @username = params[:username]
+    @password = params[:password]
+
+
+
+    
+
+
+
+
+    redirect_to :account
+
+
+  end
+
+
+
+
   # Login User
   def show
     @username = params[:login][:username]
@@ -121,7 +140,7 @@ class UsersController < ApplicationController
     @_current_user = session[:current_username] = nil    
     @_current_user = session[:current_password] = nil  
     @_current_user = session[:admin] = nil    
-    redirect_to :home
+    redirect_to home_path(:display => 'Logout Sucessful')
   end
 
 end
