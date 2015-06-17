@@ -8,21 +8,22 @@
   %h3
     %center
       = link_to "Setup Up Account as Admin", signup_path, :class => 'firstup'
-- elsif first_post? && logged_in? || admin?
+      
+- if first_post? && logged_in? || admin?
   %h3
     %center
       = link_to "Create First Post", post_path, :class => 'firstup' 
 
-  - content_for :current_page do
-    Admin
-  - if logged_in? || admin? then  
-    %br
-    - Post.all.order("id desc LIMIT 10").each do |post|
-      %article.posts
-        %p.title
-          = post.title
-          by
-          \#{post.author}
-          = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
-          = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"       
-      %p.content= post.content
+- content_for :current_page do
+  Admin
+- if logged_in? || admin? then  
+  %br
+  - Post.all.order("id desc LIMIT 10").each do |post|
+    %article.posts
+      %p.title
+        = post.title
+        by
+        \#{post.author}
+        = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+        = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"       
+    %p.content= post.content

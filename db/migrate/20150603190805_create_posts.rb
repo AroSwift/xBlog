@@ -5,6 +5,7 @@ class CreatePosts < ActiveRecord::Migration
       t.string :title
       t.text   :content
       t.string :author
+      t.integer :author_id
       #t.references :author, index: true, class: 'User'
       t.timestamps null: false
     end

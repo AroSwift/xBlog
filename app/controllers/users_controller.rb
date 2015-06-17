@@ -87,13 +87,12 @@ class UsersController < ApplicationController
 
       if !dbusername.nil? && !dbpassword.nil? then
 
-        astatus = User.find_by_username(@username)
-
         session[:current_user_id] = dbusername.id
         session[:current_username] = dbusername.username
-        session[:current_password] = dbpassword.password
+        session[:current_password] = dbusername.password
 
         # If user is admin
+        astatus = User.find_by_username(@username)
         if astatus.admin == true || astatus.admin == 't'then
 
           session[:admin] = true
