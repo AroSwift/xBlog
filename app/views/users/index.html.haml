@@ -1,6 +1,14 @@
 - content_for :current_page do
   Home
 %br
+- if first_user?
+  %h3
+    %center
+      = link_to "Setup Up Account as Admin", signup_path
+- elsif first_post? && logged_in? || admin?
+  %h3
+    %center
+      = link_to "Create First Post", post_path
 - Post.all.order("id desc LIMIT 10").each do |post|
   %article.posts
     %p.title

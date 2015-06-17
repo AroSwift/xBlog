@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  include UsersHelper
+
   # Create User
   def create
     @username = params[:signup][:username]
@@ -12,6 +14,11 @@ class UsersController < ApplicationController
     user = User.new
     user.username = @username
     user.password = @password
+
+    if first_user? then
+      user.admin = true
+    end
+
     user.valid?
 
     # Checks for errors
@@ -29,7 +36,17 @@ class UsersController < ApplicationController
             # Create Session
             session[:current_user_id] = user.id
             session[:current_username] = user.username
-            redirect_to home_path(:display => 'Your account has been successfully created')
+            session[:current_password] = user.username
+
+            if first_user? then
+              session[:admin] = true
+            end
+
+            if admin?
+              redirect_to admin_home(:display => 'Your account has been successfully created')
+            else
+              redirect_to home_path(:display => 'Your account has been successfully created')
+            end
 
           else
             redirect_to signup_path(:errors => user.errors.full_messages)
@@ -102,7 +119,7 @@ class UsersController < ApplicationController
  def logout
     @_current_user = session[:current_user_id] = nil
     @_current_user = session[:current_username] = nil    
-    @_current_user = session[:current_pasword] = nil  
+    @_current_user = session[:current_password] = nil  
     @_current_user = session[:admin] = nil    
     redirect_to :home
   end

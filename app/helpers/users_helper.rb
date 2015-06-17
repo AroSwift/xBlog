@@ -10,4 +10,12 @@ module UsersHelper
     session[:current_user_id].present? && session[:current_username].present?
   end
 
+  def first_user?
+  	User.count.zero? 
+  end
+
+  def first_post?
+  	Post.count.zero?
+  end
+
 end

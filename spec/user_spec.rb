@@ -1,15 +1,36 @@
-Class Login
-end
+require 'spec_helper'
 
-	before(:each) dp
-		@login = Login.new
-		@login.extend(Say)
-	end
+	describe 'User model' do
 
-	describe User::login do
-		
-		it "takes user username and password"
-			@login.show.should == ""
-			experct(login).to eq 
+		before(:each) do
+			# Set up data structures needed for each test in describe block
+			@usr = User.new( )
+
 		end
+		
+		it "takes user username and password and authenticates successfully" do
+			# # Will do the stuff in the before block
+
+			# # Do things to the object
+			# # ?
+
+			# # Expect certain outcomes/states on the object
+			# @usr.show.should == ""
+			# expect(@usr).to eq()
+		end
+
+		it "validates presence of username" do
+			# Will do the stuff in the before block
+			pending
+
+			# Set valid passwd
+
+			# Don't set a username
+
+			# Expect it to not be valid
+            expect( @usr.valid? ).to be(false)
+
+		end
+
+
 	end

@@ -38,11 +38,20 @@ input[type="submit"] {
 
 textarea {
 	width: 100.5%;
-	height: 300px;
+	height: 230px;
 	font-size: 100%;
 	border: none;
 	color: #D1D1D1;
 	background-color: #333333;
+}
+
+a:hover{
+	color: #720000;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
 }
 
 
