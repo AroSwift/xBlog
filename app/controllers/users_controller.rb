@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     flash[:username] = @username
     flash[:password] = @password
 
+    # If this is the first user
     if first_user? then
       @firstu = 'true'
     end
@@ -37,12 +38,12 @@ class UsersController < ApplicationController
             session[:current_username] = user.username
             session[:current_password] = user.password
 
+            # If this is the first user
             if @firstu == 'true' then
 
               admin_user = User.find_by(username: @username, password: @password)
               admin_user.admin = true
               admin_user.save(user_params)
-
               session[:admin] = true
             end
 
@@ -77,7 +78,6 @@ class UsersController < ApplicationController
     request.username = @username
     request.password = @password
     request.user_id = @id
-    #request.status = false
     request.valid?
 
 
@@ -89,7 +89,6 @@ class UsersController < ApplicationController
     end
 
   end
-
 
 
   # Login User
@@ -139,6 +138,7 @@ class UsersController < ApplicationController
     params.require(:signup).permit(:username, :password, :admin, :id, :created_at, :updated_at)
   end
 
+  # What fields can be saved to Database
   def request_params
     params.permit(:username, :password, :user_id, :status)
   end

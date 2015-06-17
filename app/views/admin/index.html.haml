@@ -16,15 +16,14 @@
 
 - content_for :current_page do
   Admin
-- if logged_in? || admin? then  
-  %br
-  - Post.all.order("updated_at DESC LIMIT 10").each do |post|
-    %article.posts
-      %p.title
-        = post.title
-        by
-        \#{post.author}
-        = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
-        = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
-    .small= compare_time(post.updated_at)    
-    %p.content= post.content
+%br
+- Post.all.order("updated_at DESC LIMIT 10").each do |post|
+  %article.posts
+    %p.title
+      = post.title
+      by
+      = post.author
+      = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+      = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
+  .small= compare_time(post.updated_at)    
+  %p.content= post.content

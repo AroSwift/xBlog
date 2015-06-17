@@ -308,6 +308,17 @@ p.ucontent {
 	margin-bottom: 0px;
 }
 
+a.request {
+	font-size: 100%;
+	padding: 7px;
+	padding-right: 12%;
+	padding-left: 12%;
+	color: #D1D1D1;
+	background-color: #333333;
+}
+
+
+
 
 
 
@@ -320,9 +331,9 @@ footer {
 	padding: 25px;
 	color: #919191;
 	background-color: #333333;
-	position: relative;
-	//bottom: -200px;
-	margin-top: 17%;
+	position: absolute;
+	bottom:0px;
+	//margin-top: 25%;
 }
 
 
