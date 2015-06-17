@@ -18,7 +18,7 @@
   Admin
 - if logged_in? || admin? then  
   %br
-  - Post.all.order(updated_at).each do |post|
+  - Post.all.order("updated_at DESC LIMIT 10").each do |post|
     %article.posts
       %p.title
         = post.title
