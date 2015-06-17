@@ -11,7 +11,7 @@
     %center
       = link_to "Create First Post", post_path, :class => 'firstup' 
 
-- Post.all.order("id desc LIMIT 10").each do |post|
+- Post.all.order(updated_at).each do |post|
   %article.posts
     %p.title
       = post.title
