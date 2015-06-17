@@ -93,19 +93,19 @@ class UsersController < ApplicationController
 
   # Accept request for norm user to become admin
   def accept_request
-    @username = session[:current_username]
-    @password = session[:current_password]
-    #@id = session[:current_user_id]
+    @username = params[:username]
+    @password = params[:password]
+    #@id = params[:id]
 
     user = User.find_by(username: @username)
     user.admin = true
     user.valid?
 
     # Check for errors
-    if request.errors.empty? then
+    if user.errors.empty? then
 
       # Upgrade user to admin and delete the request
-      user.save(request_params)
+      user.save
       Request.where(:username => @username, :password => @password).destroy_all
       redirect_to admin_home_path(:display => "#{@username} is now an administrator")
     else
