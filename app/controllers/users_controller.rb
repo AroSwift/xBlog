@@ -69,21 +69,21 @@ class UsersController < ApplicationController
 
 
   def request_admin
-    @username = params[:username]
-    @password = params[:password]
+    @username = session[:current_username]
+    @password = session[:current_password]
+    @id = session[:current_user_id]
 
+    request = Request.new
+    request.username = @username
+    request.password = @password
+    request.user_id = @id
+    request.status = false
+    request.valid?
 
+    request.save(request_params)
 
-    
-
-
-
-
-    redirect_to :account
-
-
+    redirect_to account_path(:display => 'Your request has been submited')
   end
-
 
 
 
@@ -132,6 +132,10 @@ class UsersController < ApplicationController
   # What fields can be saved to Database
   def user_params
     params.require(:signup).permit(:username, :password, :admin, :id, :created_at, :updated_at)
+  end
+
+  def request_params
+    params.permit(:username, :password, :user_id, :status)
   end
 
   # Logout User
