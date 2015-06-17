@@ -77,12 +77,17 @@ class UsersController < ApplicationController
     request.username = @username
     request.password = @password
     request.user_id = @id
-    request.status = false
+    #request.status = false
     request.valid?
 
-    request.save(request_params)
 
-    redirect_to account_path(:display => 'Your request has been submited')
+    if request.errors.empty? then
+      request.save(request_params)
+      redirect_to account_path(:display => 'Your request has been submited')
+    else
+      redirect_to account_path(:errors => request.errors.full_messages)
+    end
+
   end
 
 

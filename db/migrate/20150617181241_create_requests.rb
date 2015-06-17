@@ -4,7 +4,7 @@ class CreateRequests < ActiveRecord::Migration
       t.string :username
       t.string :password
       t.integer :user_id
-      t.boolean :status
+      t.boolean :status, null: false, default: false
 
       t.timestamps null: false
     end

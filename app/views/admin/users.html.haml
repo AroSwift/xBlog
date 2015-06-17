@@ -22,7 +22,7 @@
       - Post.where(author: user.username).each do |post|  
         %h3
           %p.utitle= post.title
-        .small= post_created(post.updated_at)    
+        .small= compare_time(post.updated_at)    
         %p.ucontent= post.content
         %br
         %br
