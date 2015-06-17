@@ -27,7 +27,7 @@
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', logout_path, :method => :delete
         - else
-          = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
+          = link_to 'Home', home_path, :class => ("it" if current_page?(:home) || current_page?(:root))
           = link_to 'Login', login_path, :class => ("it" unless !current_page?(:login))
           = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
 

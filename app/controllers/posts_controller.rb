@@ -1,22 +1,31 @@
 class PostsController < ApplicationController
 
+  include UsersHelper
+
   # Updates Post
   def update
-    @ptitle = params[:posts][:title]
-    @pcontent = params[:posts][:content]
+    @title = params[:posts][:title]
+    @content = params[:posts][:content]
     @id = params[:id]
 
     post = Post.find_by_id(@id)
     post.title = @title
     post.content = @content
     post.author = session[:current_username]
+    post.author_id = session[:current_user_id]
     post.valid?
 
     # Checks for errors
     if post.errors.empty? then
       post.save(post_params)
       flash[:error] = 'Your post was updated'
-      redirect_to :home
+
+      if admin? then
+        redirect_to :admin_home
+      else
+        redirect_to :home
+      end
+
     else
       flash[:error] = post.errors.full_messages
       redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
@@ -47,7 +56,13 @@ class PostsController < ApplicationController
     if post.errors.empty? then
       post.save(post_params)
       flash[:error] = 'Your post was updated'
-      redirect_to :home
+      
+      if admin? then
+        redirect_to :admin_home
+      else
+        redirect_to :home
+      end
+
     else
       flash[:error] = post.errors.full_messages
       redirect_to post_path(:errors => post.errors.full_messages)
@@ -61,7 +76,13 @@ class PostsController < ApplicationController
     @content = params[:content]
 
     Post.where(:title => @title, :author => @author, :content => @content).destroy_all
-    redirect_to home_path(:display => "The post '#{@title}' was successfully deleted")
+
+      
+      if admin? then
+        redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted")
+      else
+        redirect_to home_path(:display => "The post '#{@title}' was successfully deleted")
+      end
   end
 
   # What fields can be saved to Database
