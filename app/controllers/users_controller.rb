@@ -87,7 +87,37 @@ class UsersController < ApplicationController
     else
       redirect_to account_path(:errors => request.errors.full_messages)
     end
+  end
 
+
+  # Accept request for norm user to become admin
+  def accept_request
+
+    user = User.new
+
+    user.admin = true
+    user.valid?
+
+    if request.errors.empty? then
+
+    else
+
+    end
+
+
+    Request.where(:username => @username, :password => @password).destroy_all
+    redirect_to admin_home_path(:display => "#{@username} is now an administrator")
+  end
+
+
+  # Delete request for norm user to become admin
+  def delete_request
+    @username = params[:username]
+    @password = params[:password]
+    @id = params[:id]
+
+    Request.where(:username => @username, :password => @password).destroy_all
+    redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator successfully deleted")
   end
 
 

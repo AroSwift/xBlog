@@ -19,8 +19,8 @@
         = compare_time(request.created_at)
         %br
         %br
-        = link_to 'Yes', admin_home_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
-        = link_to 'No', admin_home_path(:username => request.username, :password => request.password, :id => request.id), :method => :delete, class: "request"
+        = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
+        = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :delete, class: "request"
         %br
         %br
         %br
