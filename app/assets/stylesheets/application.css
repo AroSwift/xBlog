@@ -294,8 +294,8 @@ p.content {
 	float: right;
 	padding: 3px;
 	padding-right: 15px;
-	padding-left: 30px;
-	padding-bottom: 30px;
+	padding-left: 35px;
+	padding-bottom: 20px;
 }
 
 
@@ -342,5 +342,9 @@ center.daccess {
 
 section h3 center {
 	margin-top: 10%;
+}
+
+p.utitle {
+	padding-left: 15px;
 }
 

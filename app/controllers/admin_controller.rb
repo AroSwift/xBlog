@@ -43,7 +43,7 @@ include UsersHelper
         if admin? then
           redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
         else
-          redirect_to home_path(:display => "The user '#{@username}' was updated")
+          redirect_to home_path(:display => "Your username and password were successfully updated")
         end
 
     	else

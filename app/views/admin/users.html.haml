@@ -21,7 +21,8 @@
           = link_to 'Edit', admin_edit_users_path(:username => user.username, :password => user.password, :admin => user.admin, :id => user.id), class: "pedit"
       - Post.where(author: user.username).each do |post|  
         %h3
-          = post.title
-        = post.content
+          %p.utitle= post.title
+        .small= post_created(post.updated_at)    
+        %p.content= post.content
         %br
         %br
