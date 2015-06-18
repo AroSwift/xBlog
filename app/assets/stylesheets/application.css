@@ -48,8 +48,8 @@ textarea {
 input#comment_comment {
 	height: 15px;
 	font-size: 80%;
-	margin-bottom: 0px;
-	width: 60%;
+	width: 70%;
+	float: left;
 }
 
 label.comment {
@@ -59,7 +59,8 @@ label.comment {
 input.comment.button {
 	height: 25px;
 	font-size: 80%;
-	width: 30%;
+	width: 25%;
+	float: right;
 }
 
 a:hover{
@@ -350,9 +351,10 @@ footer {
 	width: 100%;
 	padding: 20px;
 	color: #919191;
-	background-color: #333333;
+	#background-color: #333333;
 	position: fixed;
 	bottom:0px;
+	opacity: .85;
 }
 
 
