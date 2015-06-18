@@ -7,7 +7,7 @@
   - content_for :current_page do
     Edit User
   %br
-  = form_for :users, url: admin_edit_users_path(:username => params[:username], :password => params[:password], :admin => params[:admin], :id => params[:id]), :method => :put do |f|
+  = form_for :users, url: admin_edit_users_path(:username => params[:username], :password => params[:password], :admin => params[:admin], :id => params[:id], :posts => params[:posts]), :method => :put do |f|
     %p
       = f.label :username, "Username"
       %br/
@@ -20,6 +20,15 @@
       = f.label :confirm_password, "confirm Password"
       %br/
       = f.text_field :confirm_password
+      
+    %p
+      = f.label :posts, "Update all your post's author to match new username?"
+      %br/
+      - if params[:posts] == 'true' then
+        = f.check_box :posts, :value => params[:posts], :checked => 'checked'
+      - else
+        = f.check_box :posts, :value => params[:posts]
+
     - if admin? then
       %p
         = f.label :admin, "Admin Privileges?"

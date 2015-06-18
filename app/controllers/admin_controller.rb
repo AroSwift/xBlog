@@ -8,6 +8,7 @@ include UsersHelper
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
     @admin = params[:users][:admin]
+    @posts =params[:users][:posts]
     @id = params[:id]
 
     flash[:username] = @username
@@ -15,12 +16,17 @@ include UsersHelper
     
 
     # Determines if admin wants edited user to be admin
-    if @admin == 'true' || @admin == '1' then
+    if @admin == '1' then
     	@admin = true
-    elsif @admin == 'false' || @admin == '0' then
-    	@admin = false
     else
     	@admin = false
+    end
+
+    # Determines if user wants to update author username to match new username
+    if @posts == '1' then
+      @posts = true
+    else
+      @posts = false
     end
 
     user = User.find_by_id(@id)
@@ -29,10 +35,20 @@ include UsersHelper
     user.admin = @admin
     user.valid?
 
+    if @posts == true && @username.present? then
+      p = Post.find_by_author(@username)
+      if !p.nil? then
+        p.author = @username
+        p.valid?
+      end
+    end
+
+
     # Check for errors
     if user.errors.empty? then
     	if @confirm_password == @password then
           user.save(user_params)
+          p.save(post_params)
 
           # Update session to match new username, password, and admin privileges
           session[:current_username] = @username
@@ -47,12 +63,11 @@ include UsersHelper
         end
 
     	else
-    		redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages, :display => 'Your passwords do not match')
+    		redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :posts => @posts, :errors => user.errors.full_messages, :display => 'Your passwords do not match')
     	end
 
     else
-      flash[:error] = user.errors.full_messages
-      redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
+      redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :posts => @posts, :errors => user.errors.full_messages)
     end
 
 	end
@@ -91,6 +106,10 @@ include UsersHelper
 
 	def user_params
     params.require(:users).permit(:username, :password, :admin, :id)
+  end
+
+  def post_params
+    params.require(:posts).permit(:title, :author, :content, :id, :author_id)
   end
 
 end
