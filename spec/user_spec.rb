@@ -5,7 +5,8 @@ require 'rails_helper'
 
 		before(:each) do
 			# Set up data structures needed for each test in describe block
-			@usr = User.new(:username, :password)
+			#usr = User.new(:username, :password)
+			let(:user) {FactoryGirl.create(:user)}
 		end
 		
 
@@ -19,16 +20,12 @@ require 'rails_helper'
 			# @usr.show.should == ""
 			# expect(@usr).to eq()
 			vist login_path
-
-			within "#login" do
-				fill_in "login_username", with @user.username
-				fill_in "login_password", with @user.password
-			end
-
+			fill_in "login_username", with: user.username
+			fill_in "login_password", with: user.password
 			click_button "Login"
 
-			@usr.show.should == 'Text'
-			expect(@usr).to eq('Text')
+			@usr.show.should == @usr
+			expect(@usr).to eq(@usr)
 		end
 
 
