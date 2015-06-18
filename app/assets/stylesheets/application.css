@@ -259,7 +259,7 @@ a.acc_link {
 
 a.acc_link:hover {
 	color: #D1D1D1;
-	font-size: 90%
+	font-size: 90%;
 	-webkit-transition: all 500ms ease;
 	-moz-transition: all 500ms ease;
 	-ms-transition: all 500ms ease;

@@ -1,12 +1,10 @@
 require 'spec_helper'
-require 'rails_helper'
 
-	describe 'User model' do
+	describe 'User' do
 
-		before(:each) do
+		before :each do
 			# Set up data structures needed for each test in describe block
-			#usr = User.new(:username, :password)
-			let(:user) {FactoryGirl.create(:user)}
+			@user = User.new(username: "Username", password: "Password")
 		end
 		
 
@@ -19,13 +17,13 @@ require 'rails_helper'
 			# # Expect certain outcomes/states on the object
 			# @usr.show.should == ""
 			# expect(@usr).to eq()
-			vist login_path
-			fill_in "login_username", with: user.username
-			fill_in "login_password", with: user.password
+			visit :login
+			fill_in "login_username", with: @user.username
+			fill_in "login_password", with: @user.password
 			click_button "Login"
 
-			@usr.show.should == @usr
-			expect(@usr).to eq(@usr)
+			@user.show.should == 'Succesful'
+			expect(@user).to eq(@user)
 		end
 
 
@@ -38,7 +36,7 @@ require 'rails_helper'
 			# Don't set a username
 
 			# Expect it to not be valid
-            expect( @usr.valid? ).to be(false)
+            #expect( @usr.valid? ).to be(false)
 
 		end
 
