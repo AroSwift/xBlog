@@ -22,4 +22,11 @@
           = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
           = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"
     .small= compare_time(post.updated_at)
-    %p.content= post.content
+  %p.content= post.content
+  = form_for :comment, url: home_path(:post_id => post.id) do |f|
+    %p
+      = f.label :comment, "Comment", class: 'comment'
+      %br/
+      = f.text_field :comment, :value => params[:comment]
+    %p
+      = f.submit "Login", class: 'comment button'

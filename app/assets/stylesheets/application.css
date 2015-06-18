@@ -45,6 +45,23 @@ textarea {
 	background-color: #333333;
 }
 
+input#comment_comment {
+	height: 15px;
+	font-size: 80%;
+	margin-bottom: 0px;
+	width: 60%;
+}
+
+label.comment {
+	font-size: 80%;
+}
+
+input.comment.button {
+	height: 25px;
+	font-size: 80%;
+	width: 30%;
+}
+
 a:hover{
 	color: #720000;
 	-webkit-transition: all 500ms ease;
@@ -317,6 +334,8 @@ a.request {
 	color: #D1D1D1;
 	background-color: #333333;
 }
+
+
 
 
 
