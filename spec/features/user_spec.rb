@@ -1,43 +1,33 @@
 require 'spec_helper'
+require 'Factory_Girl'
 
-	describe 'User' do
+	describe 'Login' do
 
 		before :each do
-			# Set up data structures needed for each test in describe block
-			@user = User.new(username: "Username", password: "Password")
+			@user = FactoryGirl.create(:user) # Completely valid user
 		end
 		
 
-		it "takes user username and password and authenticates successfully" do
-			# # Will do the stuff in the before block
-
-			# # Do things to the object
-			# # ?
-
-			# # Expect certain outcomes/states on the object
-			# @usr.show.should == ""
-			# expect(@usr).to eq()
+		it "takes username and password and authenticates successfully" do
 			visit :login
 			fill_in "login_username", with: @user.username
 			fill_in "login_password", with: @user.password
 			click_button "Login"
-
-			@user.show.should == 'Succesful'
-			expect(@user).to eq(@user)
 		end
 
 
 		it "validates presence of username" do
-			# Will do the stuff in the before block
-			pending
 
-			# Set valid passwd
+			# Valid User
+			expect(@user.username).to eq(@user.username)
+			expect(@user.password).to eq(@user.password)
+			expect(@user.valid?).to be (true)
 
-			# Don't set a username
-
-			# Expect it to not be valid
-            #expect( @usr.valid? ).to be(false)
-
+			# Invalid User
+			@user.username = ''
+			expect(@user.username).to eq(@user.username)
+			expect(@user.password).to eq(@user.password)
+			expect(@user.valid?).to be (false)
 		end
 
 
