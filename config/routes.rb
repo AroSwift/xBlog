@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
+  # Regular functions
   get     'home'                => 'users#index'
   get     'signup'              => 'users#signup'
   post    'signup'              => 'users#create'
@@ -11,9 +12,12 @@ Rails.application.routes.draw do
   post    'login'               => 'users#show'
   delete  'logout'              => 'users#logout'
 
+  # Restricted Functions
   get     'post'                => 'posts#post'
   post    'post'                => 'posts#create'  
   delete  'post'                => 'posts#destroy'
+
+  post    'comment'             => 'posts#comment'
 
   put     'edit_post'           => 'posts#update'
   get     'edit_post'           => 'posts#edit_post'
@@ -21,9 +25,10 @@ Rails.application.routes.draw do
   get     'account'             => 'users#account'
   put     'account'             => 'users#request_admin'
 
+  # Admin functions
   get     'admin_home'          => 'admin#index'
   get     'admin_users'         => 'admin#users'
-  post     'admin_users'         => 'users#accept_request'
+  post    'admin_users'         => 'users#accept_request'
   delete  'admin_users'         => 'users#delete_request'
 
   get     'admin_edit_users'    => 'admin#edit_users'
