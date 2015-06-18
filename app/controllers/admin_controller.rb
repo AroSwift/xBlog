@@ -8,7 +8,6 @@ include UsersHelper
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
     @admin = params[:users][:admin]
-    @posts =params[:users][:posts]
     @id = params[:id]
 
     flash[:username] = @username
@@ -22,40 +21,30 @@ include UsersHelper
     	@admin = false
     end
 
-    # Determines if user wants to update author username to match new username
-    if @posts == '1' then
-      @posts = true
-    else
-      @posts = false
-    end
-
     user = User.find_by_id(@id)
     user.username = @username
     user.password = @password
     user.admin = @admin
     user.valid?
 
-    if @posts == true && @username.present? then
-      p = Post.find_by_author(@username)
-      if !p.nil? then
-        p.author = @username
-        p.valid?
-      end
-    end
-
 
     # Check for errors
     if user.errors.empty? then
     	if @confirm_password == @password then
-          user.save(user_params)
-          p.save(post_params)
+        user.save(user_params)
 
-          # Update session to match new username, password, and admin privileges
-          session[:current_username] = @username
-          session[:current_password] = @password
-          session[:admin] = @admin
+        p = Post.find_by_author_id(@id)
+        if !p.nil? then
+          p.author = @username
+          p.save
+        end
 
-          # Where to send user after updated
+        # Update session to match new username, password, and admin privileges
+        session[:current_username] = @username
+        session[:current_password] = @password
+        session[:admin] = @admin
+
+        # Where to send user after updated
         if admin? then
           redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
         else
@@ -109,7 +98,7 @@ include UsersHelper
   end
 
   def post_params
-    params.require(:posts).permit(:title, :author, :content, :id, :author_id)
+    params.require(:users).permit(:author, :title, :content, :id, :author_id)
   end
 
 end
