@@ -131,6 +131,7 @@ CONTENT AREA
 section {
 	padding: 30px;
 	padding-top: 15px;
+	margin-bottom: 18%;
 }
 
 section a {
@@ -328,16 +329,12 @@ FOOTER AREA
 
 footer {
 	width: 100%;
-	padding: 25px;
+	padding: 20px;
 	color: #919191;
 	background-color: #333333;
-	position: absolute;
+	position: fixed;
 	bottom:0px;
-	//margin-top: 25%;
 }
-
-
-
 
 
 /*
