@@ -23,6 +23,7 @@ include UsersHelper
 
     user = User.find_by_id(@id)
     user.username = @username
+    @tempuser = user.username
     user.password = @password
     user.admin = @admin
     user.valid?
@@ -40,9 +41,11 @@ include UsersHelper
         end
 
         # Update session to match new username, password, and admin privileges
-        session[:current_username] = @username
-        session[:current_password] = @password
-        session[:admin] = @admin
+        if @username == @tempuser then
+          session[:current_username] = @username
+          session[:current_password] = @password
+          session[:admin] = @admin
+        end
 
         # Where to send user after updated
         if admin? then

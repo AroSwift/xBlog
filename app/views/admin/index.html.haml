@@ -20,9 +20,10 @@
         by
         = post.author
 
-        - if check_admin(post.author) == true
-          = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
-          = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
+        - User.all.order("id desc LIMIT 1").each do |user|
+          - if user.admin != true
+            = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+            = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
 
     .small= compare_time(post.updated_at)
     %p.content= post.content
@@ -33,8 +34,9 @@
           %b
             = com.user + ':'
           = com.comment
-          - if check_admin(com.user) == true
-            = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
+          - User.all.order("id desc LIMIT 1").each do |user|
+            - if user.admin != true
+              = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
 
     - if logged_in? then
       = form_for :com, url: comment_path(:post_id => post.id) do |f|

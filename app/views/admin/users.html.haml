@@ -35,7 +35,7 @@
         - if user.admin != true || user.username == session[:current_username]
           Password:
           =user.password
-          - if session[:current_user_id].present? && session[:current_username].present? && session[:admin] == true then
+          - if admin? then
             = link_to 'Delete All', admin_users_path(:dusername => user.username, :dpassword => user.password, :dadmin => user.admin, :dtype => 'all'), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{user.username}?' and all their posts and comments?"}, class: "dall"
             = link_to 'Delete', admin_users_path(:dusername => user.username, :dpassword => user.password, :dadmin => user.admin, :dtype => 'user'), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{user.username}?'"}, class: "dpost"
             = link_to 'Edit', admin_edit_users_path(:username => user.username, :password => user.password, :admin => user.admin, :id => user.id), class: "pedit"
