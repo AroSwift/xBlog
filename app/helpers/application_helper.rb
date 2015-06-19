@@ -5,11 +5,14 @@ module ApplicationHelper
 	end
 
 	def check_admin(user)
-		u = User.where(username: user)
-		if u.admin == 't' then
-			return 1
+		# true means user is admin, but not another admin
+		u = User.find_by_username(user)
+		if u.username == session[:current_username] then
+			return true
+		elsif u.admin == 't' || u.admin == true then 
+			return false
 		else
-			return 0
+			return true
 		end
 	end
 

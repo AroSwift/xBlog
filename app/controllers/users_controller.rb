@@ -84,7 +84,7 @@ class UsersController < ApplicationController
 
     if request.errors.empty? then
       request.save(request_params)
-      redirect_to account_path(:display => 'Your request has been submited')
+      redirect_to account_path(:display => 'Your request has been submitted')
     else
       redirect_to account_path(:errors => request.errors.full_messages)
     end
