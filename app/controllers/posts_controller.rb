@@ -79,7 +79,9 @@ class PostsController < ApplicationController
     com.user = session[:current_username]
     com.valid?
 
+    # Limit the number of comments per post ---5?
 
+    # Check for validation errors
     if com.errors.empty? then
       com.save(comment_params)
       flash[:error] = 'Your post was updated'

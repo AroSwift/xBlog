@@ -28,6 +28,14 @@
   .small= compare_time(post.updated_at)    
   %p.content= post.content
 
+  - Comment.all.order("created_at DESC LIMIT 10").each do |com|
+    - if post.id == com.post_id
+      %p.comsec
+        %b
+          = com.user + ':'
+        = com.comment
+        = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dcomment"
+
   - if logged_in? then
     = form_for :comment, url: comment_path(:post_id => post.id) do |f|
       %p

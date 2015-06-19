@@ -45,24 +45,6 @@ textarea {
 	background-color: #333333;
 }
 
-input#comment_comment {
-	height: 15px;
-	font-size: 80%;
-	width: 70%;
-	float: left;
-}
-
-label.comment {
-	font-size: 80%;
-}
-
-input.comment.button {
-	height: 25px;
-	font-size: 80%;
-	width: 25%;
-	float: right;
-}
-
 a:hover{
 	color: #720000;
 	-webkit-transition: all 500ms ease;
@@ -270,6 +252,10 @@ a.account:hover {
 	transition: all 500ms ease;
 }
 
+/*
+ACCOUNT AREA
+*/
+
 a.acc_link {
 	color: #919191;
 	font-size: 90%
@@ -303,8 +289,9 @@ p.title a.delete:hover {
 }
 
 p.content {
-	font-style: italic;
+	//font-style: italic;
 	padding-left: 15px;
+	padding-bottom: 7px;
 }
 
 .small {
@@ -312,7 +299,6 @@ p.content {
 	color: #919191;
 	float: right;
 	padding: 3px;
-	padding-right: 15px;
 	padding-left: 35px;
 	padding-bottom: 20px;
 }
@@ -334,6 +320,44 @@ a.request {
 	padding-left: 12%;
 	color: #D1D1D1;
 	background-color: #333333;
+}
+
+
+
+/*
+COMMENT AREA
+*/
+
+input#comment_comment {
+	height: 15px;
+	font-size: 80%;
+	width: 70%;
+	float: left;
+}
+
+label.comment {
+	font-size: 80%;
+}
+
+input.comment.button {
+	height: 25px;
+	font-size: 80%;
+	width: 25%;
+	float: right;
+}
+
+p.comsec {
+	padding-left: 30px;
+	padding-bottom: 5px;
+	font-style: italic;
+	//border-bottom: 2px solid black;
+	font-size: 70%;
+}
+
+a.dcomment {
+	float: right;
+	font-style: normal;
+
 }
 
 
