@@ -7,6 +7,7 @@ body {
 	margin: 0px;
 	padding: 0px;
 	font-family: Verdana, Georgia;
+	font-size 1vmin;
 	font-size: 100%;
 	overflow-x: hidden;
     overflow-y: scroll;
@@ -20,6 +21,7 @@ input {
 	background-color: #333333;
 	color: #D1D1D1;
 	padding: 5px;
+
 }
 
 input:hover {
@@ -170,7 +172,6 @@ DELETE BUTTONS
 a.dpost {
 	color: #919191;
 	font-size: 70%;
-	position: relative;
 	float:right;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -179,7 +180,6 @@ a.dpost {
 a.dall {
 	color: #919191;
 	font-size: 70%;
-	position: relative;
 	float:right;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -199,6 +199,7 @@ a.pedit {
 	float:right;
 	padding-left: 10px;
 	padding-right: 10px;
+	display: inline;
 }
 
 a.dpost:hover, a.pedit:hover, a.dall:hover {
@@ -306,7 +307,6 @@ p.title a.delete:hover {
 }
 
 p.content {
-	//font-style: italic;
 	padding-left: 15px;
 	padding-bottom: 7px;
 }
@@ -347,7 +347,7 @@ COMMENT AREA
 */
 
 input#com_comment {
-	height: 15px;
+	height: 3%;
 	font-size: 80%;
 	width: 70%;
 	float: left;
@@ -358,7 +358,7 @@ label.comment {
 }
 
 input.comment.button {
-	height: 25px;
+	height: 3%;
 	font-size: 80%;
 	width: 25%;
 	float: right;

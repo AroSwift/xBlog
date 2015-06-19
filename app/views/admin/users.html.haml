@@ -32,7 +32,7 @@
         Username:
         = user.username
         %br
-        - if user.admin != true || user.username == session[:current_username]
+        - if user.admin != true
           Password:
           =user.password
           - if admin? then
