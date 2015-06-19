@@ -68,40 +68,6 @@ class PostsController < ApplicationController
   end
 
 
-  # ADDING COMMENTING FUNCTIONALITY
-  def comment
-    @comment = params[:comment]
-    @post_id = params[:post_id]
-
-    com = Comment.new
-    com.comment = @comment
-    com.post_id = @post_id
-    com.user = session[:current_username]
-    com.valid?
-
-    # Limit the number of comments per post ---5?
-
-    # Check for validation errors
-    if com.errors.empty? then
-      com.save(comment_params)
-      flash[:error] = 'Your post was updated'
-      
-      if admin? then
-        redirect_to :admin_home
-      else
-        redirect_to :home
-      end
-
-    else
-      if admin?
-        redirect_to admin_home_path(:errors => com.errors.full_messages)
-      else
-        redirect_to home_path(:errors => com.errors.full_messages)
-      end
-    end
-  end
-
-
   # Deletes user
  def destroy
     @title = params[:title]
@@ -123,8 +89,5 @@ class PostsController < ApplicationController
     params.require(:posts).permit(:title, :author, :content, :id, :author_id)
   end
 
-  def comment_params
-    params.require(:comment).permit(:comment, :post_id, :user)
-  end
 
 end

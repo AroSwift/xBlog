@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   post    'post'                => 'posts#create'  
   delete  'post'                => 'posts#destroy'
 
-  post    'comment'             => 'posts#comment'
+  post    'comment'             => 'comments#create'
+  delete  'comment'             => 'comments#destroy'
 
   put     'edit_post'           => 'posts#update'
   get     'edit_post'           => 'posts#edit_post'

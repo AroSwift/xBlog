@@ -25,7 +25,7 @@
       = post.author
       = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
       = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
-  .small= compare_time(post.updated_at)    
+  .small= compare_time(post.updated_at)
   %p.content= post.content
 
   - Comment.all.order("created_at DESC LIMIT 10").each do |com|
@@ -34,12 +34,13 @@
         %b
           = com.user + ':'
         = com.comment
-        = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dcomment"
+        - if com.user == session[:current_username]
+          = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
 
   - if logged_in? then
-    = form_for :comment, url: comment_path(:post_id => post.id) do |f|
+    = form_for :com, url: comment_path(:post_id => post.id) do |f|
       %p
         = f.label :comment, "Comment", class: 'comment'
         %br/
-        = f.text_field :comment, :value => params[:comment]
+        = f.text_field :comment
         = f.submit "Comment", class: 'comment button'
