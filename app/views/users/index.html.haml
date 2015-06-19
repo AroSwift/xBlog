@@ -11,7 +11,7 @@
     %center
       = link_to "Create First Post", post_path, :class => 'firstup' 
 
-- Post.all.order("updated_at DESC LIMIT 10").each do |post|
+- Post.all.order("updated_at DESC LIMIT 20").each do |post|
   %article.posts
     %p.title
       = post.title
@@ -24,7 +24,7 @@
   .small= compare_time(post.updated_at)
   %p.content= post.content
 
-  - Comment.all.order("created_at DESC LIMIT 10").each do |com|
+  - Comment.all.order("created_at DESC LIMIT 15").each do |com|
     - if post.id == com.post_id
       %p.comsec
         %b

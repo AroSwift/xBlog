@@ -83,9 +83,11 @@ include UsersHelper
 		if @type == 'all' && @type != 'user' then
 
 			User.where(:username => @dusername, :password => @dpassword).destroy_all
+      p = Post.find_by_username(@dusername)
 			Post.where(:author => @dusername).destroy_all
+      Comment.where(:post_id => p.id, :user => @dusername)
 
-			redirect_to admin_home_path(:display => "The user #{@dusername} and all their posts were successfully deleted")
+			redirect_to admin_home_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
 		else
       # If Admin only wants to delete user
 			User.where(:username => @dusername, :password => @dpassword).destroy_all

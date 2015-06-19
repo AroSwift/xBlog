@@ -68,7 +68,7 @@ class PostsController < ApplicationController
   end
 
 
-  # Deletes user
+  # Deletes post
  def destroy
     @title = params[:title]
     @author = params[:author]
