@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
+include UsersHelper
 
-  include UsersHelper
 
   # Updates Post
   def update
@@ -18,12 +18,11 @@ class PostsController < ApplicationController
     # Checks for errors
     if post.errors.empty? then
       post.save(post_params)
-      flash[:error] = 'Your post was updated'
 
       if admin? then
-        redirect_to :admin_home
+        redirect_to admin_home_path(:display => 'Your post was successfully updated')
       else
-        redirect_to :home
+        redirect_to home_path(:display => 'Your post was successfully updated')
       end
 
     else
@@ -76,18 +75,17 @@ class PostsController < ApplicationController
 
     Post.where(:title => @title, :author => @author, :content => @content).destroy_all
 
-      
-      if admin? then
-        redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted")
-      else
-        redirect_to home_path(:display => "The post '#{@title}' was successfully deleted")
-      end
+    if admin? then
+      redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted")
+    else
+      redirect_to home_path(:display => "The post '#{@title}' was successfully deleted")
+    end
   end
+
 
   # What fields can be saved to Database
   def post_params
     params.require(:posts).permit(:title, :author, :content, :id, :author_id)
   end
-
 
 end

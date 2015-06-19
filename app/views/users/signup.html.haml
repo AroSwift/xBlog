@@ -1,6 +1,7 @@
 - content_for :current_page do
   SignUp
 %br/
+
 = form_for :signup, url: signup_path do |f|
   %p
     = f.label :username, "Username"

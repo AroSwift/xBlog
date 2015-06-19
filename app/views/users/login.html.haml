@@ -1,6 +1,7 @@
 - content_for :current_page do
   Login
 %br
+
 = form_for :login, url: login_path do |f|
   %p
     = f.label :username, "Username"

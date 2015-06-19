@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get     'edit_post'           => 'posts#edit_post'
 
   get     'account'             => 'users#account'
-  put     'account'             => 'users#request_admin'
+  put     'account'             => 'requests#request_admin'
 
   # Admin functions
   get     'admin_home'          => 'admin#index'

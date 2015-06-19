@@ -16,6 +16,7 @@
           = link_to 'xBlog', admin_home_path, :class => 'xBlog'
         - else
           = link_to 'xBlog', home_path, :class => 'xBlog'
+
       %nav
         - if admin? then
           = link_to 'Home', admin_home_path, :class => ("it" unless !current_page?(:admin_home))
@@ -32,7 +33,7 @@
           = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
 
     %section
-
+    
       - if admin? || logged_in? then
         %h2
           = yield :current_page

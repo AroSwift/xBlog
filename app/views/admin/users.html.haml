@@ -8,7 +8,6 @@
     Users
   %br
 
-
   - Request.all.order("created_at DESC LIMIT 1").each do |request|
     - if request.status == false then
       %center
@@ -25,7 +24,6 @@
         %br
         %br
 
-
   - User.all.order("id desc LIMIT 50").each do |user|
     %article.user
       %p.title
@@ -39,6 +37,7 @@
             = link_to 'Delete All', admin_users_path(:dusername => user.username, :dpassword => user.password, :dadmin => user.admin, :dtype => 'all'), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{user.username}?' and all their posts and comments?"}, class: "dall"
             = link_to 'Delete', admin_users_path(:dusername => user.username, :dpassword => user.password, :dadmin => user.admin, :dtype => 'user'), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{user.username}?'"}, class: "dpost"
             = link_to 'Edit', admin_edit_users_path(:username => user.username, :password => user.password, :admin => user.admin, :id => user.id), class: "pedit"
+
       - Post.where(author: user.username).each do |post|  
         %h3
           %p.utitle= post.title
@@ -50,6 +49,3 @@
             = Comment.where(post_id: post.id).count
           comments
         %br
-        
-
-        

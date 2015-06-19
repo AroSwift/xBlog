@@ -1,18 +1,14 @@
 class AdminController < ApplicationController
-
 include UsersHelper
 
-    # Admin Updates User
+
+  # Admin Updates User
 	def update
 	  @username = params[:users][:username]
     @password = params[:users][:password]
     @confirm_password = params[:users][:confirm_password]
     @admin = params[:users][:admin]
     @id = params[:id]
-
-    flash[:username] = @username
-    flash[:password] = @password
-    
 
     # Determines if admin wants edited user to be admin
     if @admin == '1' then
@@ -28,10 +24,10 @@ include UsersHelper
     user.admin = @admin
     user.valid?
 
-
     # Check for errors
     if user.errors.empty? then
-    	if @confirm_password == @password then
+      # if passwords match OR if admin bypass
+    	if @confirm_password == @password || admin? then
         user.save(user_params)
 
         p = Post.find_by_author_id(@id)
@@ -40,7 +36,7 @@ include UsersHelper
           p.save
         end
 
-        # Update session to match new username, password, and admin privileges
+        # Update session to match new identity if it is current user
         if @username == @tempuser then
           session[:current_username] = @username
           session[:current_password] = @password
@@ -90,14 +86,39 @@ include UsersHelper
 			Post.where(:author => @dusername).destroy_all
       Comment.where(:post_id => p.id, :user => @dusername)
 
-			redirect_to admin_home_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
-		else
-      # If Admin only wants to delete user
+
+      # If current user is deleting their account, posts and comments
+      if @dusername == session[:current_username] && admin? then
+        @_current_user = session[:current_user_id] = nil
+        @_current_user = session[:current_username] = nil 
+        @_current_user = session[:current_password] = nil      
+        @_current_user = session[:admin] = nil   
+        redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
+      else
+        redirect_to admin_home_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
+		  end
+
+    else # # If Admin only wants to delete user # #
+
 			User.where(:username => @dusername, :password => @dpassword).destroy_all
 			redirect_to admin_home_path(:display => "The user #{@dusername} was successfully deleted")
+
+      # If current user is deleting their account, posts and comments
+      if @dusername == session[:current_username] && admin? then
+        @_current_user = session[:current_user_id] = nil
+        @_current_user = session[:current_username] = nil 
+        @_current_user = session[:current_password] = nil      
+        @_current_user = session[:admin] = nil   
+        redirect_to home_path(:display => "You have successfully deleted your account")
+      else
+        redirect_to admin_home_path(:display => "The user #{@dusername} was successfully deleted")
+      end
+
 		end
 	end
 
+
+  # What is allowed into the database
 	def user_params
     params.require(:users).permit(:username, :password, :admin, :id)
   end

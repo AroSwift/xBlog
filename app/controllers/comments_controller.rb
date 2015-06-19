@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-
 include UsersHelper
+
 
   # Create Comment
   def create
@@ -13,7 +13,10 @@ include UsersHelper
     com.user = session[:current_username]
     com.valid?
 
-    # Limit the number of comments per post ---5?
+
+    # # POSSIBLE FEATURE: Limit the number of comments per post ---5-10? # #
+
+
 
     # Check for validation errors
     if com.errors.empty? then
@@ -42,18 +45,18 @@ include UsersHelper
     @post_id = params[:post_id]
 
     Comment.where(:user => @user, :comment => @comment, :post_id => @post_id).destroy_all
-
       
-      if admin? then
-        redirect_to admin_home_path(:display => "The comment was successfully deleted")
-      else
-        redirect_to home_path(:display => "The comment was successfully deleted")
-      end
+    if admin? then
+      redirect_to admin_home_path(:display => "The comment was successfully deleted")
+    else
+      redirect_to home_path(:display => "The comment was successfully deleted")
+    end
   end
 
+
+  # What is allowed in database
   def comment_params
     params.require(:com).permit(:comment, :post_id, :user)
   end
-
 
 end

@@ -16,10 +16,12 @@
       = f.label :password, "Password"
       %br/
       = f.text_field :password, :value => flash[:password] || params[:password]
-    %p
-      = f.label :confirm_password, "confirm Password"
-      %br/
-      = f.text_field :confirm_password
+      
+    - if !admin? then
+      %p
+        = f.label :confirm_password, "confirm Password"
+        %br/
+        = f.text_field :confirm_password
 
     - if admin? then
       %p
