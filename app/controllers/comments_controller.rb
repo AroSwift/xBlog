@@ -13,16 +13,11 @@ include UsersHelper
     com.user = session[:current_username]
     com.valid?
 
-
-    # # POSSIBLE FEATURE: Limit the number of comments per post ---5-10? # #
-
-
-
     # Check for validation errors
     if com.errors.empty? then
-      com.save(comment_params)
+        com.save(comment_params)
 
-      if admin?
+      if admin? then
         redirect_to :admin_home
       else
         redirect_to :home

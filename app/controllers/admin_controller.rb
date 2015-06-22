@@ -17,6 +17,10 @@ include UsersHelper
     	@admin = false
     end
 
+    # What username was before updating
+    pre = User.find_by_id(@id)
+    @prename = pre.username
+
     user = User.find_by_id(@id)
     user.username = @username
     user.password = @password
@@ -31,23 +35,30 @@ include UsersHelper
     	if @confirm_password == @password || admin? then
         user.save(user_params)
 
+        # Update Author name to new username
         p = Post.find_by_author_id(@id)
         if !p.nil? then
           p.author = @username
           p.save
         end
 
+        c = Comment.find_by_post_id(p.id)
+        if !c.nil? then
+          c.user = @username
+          c.save
+        end
+
         # Update session to match new identity if it is current user
-        if @username == session[:current_username] then
+        if @prename == session[:current_username] then
           session[:current_username] = @username
           session[:current_password] = @password
         end
 
         # Where to send user after updated
-        if admin? && @username != session[:current_username] then
+        if admin? && @prename != session[:current_username] then
           redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
         else
-          if admin?
+          if admin? then
             redirect_to admin_home_path(:display => "Your username and password were successfully updated")
           else
             redirect_to home_path(:display => "Your username and password were successfully updated")
@@ -91,36 +102,38 @@ include UsersHelper
 			Post.where(:author => @dusername).destroy_all
       Comment.where(:user => @dusername).destroy_all
 
-
-      # If current user is deleting their account, posts and comments
-      if @dusername == session[:current_username] && admin? then
+      # Sign out if current user
+      if @dusername == session[:current_username] then
         @_current_user = session[:current_user_id] = nil
         @_current_user = session[:current_username] = nil 
         @_current_user = session[:current_password] = nil      
         @_current_user = session[:admin] = nil
-        @_current_user = session[:super_admin] = nil     
+        @_current_user = session[:super_admin] = nil 
+      end 
+
+
+      # If current user is deleting their account, posts and comments
+      if @dusername == session[:current_username] && admin? then   
         redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
       else
         redirect_to admin_users_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
 		  end
 
-    else # # If Admin only wants to delete user # #
+    # If Admin only wants to delete user
+    elsif @type == 'user' && @type != 'all' then
 
 			User.where(:username => @dusername, :password => @dpassword).destroy_all
 
       # If current user is deleting their account, posts and comments
       if @dusername == session[:current_username] && admin? then
-        @_current_user = session[:current_user_id] = nil
-        @_current_user = session[:current_username] = nil 
-        @_current_user = session[:current_password] = nil      
-        @_current_user = session[:admin] = nil 
-        @_current_user = session[:super_admin] = nil     
         redirect_to home_path(:display => "You have successfully deleted your account")
       else
         redirect_to admin_users_path(:display => "The user #{@dusername} was successfully deleted")
       end
 
-		end
+		else
+      redirect_to :back
+    end
 	end
 
 
