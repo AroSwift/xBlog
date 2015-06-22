@@ -1,5 +1,10 @@
 module UsersHelper
 
+  # Checks if logged in and admin
+  def serup_admin?
+    session[:current_user_id].present? && session[:current_username].present? && session[:current_password] && session[:admin] == true && session[:super_admin]
+  end
+
 	# Checks if logged in and admin
 	def admin?
     session[:current_user_id].present? && session[:current_username].present? && session[:current_password] && session[:admin] == true

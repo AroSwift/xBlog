@@ -6,7 +6,7 @@ include UsersHelper
   def request_admin
     @username = session[:current_username]
     @password = session[:current_password]
-    #@id = session[:current_user_id]
+    @id = session[:current_user_id]
 
     request = Request.new
     request.username = @username
@@ -41,7 +41,7 @@ include UsersHelper
       Request.where(:username => @username, :password => @password).destroy_all
       redirect_to admin_home_path(:display => "#{@username} is now an administrator")
     else
-      redirect_to admin_users_path(:display => "Something went wrong. The user #{@username} is not an administrator")
+      redirect_to admin_users_path(:display => "#{@username} is NOT an administrator. Please try again.")
     end
   end
 
@@ -53,7 +53,7 @@ include UsersHelper
     @id = params[:id]
 
     Request.where(:username => @username, :password => @password).destroy_all
-    redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator successfully deleted")
+    redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator was successfully deleted")
   end
 
 

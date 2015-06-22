@@ -30,7 +30,8 @@
         Username:
         = user.username
         %br
-        - if user.admin != true
+
+        - if user.admin != true 
           Password:
           =user.password
           - if admin? then

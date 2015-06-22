@@ -53,12 +53,11 @@ include UsersHelper
     # Checks for errors
     if post.errors.empty? then
       post.save(post_params)
-      flash[:error] = 'Your post was updated'
       
       if admin? then
-        redirect_to :admin_home
+        redirect_to admin_home_path(:display => 'Your post was updated')
       else
-        redirect_to :home
+        redirect_to home_path(:display => 'Your post was updated')
       end
 
     else

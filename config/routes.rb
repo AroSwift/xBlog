@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   # Admin functions
   get     'admin_home'          => 'admin#index'
   get     'admin_users'         => 'admin#users'
-  post    'admin_users'         => 'users#accept_request'
-  delete  'admin_users'         => 'users#delete_request'
+  post    'admin_users'         => 'requests#accept_request'
+  delete  'admin_users'         => 'requests#delete_request'
 
   get     'admin_edit_users'    => 'admin#edit_users'
   put     'admin_edit_users'    => 'admin#update'
