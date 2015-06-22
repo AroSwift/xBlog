@@ -31,6 +31,21 @@ require 'Factory_Girl'
 			expect(@user.valid?).to be (false)
 		end
 
+
+			it "validates length of username and password" do
+
+			# Valid User
+			expect(@user.username).to be_between(5, 20).exclusive
+			expect(@user.password).to be_between(5, 20).exclusive
+			expect(@user.valid?).to be (true)
+
+			# Invalid User
+			@user.username = ''
+			expect(@user.username).to be_between(5, 20).exclusive
+			expect(@user.password).to be_between(5, 20).exclusive
+			expect(@user.valid?).to be (false)
+		end
+
 	end
 
 
@@ -66,7 +81,7 @@ require 'Factory_Girl'
 		end
 
 
-		it "checks if user exists in database" do
+		it "checks if user already exists in database" do
 		end
 
 
@@ -110,21 +125,25 @@ require 'Factory_Girl'
 		it "validates presence of title, author, and post content" do
 
 			# Valid new post
-			expect(@post.title).to eq(@post.title)
-			expect(@post.post).to eq(@post.post)
+			expect(@post.title).not_to be_empty
+			expect(@post.post).not_to be_empty
 			expect(@post.valid?).to be (true)
 
 			# Invalid new post
 			@post.title = ''
-			expect(@post.title).to eq(@post.title)
-			expect(@post.post).to eq(@post.post)
+			expect(@post.title).not_to be_empty
+			expect(@post.post).not_to be_empty
 			expect(@post.valid?).to be (false)
 
 			# Invalid new post
 			@post.post = ''
-			expect(@post.title).to eq(@post.title)
-			expect(@post.post).to eq(@post.post)
+			expect(@post.title).not_to be_empty
+			expect(@post.post).not_to be_empty
 			expect(@post.valid?).to be (false)
+		end
+
+
+		it "checks if title already exists in database" do
 		end
 
 

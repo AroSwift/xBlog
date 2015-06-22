@@ -8,21 +8,21 @@
     Users
   %br
 
-  - Request.all.order("created_at DESC LIMIT 1").each do |request|
-    - if request.status == false then
-      %center
-        The user
-        %b
-          = request.username
-        requested to be an administrator
-        = compare_time(request.created_at)
-        %br
-        %br
-        = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
-        = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :delete, class: "request"
-        %br
-        %br
-        %br
+    - Request.all.order("created_at DESC LIMIT 1").each do |request|
+      - if request.status == false then
+        %center
+          The user
+          %b
+            = request.username
+          requested to be an administrator
+          = compare_time(request.created_at)
+          %br
+          %br
+          = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
+          = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :delete, class: "request"
+          %br
+          %br
+          %br
 
   - User.all.order("id desc LIMIT 50").each do |user|
     %article.user
