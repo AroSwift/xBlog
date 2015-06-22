@@ -24,7 +24,7 @@ include UsersHelper
     user = User.find_by_id(@id)
     user.username = @username
     user.password = @password
-    if !admin? then 
+    if !admin? || @prename != session[:current_username] then 
       user.admin = @admin
     end
     user.valid?
