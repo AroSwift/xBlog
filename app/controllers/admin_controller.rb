@@ -81,10 +81,11 @@ include UsersHelper
     # If Admin wants to delete user AND ALL their posts
 		if @type == 'all' && @type != 'user' then
 
+      # Delete user and all their posts and comments
 			User.where(:username => @dusername, :password => @dpassword).destroy_all
-      p = Post.find_by_username(@dusername)
+      p = Post.find_by_author(@dusername)
 			Post.where(:author => @dusername).destroy_all
-      Comment.where(:post_id => p.id, :user => @dusername)
+      Comment.where(:post_id => p.id, :user => @dusername).destroy_all
 
 
       # If current user is deleting their account, posts and comments
@@ -95,13 +96,12 @@ include UsersHelper
         @_current_user = session[:admin] = nil   
         redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
       else
-        redirect_to admin_home_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
+        redirect_to admin_users_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
 		  end
 
     else # # If Admin only wants to delete user # #
 
 			User.where(:username => @dusername, :password => @dpassword).destroy_all
-			redirect_to admin_home_path(:display => "The user #{@dusername} was successfully deleted")
 
       # If current user is deleting their account, posts and comments
       if @dusername == session[:current_username] && admin? then
@@ -111,7 +111,7 @@ include UsersHelper
         @_current_user = session[:admin] = nil   
         redirect_to home_path(:display => "You have successfully deleted your account")
       else
-        redirect_to admin_home_path(:display => "The user #{@dusername} was successfully deleted")
+        redirect_to admin_users_path(:display => "The user #{@dusername} was successfully deleted")
       end
 
 		end
