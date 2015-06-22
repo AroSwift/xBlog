@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150618191312) do
     t.string   "username"
     t.string   "password"
     t.boolean  "admin",      default: false, null: false
+    t.boolean  "superadmin", default: false, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end

@@ -40,7 +40,6 @@ include UsersHelper
         if @username == @tempuser then
           session[:current_username] = @username
           session[:current_password] = @password
-          session[:admin] = @admin
         end
 
         # Where to send user after updated
@@ -67,6 +66,7 @@ include UsersHelper
 		@_current_user = session[:current_username] = nil 
     @_current_user = session[:current_password] = nil      
 		@_current_user = session[:admin] = nil   
+    @_current_user = session[:super_admin] = nil  
     redirect_to home_path(:display => 'Logout Sucessful')
 	end
 

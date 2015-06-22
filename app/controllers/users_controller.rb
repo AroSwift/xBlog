@@ -40,8 +40,10 @@ include UsersHelper
             if @firstu == 'true' then
               admin_user = User.find_by(username: @username, password: @password)
               admin_user.admin = true
+              admin_user.superadmin = true
               admin_user.save(user_params)
               session[:admin] = true
+              session[:super_admin] = true
             end
 
             if admin?
@@ -111,7 +113,7 @@ include UsersHelper
 
   # What fields can be saved to Database
   def user_params
-    params.require(:signup).permit(:username, :password, :admin, :id, :created_at, :updated_at)
+    params.require(:signup).permit(:username, :password, :admin, :superadmin, :id, :created_at, :updated_at)
   end
 
 

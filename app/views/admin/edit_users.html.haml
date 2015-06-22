@@ -23,7 +23,7 @@
         %br/
         = f.text_field :confirm_password
 
-    - if admin? then
+    - if admin? && params[:username] != session[:current_username] then
       %p
         = f.label :admin, "Admin Privileges?"
         %br/
