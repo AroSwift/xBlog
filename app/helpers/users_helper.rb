@@ -1,18 +1,18 @@
 module UsersHelper
 
-  # Checks if logged in and admin
+  # Checks if super admin
   def super_admin?
-    session[:current_user_id].present? && session[:current_username].present? && session[:current_password] && session[:admin] == true && session[:super_admin]
+    session[:current_user_id].present? && session[:current_username].present? && session[:current_password].present? && session[:admin] == true && session[:super_admin] == true
   end
 
 	# Checks if logged in and admin
 	def admin?
-    session[:current_user_id].present? && session[:current_username].present? && session[:current_password] && session[:admin] == true
+    session[:current_user_id].present? && session[:current_username].present? && session[:current_password].present? && session[:admin] == true
   end
 
   # Checks if logged in
   def logged_in?
-    session[:current_user_id].present? && session[:current_username].present? && session[:current_password]
+    session[:current_user_id].present? && session[:current_username].present? && session[:current_password].present?
   end
 
   def first_user?

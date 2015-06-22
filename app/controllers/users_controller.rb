@@ -93,10 +93,15 @@ include UsersHelper
 
         # If user is admin
         astatus = User.find_by_username(@username)
-        if astatus.admin == true || astatus.admin == 't'then
+        if astatus.admin == true || astatus.admin == 't' then
 
           session[:admin] = true
+          if astatus.superadmin == true || astatus.admin == 't' then
+            session[:super_admin] = true
+          end
+
           redirect_to :admin_home
+
         else
           # If user is not admin
           redirect_to :home
