@@ -7,7 +7,6 @@ body {
 	margin: 0px;
 	padding: 0px;
 	font-family: Verdana, Georgia;
-	font-size 1vmin;
 	font-size: 100%;
 	overflow-x: hidden;
     overflow-y: scroll;
@@ -450,3 +449,5 @@ section h3 center {
 	body {
 		font-size: 65%;
 }
+}
+
