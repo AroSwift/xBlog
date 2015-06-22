@@ -42,7 +42,8 @@ include UsersHelper
           p.save
         end
 
-        c = Comment.find_by_post_id(p.id)
+        # Update comment user to new username
+        c = Comment.find_by_user(@username)
         if !c.nil? then
           c.user = @username
           c.save
