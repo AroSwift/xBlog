@@ -53,7 +53,7 @@ include UsersHelper
     @id = params[:id]
 
     Request.where(:username => @username, :password => @password).destroy_all
-    redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator was successfully deleted")
+    redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator was rejected")
   end
 
 

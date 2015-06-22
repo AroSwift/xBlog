@@ -15,6 +15,6 @@
         %p.title   
           = link_to 'Request to be an admin', account_path, :method => :put, class: "acc_link"  
       %p.title   
-        = link_to 'Delete Account', admin_edit_users_path(:dusername => session[:current_username], :dpassword => session[:current_password], :dadmin => session[:admin], :dtype => 'user'), :method => :delete, :data => {:confirm => "Are you sure you want to delete your account?"}, class: "acc_link delete"
+        = link_to 'Delete Account', delete_users_path(:dusername => session[:current_username], :dpassword => session[:current_password], :dadmin => session[:admin], :dtype => 'user'), :method => :delete, :data => {:confirm => "Are you sure you want to delete your account?"}, class: "acc_link delete"
       %p.title   
-        = link_to 'Delete Account and Posts', admin_edit_users_path(:dusername => session[:current_username], :dpassword => session[:current_password], :dadmin => session[:admin], :dtype => 'all'), :method => :delete, :data => {:confirm => "Are you sure you want to delete your account and all your posts?"}, class: "acc_link delete"
+        = link_to 'Delete Account and Posts', delete_users_path(:dusername => session[:current_username], :dpassword => session[:current_password], :dadmin => session[:admin], :dtype => 'all'), :method => :delete, :data => {:confirm => "Are you sure you want to delete your account and all your posts?"}, class: "acc_link delete"
