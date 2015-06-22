@@ -14,7 +14,6 @@ require 'Factory_Girl'
 			fill_in "login_username", with: @user.username
 			fill_in "login_password", with: @user.password
 			click_button "Login"
-
 		end
 
 
@@ -95,11 +94,37 @@ require 'Factory_Girl'
 	describe 'New Post' do	
 
 		before :each do
-			#@post = FactoryGirl.create(:post) # Completely valid post
+			@post = FactoryGirl.create(:post) # Completely valid post
 		end
 
 
 		it "takes title, current username, and post content" do
+			visit :post
+			fill_in "posts_title", with: @post.title
+			# fill_in "posts_author", with: @post.author ## Should NOT have to fill the author field- should be pre-populated
+			fill_in "posts_content", with: @post.post
+			click_button "Post"
+		end
+
+
+		it "validates presence of title, author, and post content" do
+
+			# Valid new post
+			expect(@post.title).to eq(@post.title)
+			expect(@post.post).to eq(@post.post)
+			expect(@post.valid?).to be (true)
+
+			# Invalid new post
+			@post.title = ''
+			expect(@post.title).to eq(@post.title)
+			expect(@post.post).to eq(@post.post)
+			expect(@post.valid?).to be (false)
+
+			# Invalid new post
+			@post.post = ''
+			expect(@post.title).to eq(@post.title)
+			expect(@post.post).to eq(@post.post)
+			expect(@post.valid?).to be (false)
 		end
 
 
