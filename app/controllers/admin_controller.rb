@@ -11,7 +11,7 @@ include UsersHelper
     @id = params[:id]
 
     # Determines if admin wants edited user to be admin
-    if @admin == '1' then
+    if @admin == '1' || @admin == 'true' then
     	@admin = true
     else
     	@admin = false
@@ -19,9 +19,10 @@ include UsersHelper
 
     user = User.find_by_id(@id)
     user.username = @username
-    @tempuser = user.username
     user.password = @password
-    user.admin = @admin
+    if !admin? then 
+      user.admin = @admin
+    end
     user.valid?
 
     # Check for errors
@@ -37,16 +38,20 @@ include UsersHelper
         end
 
         # Update session to match new identity if it is current user
-        if @username == @tempuser then
+        if @username == session[:current_username] then
           session[:current_username] = @username
           session[:current_password] = @password
         end
 
         # Where to send user after updated
-        if admin? then
+        if admin? && @username != session[:current_username] then
           redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
         else
-          redirect_to home_path(:display => "Your username and password were successfully updated")
+          if admin?
+            redirect_to admin_home_path(:display => "Your username and password were successfully updated")
+          else
+            redirect_to home_path(:display => "Your username and password were successfully updated")
+          end
         end
 
     	else
