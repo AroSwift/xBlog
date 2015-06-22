@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'Factory_Girl'
 
+
 	describe 'Login' do
 
 		before :each do
@@ -31,7 +32,6 @@ require 'Factory_Girl'
 			expect(@user.valid?).to be (false)
 		end
 
-
 	end
 
 
@@ -44,7 +44,7 @@ require 'Factory_Girl'
 			@user = FactoryGirl.create(:user) # Completely valid user
 		end
 		
-		it "takes username, password, confirm password" do
+		it "takes username, password, and confirm password" do
 			visit :signup
 			fill_in "signup_username", with: @user.username
 			fill_in "signup_password", with: @user.password
@@ -54,7 +54,16 @@ require 'Factory_Girl'
 
 
 		it "validates presence of username and password" do
-			
+			# Valid User
+			expect(@user.username).to eq(@user.username)
+			expect(@user.password).to eq(@user.password)
+			expect(@user.valid?).to be (true)
+
+			# Invalid User
+			@user.username = ''
+			expect(@user.username).to eq(@user.username)
+			expect(@user.password).to eq(@user.password)
+			expect(@user.valid?).to be (false)
 		end
 
 
@@ -65,8 +74,34 @@ require 'Factory_Girl'
 		it "gives the current user a session and redirects" do
 		end
 
+	end
 
 
+
+
+	describe 'Logout' do	
+
+
+		it "takes cookies and deletes them" do
+		end
 
 
 	end
+
+
+
+
+
+	describe 'New Post' do	
+
+		before :each do
+			#@post = FactoryGirl.create(:post) # Completely valid post
+		end
+
+
+		it "takes title, current username, and post content" do
+		end
+
+
+	end
+
