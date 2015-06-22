@@ -67,11 +67,11 @@ include UsersHelper
 
   # Logout Admin
 	def logout 
-		@_current_user = session[:current_user_id] = nil
-		@_current_user = session[:current_username] = nil 
-    @_current_user = session[:current_password] = nil      
-		@_current_user = session[:admin] = nil   
-    @_current_user = session[:super_admin] = nil  
+  		@_current_user = session[:current_user_id] = nil
+  		@_current_user = session[:current_username] = nil 
+      @_current_user = session[:current_password] = nil      
+  		@_current_user = session[:admin] = nil   
+      @_current_user = session[:super_admin] = nil  
     redirect_to home_path(:display => 'Logout Sucessful')
 	end
 
@@ -88,9 +88,8 @@ include UsersHelper
 
       # Delete user and all their posts and comments
 			User.where(:username => @dusername, :password => @dpassword).destroy_all
-      p = Post.find_by_author(@dusername)
 			Post.where(:author => @dusername).destroy_all
-      Comment.where(:post_id => p.id, :user => @dusername).destroy_all
+      Comment.where(:user => @dusername).destroy_all
 
 
       # If current user is deleting their account, posts and comments
@@ -98,7 +97,8 @@ include UsersHelper
         @_current_user = session[:current_user_id] = nil
         @_current_user = session[:current_username] = nil 
         @_current_user = session[:current_password] = nil      
-        @_current_user = session[:admin] = nil   
+        @_current_user = session[:admin] = nil
+        @_current_user = session[:super_admin] = nil     
         redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
       else
         redirect_to admin_users_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
@@ -113,7 +113,8 @@ include UsersHelper
         @_current_user = session[:current_user_id] = nil
         @_current_user = session[:current_username] = nil 
         @_current_user = session[:current_password] = nil      
-        @_current_user = session[:admin] = nil   
+        @_current_user = session[:admin] = nil 
+        @_current_user = session[:super_admin] = nil     
         redirect_to home_path(:display => "You have successfully deleted your account")
       else
         redirect_to admin_users_path(:display => "The user #{@dusername} was successfully deleted")
