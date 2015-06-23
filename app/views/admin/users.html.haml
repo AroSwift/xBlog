@@ -8,7 +8,7 @@
     Users
   %br
 
-    - Request.all.order("created_at DESC LIMIT 1").each do |request|
+    - Request.all.order("created_at asc LIMIT 1").each do |request|
       - if request.status == true && super_admin? then
         %center
           The user
@@ -24,7 +24,7 @@
           %br
           %br
           = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
-          = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :delete, class: "request"
+          = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id, :reject => true), :method => :delete, class: "request"
           %br
           %br
           %br

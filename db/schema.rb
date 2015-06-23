@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150618191312) do
     t.integer  "user_id"
     t.boolean  "status",      default: false, null: false
     t.string   "accepted_by"
+    t.string   "rejected_by"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
