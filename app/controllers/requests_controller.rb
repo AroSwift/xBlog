@@ -8,18 +8,26 @@ include UsersHelper
     @password = session[:current_password]
     @id = session[:current_user_id]
 
-    request = Request.new
-    request.username = @username
-    request.password = @password
-    request.user_id = @id
-    request.valid?
 
-    # Check if there are errors
-    if request.errors.empty? then
-      request.save(request_params)
-      redirect_to account_path(:display => 'Your request has been submitted')
+    req = Request.find_by(username: @username, password: @password)
+
+    request = Request.new
+    if req.nil? then
+      request.username = @username
+      request.password = @password
+      request.user_id = @id
+      request.valid?
+
+      # Check if there are errors
+      if request.errors.empty? then
+        request.save(request_params)
+        redirect_to account_path(:display => 'Your request has been submitted')
+      else
+        redirect_to account_path(:errors => request.errors.full_messages)
+      end
+
     else
-      redirect_to account_path(:errors => request.errors.full_messages)
+      redirect_to account_path(:display => 'You have already submitted a request')
     end
   end
 
