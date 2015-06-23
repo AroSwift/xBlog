@@ -93,10 +93,6 @@ include UsersHelper
 		@dusername = params[:dusername]
 		@dpassword = params[:dpassword]
 		@dadmin = params[:dadmin]
-		@type = params[:dtype]
-
-    # If Admin wants to delete user AND ALL their posts
-		if @type == 'all' && @type != 'user' then
 
       # Delete user and all their posts and comments
 			User.where(:username => @dusername, :password => @dpassword).destroy_all
@@ -121,35 +117,6 @@ include UsersHelper
 		  else
         redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
       end
-
-    # If Admin only wants to delete user
-    elsif @type == 'user' && @type != 'all' then
-
-			User.where(:username => @dusername, :password => @dpassword).destroy_all
-
-
-      # Sign out if current user
-      if @dusername == session[:current_username] then
-        @_current_user = session[:current_user_id] = nil
-        @_current_user = session[:current_username] = nil 
-        @_current_user = session[:current_password] = nil      
-        @_current_user = session[:admin] = nil
-        @_current_user = session[:super_admin] = nil 
-      end 
-
-
-      # If current user is deleting their account, posts and comments
-      if @dusername == session[:current_username] then
-        redirect_to home_path(:display => "You have successfully deleted your account")
-      elsif admin? then
-        redirect_to admin_users_path(:display => "The user #{@dusername} was successfully deleted")
-      else
-        redirect_to home_path(:display => "You have successfully deleted your account")
-      end
-
-		else
-      redirect_to :back
-    end
 	end
 
 
