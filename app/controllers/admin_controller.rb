@@ -116,9 +116,11 @@ include UsersHelper
       # If current user is deleting their account, posts and comments
       if @dusername == session[:current_username] then   
         redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
-      else
+      elsif admin? then
         redirect_to admin_users_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
-		  end
+		  else
+        redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
+      end
 
     # If Admin only wants to delete user
     elsif @type == 'user' && @type != 'all' then
@@ -139,8 +141,10 @@ include UsersHelper
       # If current user is deleting their account, posts and comments
       if @dusername == session[:current_username] then
         redirect_to home_path(:display => "You have successfully deleted your account")
-      else
+      elsif admin? then
         redirect_to admin_users_path(:display => "The user #{@dusername} was successfully deleted")
+      else
+        redirect_to home_path(:display => "You have successfully deleted your account")
       end
 
 		else
