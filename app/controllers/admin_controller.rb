@@ -39,6 +39,7 @@ include UsersHelper
         # Updates Posts and Comments user and author to match new username
         Post.where(:author => @prename).update_all(author: @username)
         Comment.where(:user => @prename).update_all(user: @username)
+        Request.where(:accepted_by => @prename).update_all(accepted_by: @username)
 
 
         # Update session to match new identity if it is current user
