@@ -1,10 +1,8 @@
 FactoryGirl.define do
-
   factory :post do
-    title			'Good Times'
-    post			'Post Content'
-    author			'Author'
-    author_id 		1
+    title "My Title"
+	author "AuthorBubble"
+	content "Some content always likes to go around here"
   end
 
 end

@@ -7,6 +7,10 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 
+module Blog
+  class Application < Rails::Application
+
+
 # BEGIN CUSTOM 
 config.generators do |g|
   g.test_framework  :rspec, :fixture => true
@@ -14,9 +18,7 @@ config.generators do |g|
 end
 # END CUSTOM
 
-
-module Blog
-  class Application < Rails::Application
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
