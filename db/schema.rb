@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(version: 20150618191312) do
     t.string   "username"
     t.string   "password"
     t.integer  "user_id"
-    t.boolean  "status",     default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "status",      default: false, null: false
+    t.string   "accepted_by"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade do |t|

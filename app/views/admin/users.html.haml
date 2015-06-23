@@ -9,7 +9,7 @@
   %br
 
     - Request.all.order("created_at DESC LIMIT 1").each do |request|
-      - if request.status == false then
+      - if request.status == false && super_admin? then
         %center
           The user
           %b
@@ -23,13 +23,16 @@
           %br
           %br
           %br
-      - elsif request.status == true && super_admin?
+
+      - elsif request.status == true
         %center
           The user
           %b
             = request.username
           requested to be an administrator
-          = compare_time(request.created_at)
+          and was accepted by
+          = request.accepted_by
+          = compare_time(request.updated_at)
           %br
           %br
           = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
@@ -46,7 +49,7 @@
         = user.username
         %br
 
-        - if user.admin == false && user.superadmin == false || super_admin?
+        - if user.admin == false && user.superadmin == false || user.username == session[:current_username] || super_admin? 
           Password:
           =user.password
           - if admin? || super_admin? then

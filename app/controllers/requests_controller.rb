@@ -46,7 +46,7 @@ include UsersHelper
 
       # Make user admin
       user.save
-      Request.where(:username => @username, :password => @password).update_all(status: true)
+      Request.where(:username => @username, :password => @password).update_all(status: true, accepted_by: session[:current_username])
       #Request.where(:username => @username, :password => @password).destroy_all
       redirect_to admin_home_path(:display => "#{@username} is now an administrator")
     else
