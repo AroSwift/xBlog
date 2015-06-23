@@ -60,18 +60,25 @@ include UsersHelper
   end
 
 
-  # Delete request for norm user to become admin
+  # accept or reject request
   def delete_request
     @username = params[:username]
     @password = params[:password]
     @id = params[:id]
+    @adminreject = params[:adminreject]
     @reject = params[:reject]
 
-    if @reject == true then
+    # If super admin is rejecting for final time
+    if @adminreject == 'true' then
       User.where(:username => @username, :password => @password).update_all(admin: false)
+      Request.where(:username => @username, :password => @password).destroy_all
     end
 
-    Request.where(:username => @username, :password => @password).destroy_all
+    # if normal admin is rejecting
+    if @reject = 'true' then
+      Request.where(:username => @username, :password => @password).update_all(status: true, rejected_by: session[:current_username])
+    end  
+
     redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator was rejected")
   end
 

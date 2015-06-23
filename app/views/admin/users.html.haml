@@ -14,8 +14,17 @@
           The user
           %b
             = request.username
-          requested to be an administrator and was accepted by
-          = request.accepted_by
+
+          -# rejected or accepted?
+          - if !request.accepted_by.nil? then
+            requested to be an administrator and was accepted by
+            %b
+              = request.accepted_by
+          - elsif !request.rejected_by.nil? then
+            requested to be an administrator and was rejected by
+            %b
+              = request.rejected_by
+
           = compare_time(request.updated_at) + '. '
           Do you want
           %b
@@ -24,7 +33,7 @@
           %br
           %br
           = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
-          = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id, :reject => true), :method => :delete, class: "request"
+          = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id, :adminreject => 'true'), :method => :delete, class: "request"
           %br
           %br
           %br
@@ -39,7 +48,7 @@
           %br
           %br
           = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
-          = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :delete, class: "request"
+          = link_to 'No', admin_users_path(:username => request.username, :password => request.password, :id => request.id, :reject => 'true'), :method => :delete, class: "request"
           %br
           %br
           %br
