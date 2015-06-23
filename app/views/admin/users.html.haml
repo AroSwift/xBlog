@@ -31,7 +31,7 @@
         = user.username
         %br
 
-        - if user.admin != true || super_admin?
+        - if user.admin == false && user.superadmin == false || super_admin?
           Password:
           =user.password
           - if admin? || super_admin? then

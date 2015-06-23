@@ -106,40 +106,40 @@ require 'Factory_Girl'
 
 
 
-	describe 'New Post' do	
+	describe 'New p' do	
 
 		before :each do
-			@post = FactoryGirl.create(:post) # Completely valid post
+			@p = FactoryGirl.create(:post) # Completely valid post
 		end
 
 
 		it "takes title, current username, and post content" do
-			visit :post
-			fill_in "posts_title", with: @post.title
-			# fill_in "posts_author", with: @post.author ## Should NOT have to fill the author field- should be pre-populated
-			fill_in "posts_content", with: @post.post
-			click_button "Post"
+			visit :p
+			fill_in "ps_title", with: @p.title
+			# fill_in "ps_author", with: @p.author ## Should NOT have to fill the author field- should be pre-populated
+			fill_in "ps_content", with: @p.post
+			click_button "p"
 		end
 
 
 		it "validates presence of title, author, and post content" do
 
 			# Valid new post
-			expect(@post.title).not_to be_empty
-			expect(@post.post).not_to be_empty
-			expect(@post.valid?).to be (true)
+			expect(@p.title).not_to be_empty
+			expect(@p.p).not_to be_empty
+			expect(@p.valid?).to be (true)
 
 			# Invalid new post
-			@post.title = ''
-			expect(@post.title).not_to be_empty
-			expect(@post.post).not_to be_empty
-			expect(@post.valid?).to be (false)
+			@p.title = ''
+			expect(@p.title).not_to be_empty
+			expect(@p.p).not_to be_empty
+			expect(@p.valid?).to be (false)
 
 			# Invalid new post
-			@post.post = ''
-			expect(@post.title).not_to be_empty
-			expect(@post.post).not_to be_empty
-			expect(@post.valid?).to be (false)
+			@p.p = ''
+			expect(@p.title).not_to be_empty
+			expect(@p.p).not_to be_empty
+			expect(@p.valid?).to be (false)
 		end
 
 

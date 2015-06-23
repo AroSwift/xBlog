@@ -134,7 +134,7 @@ CONTENT AREA
 */
 
 section {
-	min-height: 53%;
+	min-height: 50%;
 	padding: 30px;
 	padding-top: 15px;
 	margin-bottom: 18%;
@@ -376,10 +376,11 @@ input.comment.button {
 }
 
 p.comsec {
-	padding-left: 30px;
+	margin-left: 30px;
+	//margin-right: 30px;
 	padding-bottom: 5px;
 	font-style: italic;
-	//border-bottom: 2px solid black;
+	border-bottom: 1px solid #C3C3C3;
 	font-size: 70%;
 }
 
@@ -407,7 +408,7 @@ FOOTER AREA
 
 footer {
 	width: 100%;
-	padding: 20px;
+	padding: 20px 20px 20px 30px;
 	color: #919191;
 	background-color: #333333;
 	//position: absolute;
@@ -440,6 +441,9 @@ center.daccess {
 	margin-bottom: 35%;
 }
 
+
+
+
 section h3 center {
 	margin-top: 10%;
 }
@@ -448,7 +452,7 @@ section h3 center {
 
 @media screen and (max-width: 1100px) {
 section {
-	min-height: 62%;
+	min-height: 60%;
 }
 }
 
@@ -456,7 +460,7 @@ section {
 
 @media screen and (max-width: 700px) {
 section {
-	min-height: 65%;
+	min-height: 63%;
 }
 
 }

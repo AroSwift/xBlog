@@ -6,6 +6,15 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+
+# BEGIN CUSTOM 
+config.generators do |g|
+  g.test_framework  :rspec, :fixture => true
+  g.fixture_replacement :factory_girl, :dir=>"spec/factories"
+end
+# END CUSTOM
+
+
 module Blog
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
