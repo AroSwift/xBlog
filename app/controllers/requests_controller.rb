@@ -60,6 +60,11 @@ include UsersHelper
     @username = params[:username]
     @password = params[:password]
     @id = params[:id]
+    @reject = params[:reject]
+
+    if @reject == true
+      User.where(:username => @username, :password => @password).update_all(admin: false)
+    end
 
     Request.where(:username => @username, :password => @password).destroy_all
     redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator was rejected")

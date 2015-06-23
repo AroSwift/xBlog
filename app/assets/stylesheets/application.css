@@ -463,12 +463,16 @@ section {
 	min-height: 63%;
 }
 
+body {
+	font-size: 87%;
+}
+
 }
 
 
 @media screen and (max-width: 500px) {
 body {
-	font-size: 65%;
+	font-size: 72%;
 }
 }
 

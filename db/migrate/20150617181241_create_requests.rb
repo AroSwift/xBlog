@@ -6,6 +6,7 @@ class CreateRequests < ActiveRecord::Migration
       t.integer :user_id
       t.boolean :status, null: false, default: false
       t.string :accepted_by
+      t.string :rejected_by
 
       t.timestamps null: false
     end

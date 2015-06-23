@@ -14,10 +14,13 @@
           The user
           %b
             = request.username
-          requested to be an administrator
-          and was accepted by
+          requested to be an administrator and was accepted by
           = request.accepted_by
-          = compare_time(request.updated_at)
+          = compare_time(request.updated_at) + '. '
+          Do you want
+          %b
+            = request.username
+          to be an administrator?
           %br
           %br
           = link_to 'Yes', admin_users_path(:username => request.username, :password => request.password, :id => request.id), :method => :update, class: "request"
