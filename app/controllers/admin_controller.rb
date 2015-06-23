@@ -35,28 +35,21 @@ include UsersHelper
     	if @confirm_password == @password || admin? then
         user.save(user_params)
 
-        # Update Author name to new username
-        p = Post.find_by_author_id(@id)
-        if !p.nil? then
-          p.author = @username
-          p.save
-        end
+      
+        # Updates Posts and Comments user and author to match new username
+        Post.where(:author => @prename).update_all(author: @username)
+        Comment.where(:user => @prename).update_all(user: @username)
 
-        # Update comment user to new username
-        c = Comment.find_by_user(@username)
-        if !c.nil? then
-          c.user = @username
-          c.save
-        end
 
         # Update session to match new identity if it is current user
         if @prename == session[:current_username] then
+          @prename = 'changed'
           session[:current_username] = @username
           session[:current_password] = @password
         end
 
         # Where to send user after updated
-        if admin? && @prename != session[:current_username] then
+        if admin? && @prename != 'changed' then
           redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
         else
           if admin? then
