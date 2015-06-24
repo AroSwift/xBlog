@@ -54,10 +54,11 @@ include UsersHelper
     if post.errors.empty? then
       post.save(post_params)
       
+      @msg = 'Your post was created'
       if admin? then
-        redirect_to admin_home_path(:display => 'Your post was updated')
+        redirect_to admin_home_path(:display => @msg)
       else
-        redirect_to home_path(:display => 'Your post was updated')
+        redirect_to home_path(:display => @msg)
       end
 
     else

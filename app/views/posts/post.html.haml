@@ -20,6 +20,6 @@
     %p
       = f.label :content, "Post"
       %br/
-      = f.text_area :content, :value => flash[:content]
+      = f.text_area :content, :maxlength => 1500, :value => flash[:content]
     %p
       = f.submit "Post"

@@ -13,7 +13,9 @@ require 'capybara-screenshot/rspec'
 Capybara::Screenshot.prune_strategy = :keep_last_run
 
 # So visit works in view
-include Capybara::DSL
+RSpec.configure do |config|
+  config.include Capybara::DSL
+end
 
 # Save in desktop
 Capybara.save_and_open_page_path = "../../desktop/ScreenShots"
