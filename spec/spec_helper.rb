@@ -12,6 +12,9 @@ require 'capybara-screenshot/rspec'
 # Keep up to the number of screenshots specified in the hash
 Capybara::Screenshot.prune_strategy = :keep_last_run
 
+# So visit works in view
+include Capybara::DSL
+
 # Save in desktop
 Capybara.save_and_open_page_path = "../../desktop/ScreenShots"
 

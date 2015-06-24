@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
 	validates :content, uniqueness: true, on: :create 
 	validates :title, length: { in: 5..40 }
 	validates :author, length: { in: 5..12 }
-	validates :content, length: { in: 10..10000 } # CHANGE MIN CHARACTERS LATER
+	validates :content, length: { in: 30..10000 } # CHANGE MIN CHARACTERS LATER
 
 end
 

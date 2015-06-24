@@ -14,6 +14,6 @@ RSpec.describe Post, :type => :model do
 	it { should validate_length_of(:author).is_at_least(5) }
 	it { should validate_length_of(:author).is_at_most(12) }
 
-	it { should validate_length_of(:content).is_at_least(10) }
+	it { should validate_length_of(:content).is_at_least(30) }
 	it { should validate_length_of(:content).is_at_most(10000) }
 end

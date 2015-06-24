@@ -35,7 +35,7 @@
 
     %section
     
-      - if admin? || logged_in? then
+      - if logged_in? then
         %h2
           = yield :current_page
           - if current_page?(:account) || current_page?(:admin_edit_users) then
