@@ -28,8 +28,12 @@ RSpec.describe UsersController, :type => :controller do
 
 			it "gives the current user a session and redirects" do
 				session[:current_user_id] = @user.id
-	      session[:current_username] = @user.username
-	      session[:current_password] = @user.password
+				session[:current_username] = @user.username
+				session[:current_password] = @user.password
+
+				expect(session[:current_user_id]).to be == @user.id
+	      expect(session[:current_username]).to be == @user.username
+	      expect(session[:current_password]).to be == @user.password
 
 				#expect(response).to redirect_to :admin_home
 			end
