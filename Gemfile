@@ -60,7 +60,9 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'guard-livereload'
   gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
+  gem 'shoulda-matchers'
   # END CUSTOM
 
 

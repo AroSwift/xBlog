@@ -1,28 +1,10 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
-require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
-
-# BEGIN CUSTOM
-require 'capybara/rspec'
-require 'capybara-screenshot/rspec'
-
-# Keep up to the number of screenshots specified in the hash
-Capybara::Screenshot.prune_strategy = { keep: 20 }
-
-# Save in desktop
-Capybara.save_and_open_page_path = "../../desktop/ScreenShots"
-
-# Disable annoying timestamp
-Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-  "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//,'')}"
-end
-
-
-
-# END CUSTOM
+# My code
+require 'spec_helper'
 
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

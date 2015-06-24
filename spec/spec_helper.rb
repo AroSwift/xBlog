@@ -3,6 +3,27 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
+
+# BEGIN CUSTOM
+require 'shoulda/matchers'
+require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
+
+# Keep up to the number of screenshots specified in the hash
+Capybara::Screenshot.prune_strategy = { keep: 20 }
+
+# Save in desktop
+Capybara.save_and_open_page_path = "../../desktop/ScreenShots"
+
+# Disable annoying timestamp
+Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
+  "screenshot_#{example.description.gsub(' ', '-').gsub(/^.*\/spec\//,'')}"
+end
+
+# END CUSTOM
+
+
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
