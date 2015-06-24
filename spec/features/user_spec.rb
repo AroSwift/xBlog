@@ -14,39 +14,7 @@ require 'Factory_Girl'
 			fill_in "login_username", with: @user.username
 			fill_in "login_password", with: @user.password
 			click_button "Login"
-		end
-
-
-		it "validates presence of username and password" do
-
-			# Valid User
-			expect(@user.username).not_to be_empty
-			expect(@user.password).not_to be_empty
-			expect(@user.valid?).to be (true)
-
-			# Invalid User
-			@user.username = ''
-			@user.password = ''
-			expect(@user.username).to be_empty
-			expect(@user.password).to be_empty
-			expect(@user.valid?).to be (false)
-		end
-
-
-			it "validates length of username and password" do
-
-			# Valid User
-			#expect(@user.username.length).to be < 5 # Greater than or equal to 5
-			#expect(@user.username.length).to be >= 8 # Less than or equal to 8
-			#expect(@user.password.length).to be <= 8 # Greater than or equal to 8
-			#expect(@user.username.length).to be >= 12 # Less than or equal to 12
-			#expect(@user.valid?).to be (true)
-
-			# Invalid User
-			#@user.username = ''
-			#expect(@user.username).to be_between(5, 20).exclusive
-			#expect(@user.password).to be_between(5, 20).exclusive
-			#expect(@user.valid?).to be (false)
+			expect(response).to eq(visit :home).or eq(visit :admin_home)
 		end
 
 	end
@@ -113,11 +81,19 @@ require 'Factory_Girl'
 
 		before :each do
 			@p = FactoryGirl.build(:post) # Completely valid post
+			@user = FactoryGirl.build(:user) # Completely valid user
+		
+			# Must be loged in before posting
+			visit :login
+			fill_in "login_username", with: @user.username
+			fill_in "login_password", with: @user.password
+			click_button "Login"
+
+			visit :post
 		end
 
 
 		it "takes title, current username, and post content" do
-			visit :post
 			fill_in "posts_title", with: @p.title
 			# fill_in "posts_author", with: @p.author ## Should NOT have to fill the author field- should be pre-populated
 			fill_in "posts_content", with: @p.post
