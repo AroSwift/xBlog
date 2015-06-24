@@ -1,8 +1,7 @@
-require 'rails_helper'
 require 'factory_girl'
 
 
-describe Post do
+RSpec.describe Post, :type => :model do
 	# Validates presences
 	it { should validate_presence_of(:title) }	
 	it { should validate_presence_of(:author) }	

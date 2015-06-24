@@ -1,4 +1,3 @@
-require 'rails_helper'
 require 'Factory_Girl'
 
 
@@ -16,8 +15,6 @@ describe 'Login' do
 		end
 
 end
-
-
 
 
 

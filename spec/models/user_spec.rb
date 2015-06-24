@@ -1,8 +1,7 @@
-require 'rails_helper'
 require 'factory_girl'
 
 
-describe User do
+RSpec.describe User, :type => :model do
 	# Validates presences
 	it { should validate_presence_of(:username) }	
 	it { should validate_presence_of(:password) }	
