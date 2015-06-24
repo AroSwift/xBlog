@@ -1,53 +1,55 @@
-- if !admin? then
+- if !admin? || !super_admin? then
   %h2
     %center.daccess
       You don't have access to this page.
 - else 
 
-- if first_post? && logged_in?
-  %h3
-    %center
-      = link_to "Create First Post", post_path, :class => 'firstup' 
+  - if first_post? && logged_in?
+    %h3
+      %center
+        = link_to "Create First Post", post_path, :class => 'firstup' 
 
-- content_for :current_page do
-  Admin
-%br
+  - content_for :current_page do
+    Admin
+  %br
 
-  - Post.all.order("updated_at DESC LIMIT 20").each do |post|
-    %article.posts
-      %p.title
-        = post.title
-        by
-        = post.author
+    - Post.all.order("updated_at DESC LIMIT 20").each do |post|
+      %article.posts
+        %p.title
+          = post.title
+          by
+          = post.author
 
-        - if post.author == session[:current_username] || super_admin?
-          = link_to 'Delete', post_path(:title => post.title, :author => post.author), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
-          = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
-        - elsif admin? 
-          - User.where(username: post.author).each do |user|
-            - if user.admin == false && user.superadmin == false
-              = link_to 'Delete', post_path(:title => post.title, :author => post.author), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
-              = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
+          - if post.author == session[:current_username] || super_admin?
+            = link_to 'Delete', post_path(:title => post.title, :author => post.author), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+            = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
+          - elsif admin? 
+            - User.where(username: post.author).each do |user|
+              - if user.admin == false && user.superadmin == false
+                = link_to 'Delete', post_path(:title => post.title, :author => post.author), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+                = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
 
-    .small= compare_time(post.updated_at)
-    %p.content= post.content
+      .small= compare_time(post.updated_at)
+      %p.content= post.content
 
-    - Comment.where(post_id: post.id).order("created_at DESC LIMIT 15").each do |com|
-      %p.comsec{:name => "jump#{com.post_id}",}
-        %b
-          = com.user + ':'
-        = com.comment
-        - if com.user == session[:current_username] || super_admin?
-          = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
-        - else admin?
-          - User.where(username: com.user).each do |user|
-            - if user.admin == false && user.superadmin == false
-              = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"          
+      - Comment.where(post_id: post.id).order("created_at DESC LIMIT 15").each do |com|
+        %p.comsec{:name => "jump#{com.post_id}",}
+          %b
+            = com.user + ':'
+          = com.comment
+          %b
+            - if com.user == session[:current_username] || super_admin?
+              = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
+            - else admin?
+              - User.where(username: com.user).each do |user|
+                - if user.admin == false && user.superadmin == false
+                  = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"          
 
-    - if logged_in? then
-      = form_for :com, url: comment_path(:post_id => post.id) do |f|
-        %p
-          = f.label :comment, "Comment", class: 'comment'
-          %br/
-          = f.text_field :comment
-          = f.submit "Comment", class: 'comment button'
+      - if logged_in? then
+        = form_for :com, url: comment_path(:post_id => post.id) do |f|
+          %p
+            = f.label :comment, "Comment", class: 'comment'
+            %br/
+            = f.text_field :comment, :maxlength => 250
+            = f.submit "Comment", class: 'comment button'
+

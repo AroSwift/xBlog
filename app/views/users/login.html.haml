@@ -6,11 +6,11 @@
   %p
     = f.label :username, "Username"
     %br/
-    = f.text_field :username, :value => flash[:username]
+    = f.text_field :username, :maxlength => 12, :value => flash[:username]
   %p
     = f.label :password, "Password"
     %br/
-    = f.password_field :password, :value => flash[:password]
+    = f.password_field :password, :maxlength => 20, :value => flash[:password]
   %p
     = f.submit "Login"
 %br/

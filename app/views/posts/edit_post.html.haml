@@ -12,11 +12,11 @@
     %p
       = f.label :title, "Title"
       %br/
-      = f.text_field :title, :value => params[:title]
+      = f.text_field :title, :maxlength => 40, :value => params[:title]
     %p
       = f.label :author, "Author"
       %br/
-      = f.text_field :author, :readonly => true, :value => params[:author]
+      = f.text_field :author, :maxlength => 12, :readonly => true, :value => params[:author]
     %p
       = f.label :pcontent, "Post"
       %br/

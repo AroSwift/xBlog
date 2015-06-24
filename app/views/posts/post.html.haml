@@ -12,11 +12,11 @@
     %p
       = f.label :title, "Title"
       %br/
-      = f.text_field :title, :value => flash[:title]
+      = f.text_field :title, :maxlength => 40, :value => flash[:title]
     %p
       = f.label :author, "Author"
       %br/
-      = f.text_field :author, :readonly => true, :value => session[:current_username]
+      = f.text_field :author, :maxlength => 12, :readonly => true, :value => session[:current_username]
     %p
       = f.label :content, "Post"
       %br/

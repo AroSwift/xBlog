@@ -18,16 +18,17 @@ include UsersHelper
     end
 
     # What username was before updating
-    pre = User.find_by_id(@id)
-    @prename = pre.username
+      pre = User.find_by_id(@id)
+      @prename = pre.username
 
-    user = User.find_by_id(@id)
-    user.username = @username
-    user.password = @password
-    if !admin? || @prename != session[:current_username] then 
-      user.admin = @admin
-    end
-    user.valid?
+
+      user = User.find_by_id(@id)
+      user.username = @username
+      user.password = @password
+      if !admin? || @prename != session[:current_username] then 
+        user.admin = @admin
+      end
+      user.valid?
 
     # Check for errors
     if user.errors.empty? then
