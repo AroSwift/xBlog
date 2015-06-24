@@ -36,38 +36,4 @@ require 'Factory_Girl'
 			click_button "Sign Up"
 		end
 
-
-		it "validates presence of username and password" do
-			# Valid User
-			expect(@user.username).to eq(@user.username)
-			expect(@user.password).to eq(@user.password)
-			expect(@user.valid?).to be (true)
-
-			# Invalid User
-			@user.username = ''
-			expect(@user.username).to eq(@user.username)
-			expect(@user.password).to eq(@user.password)
-			expect(@user.valid?).to be (false)
-		end
-
-
-		it "checks if user already exists in database" do
-		end
-
-
-		it "gives the current user a session and redirects" do
-		end
-
-	end
-
-
-
-
-	describe 'Logout' do	
-
-
-		it "takes cookies and deletes them" do
-		end
-
-
 	end

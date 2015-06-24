@@ -4,9 +4,23 @@ RSpec.describe UsersController, :type => :controller do
 
 
 	describe 'Create User' do
-		it "validates existance of username, password, and confirm password" do
+
+		before :each do
+			@user = FactoryGirl.build(:user) # Completely valid user
+		end
 
 
+		it "validates presence of username and password" do
+			# Valid User
+			expect(@user.username).to eq(@user.username)
+			expect(@user.password).to eq(@user.password)
+			expect(@user.valid?).to be (true)
+
+			# Invalid User
+			@user.username = ''
+			expect(@user.username).to eq(@user.username)
+			expect(@user.password).to eq(@user.password)
+			expect(@user.valid?).to be (false)
 		end
 
 
@@ -16,6 +30,15 @@ RSpec.describe UsersController, :type => :controller do
 
 		it "checks if this is the first account" do
 		end
+
+
+		it "checks if user already exists in database" do
+		end
+
+
+		it "gives the current user a session and redirects" do
+		end
+
 
 	end
 
@@ -75,6 +98,16 @@ RSpec.describe UsersController, :type => :controller do
 	end
 
 
+
+
+	describe 'Logout' do	
+
+
+		it "takes cookies and deletes them" do
+		end
+
+
+	end
 
 
 
