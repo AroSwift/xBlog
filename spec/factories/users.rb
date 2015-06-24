@@ -1,9 +1,11 @@
 FactoryGirl.define do
 
-  factory :user do |user|
-    user.username		'AroSwift'
-    user.password		'121096H7'
-    user.id				1
+  factory :user do
+   	username			'AroSwift'
+    password			'121096H7'
+    admin					'f'
+    superadmin		'f'
+    id						1
   end
   
 end
