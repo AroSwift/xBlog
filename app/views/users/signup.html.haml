@@ -1,19 +1,25 @@
-- content_for :current_page do
-  SignUp
-%br/
+- if admin? || super_admin? then
+  %h2
+    %center.daccess
+      You don't have access to this page.
+- else 
 
-= form_for :signup, url: signup_path do |f|
-  %p
-    = f.label :username, "Username"
-    %br/
-    = f.text_field :username, :maxlength => 12, :value => flash[:username]
-  %p
-    = f.label :password, "Password"
-    %br/
-    = f.text_field :password, :maxlength => 20, :value => flash[:password]
-  %p
-    = f.label :confim_password, "Comfirm Password"
-    %br/
-    = f.text_field :confirm_password, :maxlength => 20
-  %p
-    = f.submit "Sign Up"
+  - content_for :current_page do
+    SignUp
+  %br/
+
+  = form_for :signup, url: signup_path do |f|
+    %p
+      = f.label :username, "Username"
+      %br/
+      = f.text_field :username, :maxlength => 12, :value => flash[:username]
+    %p
+      = f.label :password, "Password"
+      %br/
+      = f.text_field :password, :maxlength => 20, :value => flash[:password]
+    %p
+      = f.label :confim_password, "Comfirm Password"
+      %br/
+      = f.text_field :confirm_password, :maxlength => 20
+    %p
+      = f.submit "Sign Up"
