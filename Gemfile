@@ -54,7 +54,7 @@ group :development, :test do
 
   # BEGIN CUSTOM  
   gem "rspec"
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 3.1'
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'guard-rspec', require: false
