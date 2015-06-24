@@ -1,14 +1,13 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'Factory_Girl'
 
 
-	describe 'Login' do
+describe 'Login' do
 
 		before :each do
 			@user = FactoryGirl.build(:user) # Completely valid user
 		end
 		
-
 		it "takes username and password" do
 			visit :login
 			fill_in "login_username", with: @user.username
@@ -16,13 +15,13 @@ require 'Factory_Girl'
 			click_button "Login"
 		end
 
-	end
+end
 
 
 
 
 
-	describe 'SignUp' do
+describe 'SignUp' do
 
 		before :each do
 			@user = FactoryGirl.create(:user) # Completely valid user
@@ -36,4 +35,4 @@ require 'Factory_Girl'
 			click_button "Sign Up"
 		end
 
-	end
+end
