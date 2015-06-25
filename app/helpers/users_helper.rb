@@ -20,7 +20,7 @@ module UsersHelper
   end
 
   def update_user_params_exist?
-    params[:admin].present? && params[:id].present?
+    params[:username].present? && params[:password].present? && params[:id].present?
   end
 
   def delete_user_params_exist?

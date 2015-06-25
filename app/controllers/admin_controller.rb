@@ -56,11 +56,8 @@ include UsersHelper
           if admin? && @prename != 'changed' then
             redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
           else
-            if admin? then
-              redirect_to admin_home_path(:display => "Your username and password were successfully updated")
-            else
-              redirect_to home_path(:display => "Your username and password were successfully updated")
-            end
+            redirect_to home_path(:display => "Your username and password were successfully updated") unless admin?
+            redirect_to admin_home_path(:display => "Your username and password were successfully updated") unless !admin?
           end
 
       	else

@@ -1,32 +1,38 @@
 class PostsController < ApplicationController
 include UsersHelper
+include PostsHelper
 
 
   # Updates Post
   def update
-    @title = params[:posts][:title]
-    @content = params[:posts][:content]
-    @id = params[:id]
+    if update_post_params_exist? then
 
-    post = Post.find_by_id(@id)
-    post.title = @title
-    post.content = @content
-    post.author = session[:current_username]
-    post.author_id = session[:current_user_id]
-    post.valid?
+      @title = params[:posts][:title]
+      @content = params[:posts][:content]
+      @id = params[:id]
 
-    # Checks for errors
-    if post.errors.empty? then
-      post.save(post_params)
+      post = Post.find_by_id(@id)
+      post.title = @title
+      post.content = @content
+      post.author = session[:current_username]
+      post.author_id = session[:current_user_id]
+      post.valid?
 
-      if admin? then
-        redirect_to admin_home_path(:display => 'Your post was successfully updated')
+      # Checks for errors
+      if post.errors.empty? then
+        post.save(post_params)
+
+        redirect_to home_path(:display => 'Your post was successfully updated') unless admin?
+        redirect_to admin_home_path(:display => 'Your post was successfully updated') unless !admin?
+
       else
-        redirect_to home_path(:display => 'Your post was successfully updated')
+        redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
       end
 
+    # If the paramaters are not set
     else
-      redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
+      redirect_to :home unless admin?
+      redirect_to :admin_home unless !admin?
     end
   end
 
