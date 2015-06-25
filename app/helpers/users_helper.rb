@@ -19,8 +19,12 @@ module UsersHelper
   	User.count.zero? 
   end
 
-  def first_post?
-  	Post.count.zero?
+  def update_user_params_exist?
+    params[:username].present? && params[:password].present? && params[:confirm_password].present? && params[:admin].present? && params[:id].present?
+  end
+
+  def delete_user_params_exist?
+    params[:dusername].present? && params[:dpassword].present? && params[:dadmin].present?
   end
 
 end
