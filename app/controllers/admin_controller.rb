@@ -4,13 +4,26 @@ include UsersHelper
 
   # Admin Updates User
 	def update
+
     if update_user_params_exist? then
+
+
 
   	  @username = params[:users][:username]
       @password = params[:users][:password]
       @confirm_password = params[:users][:confirm_password]
       @admin = params[:users][:admin]
-      @id = params[:id]
+
+
+
+
+
+
+      # return immediately if passwrods do not match
+      # if pw != pw2
+      #  redirect
+      #  return
+      # end
 
       # Determines if admin wants edited user to be admin
       if @admin == '1' || @admin == 'true' then
@@ -20,25 +33,38 @@ include UsersHelper
       end
 
       # What username was before updating
-      pre = User.find_by_id(@id)
-      @prename = pre.username
+      # Look into activesupport dirty class: User.username.changed?
 
-
-      user = User.find_by_id(@id)
+      @id = params[:id]
+      user = User.find(@id)
+      @prename = user.username
+    
       user.username = @username
       user.password = @password
       if !admin? || @prename != session[:current_username] then 
         user.admin = @admin
       end
-      user.valid?
+
+
+      # .save
+      # if success
+        # # Update session to match new identity if it is current user
+        # invoke some other method on user? to updates posts and comments
+        # redirect to admin_home_path
+      # else (failure)
+        # Print message
+        # render action: admin_edit
+      # end
+
 
       # Check for errors
+      # .save knows about user.errors.empty already
       if user.errors.empty? then
         # if passwords match OR if admin bypass
       	if @confirm_password == @password || admin? then
           user.save(user_params)
 
-        
+          
           # Updates Posts and Comments user and author to match new username
           Post.where(:author => @prename).update_all(author: @username)
           Comment.where(:user => @prename).update_all(user: @username)

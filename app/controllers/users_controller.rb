@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
 include UsersHelper
 
+def new
+  @user = User.new
+end
+
+def index
+  @user = User.new
+end
+
+
 
   # Create User
   def create

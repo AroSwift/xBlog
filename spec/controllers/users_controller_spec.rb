@@ -6,18 +6,18 @@ RSpec.describe UsersController, :type => :controller do
 	end
 
 
-	describe 'Create User' do
+	describe '#create' do
 
-			it "validates presence of username and password" do
-				visit :signup
+			# it "validates presence of username and password" do
+			# 	visit :signup
 
-				# Valid User
-				expect(@user.valid?).to be (true)
+			# 	# Valid User
+			# 	expect(@user.valid?).to be (true)
 
-				# Invalid User
-				@user.username = ''
-				expect(@user.valid?).to be (false)
-			end
+			# 	# Invalid User
+			# 	@user.username = ''
+			# 	expect(@user.valid?).to be (false)
+			# end
 
 			it "confims password and confirm password are equal" do
 				expect(@user.password).to eq(@user.password)
@@ -47,22 +47,22 @@ RSpec.describe UsersController, :type => :controller do
 
 	describe 'Login' do
 
-			it "validates presence of username and password" do
+			# it "validates presence of username and password" do
 
-				visit :login
+			# 	visit :login
 
-				# Valid User
-				expect(@user.username).not_to be_empty
-				expect(@user.password).not_to be_empty
-				expect(@user.valid?).to be (true)
+			# 	# Valid User
+			# 	expect(@user.username).not_to be_empty
+			# 	expect(@user.password).not_to be_empty
+			# 	expect(@user.valid?).to be (true)
 
-				# Invalid User
-				@user.username = ''
-				@user.password = ''
-				expect(@user.username).to be_empty
-				expect(@user.password).to be_empty
-				expect(@user.valid?).to be (false)
-			end
+			# 	# Invalid User
+			# 	@user.username = ''
+			# 	@user.password = ''
+			# 	expect(@user.username).to be_empty
+			# 	expect(@user.password).to be_empty
+			# 	expect(@user.valid?).to be (false)
+			# end
 
 			it "creates a session" do
 				session[:current_user_id] = @user.id

@@ -8,7 +8,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     %script{:src => "main.js"}
-    %script{:src => "http://code.jquery.com/jquery-latest.min.js"}
+    -# %script{:src => "http://code.jquery.com/jquery-latest.min.js"}
   %body
     %header
       %h1 
@@ -16,7 +16,7 @@
         - if admin? then
           = link_to 'xBlog', admin_home_path, :class => 'xBlog'
         - else
-          = link_to 'xBlog', home_path, :class => 'xBlog'
+          = link_to 'xBlog', root_path, :class => 'xBlog'
 
       %nav
         - if admin? then
@@ -25,11 +25,11 @@
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', admin_logout_path, :method => :delete
         - elsif logged_in? then
-          = link_to 'Home', home_path, :class => ("it" unless !current_page?(:home))
+          = link_to 'Home', home_path, :class => ("it" unless !current_page?(:root))
           = link_to 'Post', post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
           = link_to 'Logout', logout_path, :method => :delete
         - else
-          = link_to 'Home', home_path, :class => ("it" if current_page?(:home) || current_page?(:root))
+          = link_to 'Home', root_path, :class => ("it" if current_page?(:root))
           = link_to 'Login', login_path, :class => ("it" unless !current_page?(:login))
           = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
 

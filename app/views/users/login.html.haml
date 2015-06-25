@@ -1,4 +1,4 @@
-- if admin? || super_admin? then
+- if admin? then
   %h2
     %center.daccess
       You don't have access to this page.
@@ -8,7 +8,7 @@
     Login
   %br
 
-  = form_for :login, url: login_path do |f|
+  = form_for @user do |f|
     %p
       = f.label :username, "Username"
       %br/
