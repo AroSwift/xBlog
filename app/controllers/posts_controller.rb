@@ -31,8 +31,8 @@ include PostsHelper
 
     # If the paramaters are not set
     else
-      redirect_to :home unless admin?
-      redirect_to :admin_home unless !admin?
+      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
   end
 
@@ -71,14 +71,21 @@ include PostsHelper
 
   # Deletes post
  def destroy
-    @title = params[:title]
-    @author = params[:author]
-    @content = params[:content]
+    if delete_post_params_exist? then
+      @title = params[:title]
+      @author = params[:author]
+      @content = params[:content]
 
-    Post.where(:title => @title, :author => @author, :content => @content).destroy_all
+      Post.where(:title => @title, :author => @author, :content => @content).destroy_all
 
-    redirect_to home_path(:display => "The post '#{@title}' was successfully deleted") unless admin?
-    redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted") unless !admin?
+      redirect_to home_path(:display => "The post '#{@title}' was successfully deleted") unless admin?
+      redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted") unless !admin?
+    
+    # If the paramaters are not set
+    else
+      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
+    end
   end
 
 

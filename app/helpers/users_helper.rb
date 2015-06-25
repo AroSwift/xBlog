@@ -26,5 +26,5 @@ module UsersHelper
   def delete_user_params_exist?
     params[:dusername].present? && params[:dpassword].present? && params[:dadmin].present?
   end
-
+  
 end

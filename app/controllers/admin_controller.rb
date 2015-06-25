@@ -71,8 +71,8 @@ include UsersHelper
 
     # If the paramaters are not set
     else
-      redirect_to :home unless admin?
-      redirect_to :admin_home unless !admin?
+      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
 	end
 
@@ -119,9 +119,10 @@ include UsersHelper
           redirect_to admin_users_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted") unless !admin?
         end
 
+    # If the paramaters are not set
     else
-      redirect_to :home unless admin?
-      redirect_to :admin_home unless !admin?
+      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
 	end
 

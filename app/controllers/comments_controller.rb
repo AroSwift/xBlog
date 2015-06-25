@@ -42,8 +42,8 @@ include CommentsHelper
 
     # If the paramaters are not set
     else
-      redirect_to :home unless admin?
-      redirect_to :admin_home unless !admin?
+      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
   end
 

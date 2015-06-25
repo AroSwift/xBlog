@@ -35,48 +35,64 @@ include UsersHelper
 
   # Accept request for norm user to become admin
   def accept_request
-    @username = params[:username]
-    @password = params[:password]
+    if accept_request_params_exist? then
 
-    user = User.find_by(username: @username)
-    user.admin = true
-    user.valid?
+      @username = params[:username]
+      @password = params[:password]
 
-    # Check for errors
-    if user.errors.empty? then
-      # Make user admin
-      user.save
+      user = User.find_by(username: @username)
+      user.admin = true
+      user.valid?
 
-      Request.where(:username => @username, :password => @password).destroy_all unless !super_admin?
-      Request.where(:username => @username, :password => @password).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
+      # Check for errors
+      if user.errors.empty? then
+        # Make user admin
+        user.save
 
-      redirect_to admin_home_path(:display => "#{@username} is now an administrator")
+        Request.where(:username => @username, :password => @password).destroy_all unless !super_admin?
+        Request.where(:username => @username, :password => @password).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
+
+        redirect_to admin_home_path(:display => "#{@username} is now an administrator")
+      else
+        redirect_to admin_users_path(:display => "#{@username} is NOT an administrator. Please try again.")
+      end
+
+    # If the paramaters are not set
     else
-      redirect_to admin_users_path(:display => "#{@username} is NOT an administrator. Please try again.")
+      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
   end
 
 
   # accept or reject request
   def delete_request
-    @username = params[:username]
-    @password = params[:password]
-    @id = params[:id]
-    @adminreject = params[:adminreject]
-    @reject = params[:reject]
+    if delete_request_params_exist? then
 
-    # If super admin is rejecting for final time
-    if @adminreject == 'true' then
-      User.where(:username => @username, :password => @password).update_all(admin: false)
-      Request.where(:username => @username, :password => @password).destroy_all
+      @username = params[:username]
+      @password = params[:password]
+      @id = params[:id]
+      @adminreject = params[:adminreject]
+      @reject = params[:reject]
+
+      # If super admin is rejecting for final time
+      if @adminreject == 'true' then
+        User.where(:username => @username, :password => @password).update_all(admin: false)
+        Request.where(:username => @username, :password => @password).destroy_all
+      end
+
+      # if normal admin is rejecting
+      if @reject = 'true' then
+        Request.where(:username => @username, :password => @password).update_all(status: true, rejected_by: session[:current_username])
+      end  
+
+      redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator was rejected")
+
+    # If the paramaters are not set
+    else
+      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
-
-    # if normal admin is rejecting
-    if @reject = 'true' then
-      Request.where(:username => @username, :password => @password).update_all(status: true, rejected_by: session[:current_username])
-    end  
-
-    redirect_to admin_users_path(:display => "The request for #{@username} to become an administrator was rejected")
   end
 
 
