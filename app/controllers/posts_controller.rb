@@ -60,12 +60,8 @@ include PostsHelper
     if post.errors.empty? then
       post.save(post_params)
       
-      @msg = 'Your post was created'
-      if admin? then
-        redirect_to admin_home_path(:display => @msg)
-      else
-        redirect_to home_path(:display => @msg)
-      end
+      redirect_to home_path(:display => 'Your post was created') unless admin?
+      redirect_to admin_home_path(:display => 'Your post was created') unless !admin?
 
     else
       redirect_to post_path(:errors => post.errors.full_messages)
@@ -81,11 +77,8 @@ include PostsHelper
 
     Post.where(:title => @title, :author => @author, :content => @content).destroy_all
 
-    if admin? then
-      redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted")
-    else
-      redirect_to home_path(:display => "The post '#{@title}' was successfully deleted")
-    end
+    redirect_to home_path(:display => "The post '#{@title}' was successfully deleted") unless admin?
+    redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted") unless !admin?
   end
 
 

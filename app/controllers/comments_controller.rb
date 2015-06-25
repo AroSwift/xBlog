@@ -17,18 +17,12 @@ include UsersHelper
     if com.errors.empty? then
         com.save(comment_params)
 
-      if admin? then
-        redirect_to :admin_home
-      else
-        redirect_to :home
-      end
+      redirect_to :home unless admin?
+      redirect_to :admin_home unless !admin?
       
     else
-      if admin?
-        redirect_to admin_home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id)
-      else
-        redirect_to home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id)
-      end
+      redirect_to home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless admin?
+      redirect_to admin_home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless !admin?
     end
   end
 
@@ -41,11 +35,8 @@ include UsersHelper
 
     Comment.where(:user => @user, :comment => @comment, :post_id => @post_id).destroy_all
       
-    if admin? then
-      redirect_to admin_home_path(:display => "The comment was successfully deleted")
-    else
-      redirect_to home_path(:display => "The comment was successfully deleted")
-    end
+    redirect_to home_path(:display => "The comment was successfully deleted") unless admin?
+    redirect_to admin_home_path(:display => "The comment was successfully deleted") unless !admin?
   end
 
 
