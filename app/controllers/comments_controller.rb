@@ -29,20 +29,25 @@ include UsersHelper
 
   # Delete Comment
   def destroy
-    @user = params[:user]
-    @comment = params[:comment]
-    @post_id = params[:post_id]
+    if delete_comment_params_exist?
+      @user = params[:user]
+      @comment = params[:comment]
+      @post_id = params[:post_id]
 
-    Comment.where(:user => @user, :comment => @comment, :post_id => @post_id).destroy_all
-      
-    redirect_to home_path(:display => "The comment was successfully deleted") unless admin?
-    redirect_to admin_home_path(:display => "The comment was successfully deleted") unless !admin?
-  end
+      Comment.where(:user => @user, :comment => @comment, :post_id => @post_id).destroy_all
+        
+      redirect_to home_path(:display => "The comment was successfully deleted") unless admin?
+      redirect_to admin_home_path(:display => "The comment was successfully deleted") unless !admin?
 
+    # What is allowed in database
+    def comment_params
+      params.require(:com).permit(:comment, :post_id, :user)
+    end
 
-  # What is allowed in database
-  def comment_params
-    params.require(:com).permit(:comment, :post_id, :user)
-  end
+    # If the paramaters are not set
+    else
+      redirect_to :home unless admin?
+      redirect_to :admin_home unless !admin?
+    end
 
 end

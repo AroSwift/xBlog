@@ -21,6 +21,7 @@ include UsersHelper
       # Check if there are errors
       if request.errors.empty? then
         request.save(request_params)
+
         redirect_to account_path(:display => 'Your request has been submitted')
       else
         redirect_to account_path(:errors => request.errors.full_messages)
@@ -43,15 +44,11 @@ include UsersHelper
 
     # Check for errors
     if user.errors.empty? then
-
       # Make user admin
       user.save
-      if super_admin? then
-        Request.where(:username => @username, :password => @password).destroy_all
-      else
-        Request.where(:username => @username, :password => @password).update_all(status: true, accepted_by: session[:current_username])
-      end
 
+      Request.where(:username => @username, :password => @password).destroy_all unless !super_admin?
+      Request.where(:username => @username, :password => @password).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
 
       redirect_to admin_home_path(:display => "#{@username} is now an administrator")
     else

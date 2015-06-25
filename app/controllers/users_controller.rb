@@ -46,11 +46,8 @@ include UsersHelper
               session[:super_admin] = true
             end
 
-            if admin?
-              redirect_to admin_home_path(:display => 'Your account has been successfully created')
-            else
-              redirect_to home_path(:display => 'Your account has been successfully created')
-            end
+            redirect_to home_path(:display => 'Your account has been successfully created') unless admin?
+            redirect_to admin_home_path(:display => 'Your account has been successfully created') unless !admin?
 
           else
             redirect_to signup_path(:errors => user.errors.full_messages)
