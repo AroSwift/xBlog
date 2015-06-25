@@ -27,7 +27,7 @@ input {
 
 }
 
-input:hover {
+input:hover, textarea:hover {
 	background-color: #404040;
 	-webkit-transition: all 500ms ease;
 	-moz-transition: all 500ms ease;

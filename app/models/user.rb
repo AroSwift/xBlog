@@ -9,4 +9,10 @@ class User < ActiveRecord::Base
 	validates :password, length: { in: 8..20 }
 
 
+	# Fat model begins here:
+
+
+
+
+
 end
