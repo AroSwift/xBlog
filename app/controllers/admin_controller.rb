@@ -61,12 +61,12 @@ include UsersHelper
           end
 
       	else
-      		redirect_to admin_edit_users_path(:display => 'Your passwords do not match')
+      		redirect_to admin_edit_users_path(:display => 'Your passwords do not match', :username => @username, :password => @password, :admin => @admin, :id => @id,)
       	end
 
       # If there are validation errors
       else
-        redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :posts => @posts, :errors => user.errors.full_messages)
+        redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
       end
 
     # If the paramaters are not set
@@ -114,10 +114,9 @@ include UsersHelper
         # If current user is deleting their account, posts and comments
         if @dusername == session[:current_username] then   
           redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
-        elsif admin? then
-          redirect_to admin_users_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted")
-  		  else
-          redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments")
+        else
+          redirect_to home_path(:display => "You have successfully deleted your account, posts, and comments") unless admin?
+          redirect_to admin_users_path(:display => "The user #{@dusername} and all their posts and comments were successfully deleted") unless !admin?
         end
 
     else
