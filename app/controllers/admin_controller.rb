@@ -10,7 +10,7 @@ include UsersHelper
       @password = params[:users][:password]
       @confirm_password = params[:users][:confirm_password]
       @admin = params[:users][:admin]
-      @id = params[:users][:id]
+      @id = params[:id]
 
       # Determines if admin wants edited user to be admin
       if @admin == '1' || @admin == 'true' then
