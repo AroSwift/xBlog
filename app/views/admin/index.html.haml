@@ -21,13 +21,13 @@
           = post.author
 
           - if post.author == session[:current_username] || super_admin?
-            = link_to 'Delete', post_path(:title => post.title, :author => post.author), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+            = link_to 'Delete', new_post_path(:title => post.title, :author => post.author), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
             = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
           - elsif admin?
             - User.where(username: post.author).each do |user|
               - if user.admin == false && user.superadmin == false
-                = link_to 'Delete', post_path(:title => post.title, :author => post.author), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
-                = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
+                = link_to 'Delete', post_path(:title => post.title, :author => post.author, :id => post.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+                = link_to 'Edit', edit_posts_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
 
       .small= 'posted ' + compare_time(post.created_at)
       %p.content= post.content

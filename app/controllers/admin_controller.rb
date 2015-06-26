@@ -2,6 +2,7 @@ class AdminController < ApplicationController
 include UsersHelper
 
 
+
   # Admin Updates User
 	def update
 
@@ -100,17 +101,6 @@ include UsersHelper
       redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
       redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
-	end
-
-
-  # Logout Admin
-	def logout 
-		@_current_user = session[:current_user_id] = nil
-		@_current_user = session[:current_username] = nil 
-    @_current_user = session[:current_password] = nil      
-		@_current_user = session[:admin] = nil   
-    @_current_user = session[:super_admin] = nil  
-    redirect_to home_path(:display => 'Logout Sucessful')
 	end
 
 

@@ -3,6 +3,11 @@ include UsersHelper
 include PostsHelper
 
 
+def post
+   @post = Post.find(params[:id])
+end
+
+
   # Updates Post
   def update
     if update_post_params_exist? then

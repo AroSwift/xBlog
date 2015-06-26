@@ -21,7 +21,7 @@
 
       - if logged_in? || admin? then
         - if post.author == session[:current_username] then
-          = link_to 'Delete', post_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+          = link_to 'Delete', posts_path(:title => post.title, :author => post.author, :content => post.content), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
           = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :id => post.id, :content => post.content), class: "pedit"
           
   .small= 'posted ' + compare_time(post.created_at)

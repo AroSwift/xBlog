@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   # get     'post'                => 'posts#post'
   # get     'edit_post'           => 'posts#edit_post'
 
-  # post    'comment'             => 'comments#create'
-  # delete  'comment'             => 'comments#destroy'
+  post    'comment'             => 'comments#create'
+  delete  'comment'             => 'comments#destroy'
 
   put     'account'             => 'requests#request_admin'
   post    'admin_users'         => 'requests#accept_request'
@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   get     'admin_users'         => 'admin#users'
   get     'admin_edit_users'    => 'admin#edit_users'
   put     'admin_edit_users'    => 'admin#update'
-  delete  'admin_logout'        => 'admin#logout'
   delete  'delete_users'        => 'admin#destroy'
 
 
@@ -36,14 +35,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts
+  resources :posts do 
+    member do
+      match 'post', :via => :get
+    end
+  end
   # literally creates
   #/posts/:id/create
   #/posts/:id/edit
   # etc.
   
-  #resources :admin
-
 
 
   # If no page exists, redirect to home
