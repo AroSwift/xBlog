@@ -3,12 +3,21 @@ include UsersHelper
 
 
 def new
-   @signup = User.new
+   @user = User.new
 end 
+
+  def index
+    @users = User.all
+  end
+
+
+  def edit
+  end
 
 
   # Create User
   def create
+
     @username = params[:username]
     @password = params[:password]
     @password_confirmation = params[:password_confirmation]
@@ -21,16 +30,11 @@ end
     end
 
 
-    # user = User.new
-    # user.username = @username
-    # user.password = @password
-    # user.valid?
-
-    user = User.new(user_params)
-    user.username = @username
-    user.password = @password
-    user.valid?
-    user.save
+    @user = User.new(user_params)
+    @user.username = @username
+    @user.password = @password
+    @user.valid?
+    @user.save
 
 
     # Checks for errors
