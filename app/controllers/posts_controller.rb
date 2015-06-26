@@ -10,7 +10,11 @@ include PostsHelper
 
   # Updates Post
   def edit
-    if update_post_params_exist? then
+    @post = Post.new
+    @post = Post.find(params[:id])
+
+
+
 
       @title = params[:title]
       @content = params[:content]
@@ -27,26 +31,21 @@ include PostsHelper
       if post.errors.empty? then
         post.save(post_params)
 
-        redirect_to home_path(:display => 'Your post was successfully updated') unless admin?
+        redirect_to root_path(:display => 'Your post was successfully updated') unless admin?
         redirect_to admin_home_path(:display => 'Your post was successfully updated') unless !admin?
 
       else
         redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
       end
 
-    # If the paramaters are not set
-    else
-      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
-      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
-    end
   end
 
 
   # Creates Post
   def create
-    @title = params[:posts][:title]
-    @author = params[:posts][:author]
-    @content = params[:posts][:content]
+    @title = params[:title]
+    @author = params[:author]
+    @content = params[:content]
 
     # Populates fields in view
     flash[:title] = @title
@@ -69,7 +68,7 @@ include PostsHelper
       redirect_to admin_home_path(:display => 'Your post was created') unless !admin?
 
     else
-      redirect_to post_path(:errors => post.errors.full_messages)
+      redirect_to new_post_path(:errors => post.errors.full_messages)
     end
   end
 
@@ -83,12 +82,12 @@ include PostsHelper
 
       Post.where(:title => @title, :author => @author, :content => @content).destroy_all
 
-      redirect_to home_path(:display => "The post '#{@title}' was successfully deleted") unless admin?
+      redirect_to root_path(:display => "The post '#{@title}' was successfully deleted") unless admin?
       redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted") unless !admin?
     
     # If the paramaters are not set
     else
-      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
+      redirect_to root_path(:display => "Something went wrong. Please try again.") unless admin?
       redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
     end
   end

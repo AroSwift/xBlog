@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'users#index'
 
   # Regular functions
-  get     'signup'              => 'users#signup'
+  #get     'signup'              => 'users#signup'
   get     'login'               => 'users#login'
   post    'login_user'          => 'users#login_user'
   delete  'logout'              => 'users#logout'
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
   resources :users do 
     member do
-      #get 'account'
+      get 'account'
     end
   end
 

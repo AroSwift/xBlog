@@ -32,7 +32,7 @@
         - else
           = link_to 'Home', root_path, :class => ("it" if current_page?(:root))
           = link_to 'Login', login_path, :class => ("it" unless !current_page?(:login))
-          = link_to 'Sign Up', signup_path, :class => ("it" unless !current_page?(:signup))
+          = link_to 'Sign Up', new_user_path, :class => ("it" unless !current_page?(:new_user))
 
     %section
     
