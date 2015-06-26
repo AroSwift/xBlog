@@ -10,32 +10,28 @@ include PostsHelper
 
   # Updates Post
   def edit
-    @post = Post.new
-    @post = Post.find(params[:id])
 
+      # @title = params[:title]
+      # @content = params[:content]
+      # @id = params[:id]
 
-
-
-      @title = params[:title]
-      @content = params[:content]
-      @id = params[:id]
-
-      post = Post.find_by_id(@id)
-      post.title = @title
-      post.content = @content
-      post.author = session[:current_username]
-      post.author_id = session[:current_user_id]
-      post.valid?
+      @post = Post.find_by_id(params[:id])
+      @post.title = params[:title]
+      @post.content = params[:content]
+      @post.author = session[:current_username]
+      @post.author_id = session[:current_user_id]
+      @post.valid?
 
       # Checks for errors
-      if post.errors.empty? then
+      if post.save? then
         post.save(post_params)
 
         redirect_to root_path(:display => 'Your post was successfully updated') unless admin?
         redirect_to admin_home_path(:display => 'Your post was successfully updated') unless !admin?
 
       else
-        redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
+        render :edit_post
+        # redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
       end
 
   end
@@ -43,6 +39,9 @@ include PostsHelper
 
   # Creates Post
   def create
+
+
+
     @title = params[:title]
     @author = params[:author]
     @content = params[:content]
@@ -53,12 +52,12 @@ include PostsHelper
     flash[:content] = @content
 
 
-    post = Post.new
-    post.title = @title
-    post.content = @content
-    post.author = @author
-    post.author_id = session[:current_user_id]
-    post.valid?
+    @post = Post.new(post_params)
+    @post.title = @title
+    @post.content = @content
+    @post.author = @author
+    @post.author_id = session[:current_user_id]
+    @post.valid?
 
     # Checks for errors
     if post.errors.empty? then

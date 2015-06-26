@@ -3,34 +3,44 @@ include UsersHelper
 include CommentsHelper
 
 
+  def new
+     @comment = Comment.new
+  end 
+
+  def index
+    @comments = Comment.all
+  end
+
+
+
   # Create Comment
   def create
-    @comment = params[:com][:comment]
-    @post_id = params[:post_id]
 
-    com = Comment.new
-    com.comment = @comment
-    com.post_id = @post_id
-    com.user = session[:current_username]
-    com.valid?
+    @com = Comment.new
+    @com.comment = params[:com][:comment]
+    @com.post_id = params[:post_id]
+    @com.user = session[:current_username]
 
     # Check for validation errors
-    if com.errors.empty? then
+    if @com.valid? then
         com.save(comment_params)
 
       redirect_to :home unless admin?
       redirect_to :admin_home unless !admin?
       
     else
-      redirect_to home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless admin?
-      redirect_to admin_home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless !admin?
+      render :root unless admin?
+      render :admin_home unless !admin?
+
+      #redirect_to home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless admin?
+      #redirect_to admin_home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless !admin?
     end
   end
 
 
   # Delete Comment
   def destroy
-    if delete_comment_params_exist? then
+    
       @user = params[:user]
       @comment = params[:comment]
       @post_id = params[:post_id]
@@ -40,11 +50,6 @@ include CommentsHelper
       redirect_to home_path(:display => "The comment was successfully deleted") unless admin?
       redirect_to admin_home_path(:display => "The comment was successfully deleted") unless !admin?
 
-    # If the paramaters are not set
-    else
-      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
-      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
-    end
   end
 
   # What is allowed in database

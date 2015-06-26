@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   root 'users#index'
 
   # Regular functions
-  #get     'signup'              => 'users#signup'
   get     'login'               => 'users#login'
   post    'login_user'          => 'users#login_user'
   delete  'logout'              => 'users#logout'
@@ -14,12 +13,13 @@ Rails.application.routes.draw do
   # get     'post'                => 'posts#post'
   # get     'edit_post'           => 'posts#edit_post'
 
-  post    'comment'             => 'comments#create'
-  delete  'comment'             => 'comments#destroy'
+  # post    'comment'             => 'comments#create'
+  # delete  'comment'             => 'comments#destroy'
 
-  put     'account'             => 'requests#request_admin'
-  post    'admin_users'         => 'requests#accept_request'
-  delete  'admin_users'         => 'requests#delete_request'
+  # put     'account'             => 'requests#request_admin'
+  # post    'admin_users'         => 'requests#accept_request'
+  # delete  'admin_users'         => 'requests#delete_request'
+
 
   # Admin functions
   get     'admin_home'          => 'admin#index'
@@ -29,18 +29,21 @@ Rails.application.routes.draw do
   delete  'delete_users'        => 'admin#destroy'
 
 
+  # Create defualt routes
   resources :users do 
     member do
       get 'account'
     end
   end
 
+  # Pull controller functions
+  namespace :feature do
+    resources :comments, only: [:new, :create, :destroy]
+    resources :requests, only: [:show, :edit, :update, :destroy]
+  end
+
+  # Create defualt routes
   resources :posts
-  # literally creates
-  #/posts/:id/create
-  #/posts/:id/edit
-  # etc.
-  
 
 
   # If no page exists, redirect to home
