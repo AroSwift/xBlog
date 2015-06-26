@@ -31,15 +31,11 @@ Rails.application.routes.draw do
 
   resources :users do 
     member do
-      get 'account'
+      #get 'account'
     end
   end
 
-  resources :posts do 
-    member do
-      get 'post', action: 'show_post'
-    end
-  end
+  resources :posts
   # literally creates
   #/posts/:id/create
   #/posts/:id/edit

@@ -6,6 +6,7 @@ def signup
    @signup_user = User.new
 end 
 
+
   # Create User
   def create
     @username = params[:username]

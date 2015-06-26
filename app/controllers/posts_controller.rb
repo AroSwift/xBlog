@@ -3,9 +3,9 @@ include UsersHelper
 include PostsHelper
 
 
-def index
-   @post = Post.find(params[:id])
-end
+  def new
+    @post = Post.new
+  end
 
 
   # Updates Post
