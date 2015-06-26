@@ -8,7 +8,7 @@
     SignUp
   %br/
 
-  = form_for :signup, url: signup_path do |f|
+  = form_for @user do |f|
     %p
       = f.label :username, "Username"
       %br/
@@ -18,8 +18,8 @@
       %br/
       = f.text_field :password, :maxlength => 20, :value => flash[:password]
     %p
-      = f.label :confim_password, "Comfirm Password"
+      = f.label :password_confirmation, "Comfirm Password"
       %br/
-      = f.text_field :confirm_password, :maxlength => 20
+      = f.text_field :password_confirmation, :maxlength => 20
     %p
       = f.submit "Sign Up"
