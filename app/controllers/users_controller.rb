@@ -1,20 +1,16 @@
 class UsersController < ApplicationController
 include UsersHelper
 
-def login
-   @user = User.new
-end 
 
 def signup
-   @user = User.new
-   @confirm_password = params[:confirm_password]
+   @signup_user = User.new
 end 
 
   # Create User
   def create
-    @username = params[:signup][:username]
-    @password = params[:signup][:password]
-    @confirm_password = params[:signup][:confirm_password]
+    @username = params[:username]
+    @password = params[:password]
+    @confirm_password = params[:confirm_password]
     flash[:username] = @username
     flash[:password] = @password
 
@@ -74,7 +70,7 @@ end
 
 
   # Login User
-  def show
+  def login_user
     @username = params[:login][:username]
     @password = params[:login][:password]
     flash[:username] = @username

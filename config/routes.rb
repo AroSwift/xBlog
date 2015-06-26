@@ -4,19 +4,14 @@ Rails.application.routes.draw do
   root 'users#index'
 
   # Regular functions
-  #get     'home'                => 'users#index'
   get     'signup'              => 'users#signup'
-  #post    'signup'              => 'users#create'
   get     'login'               => 'users#login'
-  #post    'login'               => 'users#show'
+  post    'login_user'          => 'users#login_user'
   delete  'logout'              => 'users#logout'
   
 
   # Restricted Functions
   # get     'post'                => 'posts#post'
-  # post    'post'                => 'posts#create'  
-  # delete  'post'                => 'posts#destroy'
-  # put     'edit_post'           => 'posts#update'
   # get     'edit_post'           => 'posts#edit_post'
 
   # post    'comment'             => 'comments#create'
