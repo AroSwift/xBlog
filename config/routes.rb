@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
   resources :posts do 
     member do
-      match 'post', :via => :get
+      get 'post', action: 'show_post'
     end
   end
   # literally creates

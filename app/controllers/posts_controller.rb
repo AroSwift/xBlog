@@ -3,17 +3,17 @@ include UsersHelper
 include PostsHelper
 
 
-def post
+def index
    @post = Post.find(params[:id])
 end
 
 
   # Updates Post
-  def update
+  def edit
     if update_post_params_exist? then
 
-      @title = params[:posts][:title]
-      @content = params[:posts][:content]
+      @title = params[:title]
+      @content = params[:content]
       @id = params[:id]
 
       post = Post.find_by_id(@id)
@@ -96,7 +96,7 @@ end
 
   # What fields can be saved to Database
   def post_params
-    params.require(:posts).permit(:title, :author, :content, :id, :author_id)
+    params.permit(:title, :author, :content, :id, :author_id)
   end
 
 end
