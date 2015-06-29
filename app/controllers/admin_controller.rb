@@ -10,111 +10,122 @@ include UsersHelper
     @users = User.all
   end
 
-
+  def edit
+    @user = User.find(params[:id])
+  end
 
 
   # Admin Updates User
 	def update
 
-    if update_user_params_exist? then
+    @user = User.find(params[:id])
+
+	  @username = params[:users][:username]
+    @password = params[:users][:password]
+    @confirm_password = params[:users][:confirm_password]
+    @admin = params[:users][:admin]
 
 
-
-  	  @username = params[:users][:username]
-      @password = params[:users][:password]
-      @confirm_password = params[:users][:confirm_password]
-      @admin = params[:users][:admin]
-
+    # if @password != @confirm_password && !admin? && !super_admin? then
+    #   redirect_to admin_edit_users_path(:id => params[:id])
+    #   return
+    # end
 
 
-
-
-
-      # return immediately if passwrods do not match
-      # if pw != pw2
-      #  redirect
-      #  return
-      # end
-
-      # Determines if admin wants edited user to be admin
-      if @admin == '1' || @admin == 'true' then
-      	@admin = true
-      else
-      	@admin = false
-      end
-
-      # What username was before updating
-      # Look into activesupport dirty class: User.username.changed?
-
-      @id = params[:id]
-      user = User.find(@id)
-      @prename = user.username
-    
-      user.username = @username
-      user.password = @password
-      if !admin? || @prename != session[:current_username] then 
-        user.admin = @admin
-      end
-
-
-
-      
-
-
-      # .save
-      # if success
-        # # Update session to match new identity if it is current user
-        # invoke some other method on user? to updates posts and comments
-        # redirect to admin_home_path
-      # else (failure)
-        # Print message
-        # render action: admin_edit
-      # end
-
-
-      # Check for errors
-      # .save knows about user.errors.empty already
-      if user.errors.empty? then
-        # if passwords match OR if admin bypass
-      	if @confirm_password == @password || admin? then
-          user.save(user_params)
-
-          
-          # Updates Posts and Comments user and author to match new username
-          Post.where(:author => @prename).update_all(author: @username)
-          Comment.where(:user => @prename).update_all(user: @username)
-          Request.where(:accepted_by => @prename).update_all(accepted_by: @username)
-
-
-          # Update session to match new identity if it is current user
-          if @prename == session[:current_username] then
-            @prename = 'changed'
-            session[:current_username] = @username
-            session[:current_password] = @password
-          end
-
-          # Where to send user after updated
-          if admin? && @prename != 'changed' then
-            redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
-          else
-            redirect_to home_path(:display => "Your username and password were successfully updated") unless admin?
-            redirect_to admin_home_path(:display => "Your username and password were successfully updated") unless !admin?
-          end
-
-      	else
-      		redirect_to admin_edit_users_path(:display => 'Your passwords do not match', :username => @username, :password => @password, :admin => @admin, :id => @id,)
-      	end
-
-      # If there are validation errors
-      else
-        redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
-      end
-
-    # If the paramaters are not set
+    # Determines if admin wants edited user to be admin
+    if @admin == '1' || @admin == 'true' then
+    	@admin = true
     else
-      redirect_to home_path(:display => "Something went wrong. Please try again.") unless admin?
-      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
+    	@admin = false
     end
+
+    # What username was before updating
+    # Look into activesupport dirty class: User.username.changed?
+
+    @id = params[:id]
+    user = User.find(@id)
+    @prename = user.username
+  
+    user.username = @username
+    user.password = @password
+    if !admin? || @prename != session[:current_username] then 
+      user.admin = @admin
+    end
+
+
+    @user.save(user_params)
+    @user.valid?
+
+    if @user.changed? then
+      flash[:error] = "The user '#{@username}' was updated."
+
+      # Updates Posts and Comments user and author to match new username
+      Post.where(:author => @prename).update_all(author: @username)
+      Comment.where(:user => @prename).update_all(user: @username)
+      Request.where(:accepted_by => @prename).update_all(accepted_by: @username)
+
+
+    redirect_to account_user_path(session[:current_user_id]) unless admin?
+    redirect_to :admin_users unless !admin?
+
+    else
+      flash[:errors] = @user.errors.full_messages
+
+
+    end
+
+    
+
+
+    # .save
+    # if success
+      # # Update session to match new identity if it is current user
+      # invoke some other method on user? to updates posts and comments
+      # redirect to admin_home_path
+    # else (failure)
+      # Print message
+      # render action: admin_edit
+    # end
+
+
+    # Check for errors
+    # .save knows about user.errors.empty already
+    if user.errors.empty? then
+      # if passwords match OR if admin bypass
+    	if @confirm_password == @password || admin? then
+        user.save(user_params)
+
+        
+        # Updates Posts and Comments user and author to match new username
+        Post.where(:author => @prename).update_all(author: @username)
+        Comment.where(:user => @prename).update_all(user: @username)
+        Request.where(:accepted_by => @prename).update_all(accepted_by: @username)
+
+
+        # Update session to match new identity if it is current user
+        if @prename == session[:current_username] then
+          @prename = 'changed'
+          session[:current_username] = @username
+          session[:current_password] = @password
+        end
+
+        # Where to send user after updated
+        if admin? && @prename != 'changed' then
+          redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
+        else
+          redirect_to home_path(:display => "Your username and password were successfully updated") unless admin?
+          redirect_to admin_home_path(:display => "Your username and password were successfully updated") unless !admin?
+        end
+
+    	else
+    		redirect_to admin_edit_users_path(:display => 'Your passwords do not match', :username => @username, :password => @password, :admin => @admin, :id => @id,)
+    	end
+
+    # If there are validation errors
+    else
+      redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
+    end
+
 	end
 
 
@@ -158,6 +169,7 @@ include UsersHelper
 
 
   # What is allowed into the database
+  private
 	def user_params
     params.require(:users).permit(:username, :password, :admin, :id)
   end

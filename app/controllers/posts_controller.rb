@@ -24,7 +24,7 @@ include PostsHelper
         redirect_to :home unless admin?
         redirect_to :admin_home unless !admin?
       else
-        flash[:errors] = post.errors.full_messages
+        flash[:errors] = @post.errors.full_messages
         render edit_post_path(params[:id])
       end
 
@@ -54,14 +54,14 @@ include PostsHelper
     @post.valid?
 
     # Checks for errors
-    if post.errors.empty? then
-      post.save(post_params)
+    if @post.errors.empty? then
+      @post.save(post_params)
       
       redirect_to home_path(:display => 'Your post was created') unless admin?
       redirect_to admin_home_path(:display => 'Your post was created') unless !admin?
 
     else
-      redirect_to new_post_path(:errors => post.errors.full_messages)
+      redirect_to new_post_path(:errors => @post.errors.full_messages)
     end
   end
 

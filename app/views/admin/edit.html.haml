@@ -11,7 +11,7 @@
     %p
       = f.label :username, "Username"
       %br/
-      = f.text_field :username, :value => flash[:username] || params[:username]
+      = f.text_field :username, :value => flash[:username] || params[:username] || @user.username
     %p
       = f.label :password, "Password"
       %br/
