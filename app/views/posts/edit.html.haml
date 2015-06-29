@@ -8,18 +8,18 @@
     Edit Post
   %br
   
-  = form_for :posts, url: edit_post_path(:title => params[:title], :author => session[:current_username], :content => params[:content], :id => params[:id]), :method => :put do |f|
+  = form_for @post do |f|
     %p
       = f.label :title, "Title"
       %br/
-      = f.text_field :title, :maxlength => 40, :value => params[:title]
+      = f.text_field :title, :maxlength => 40, :value => params[:title] || @post.title
     %p
       = f.label :author, "Author"
       %br/
-      = f.text_field :author, :maxlength => 12, :readonly => true, :value => params[:author]
+      = f.text_field :author, :maxlength => 12, :readonly => true, :value => params[:author] || @post.author
     %p
       = f.label :pcontent, "Post"
       %br/
-      = f.text_area :content, :maxlength => 1500, :value => params[:content]
+      = f.text_area :content, :maxlength => 1500, :value => params[:content] || @post.content
     %p
       = f.submit "Post"

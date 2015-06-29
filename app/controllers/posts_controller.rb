@@ -11,6 +11,10 @@ include PostsHelper
     @posts = Post.all
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
 
   # Creates Post
   def create
@@ -40,23 +44,23 @@ include PostsHelper
 
   # Updates Post
   def update
-    @post = Post.find_by_id(params[:id])
-    @post.title = params[:title]
-    @post.content = params[:content]
-    @post.author = session[:current_username]
-    @post.author_id = session[:current_user_id]
-    @post.valid?
-    @post.save(post_params)
-
+    @post = Post.find(params[:id])
+    @post.title = params[:post][:title]
+    @post.content = params[:post][:content]
 
     # Checks if saved
-    if @post.save? then
+    if @post.valid? then
+      @post.save(post_params)
       flash[:error] = 'Your post was successfully updated'
       redirect_to :home unless admin?
       redirect_to :admin_home unless !admin?
     else
+      # Populates fields in view
+      flash[:title] = params[:post][:title]
+      flash[:content] = params[:post][:content]
+      
       flash[:errors] = @post.errors.full_messages
-      render edit_post_path(params[:id])
+      render :back
     end
   end
 
