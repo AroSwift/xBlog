@@ -4,18 +4,18 @@ include UsersHelper
 
   # Request to become admin
   def request_admin
-    @username = session[:current_username]
-    @password = session[:current_password]
-    @id = session[:current_user_id]
+    username = session[:current_username]
+    password = session[:current_password]
+    id = session[:current_user_id]
 
 
-    req = Request.find_by(username: @username, password: @password)
+    req = Request.find_by(username: username)
 
     request = Request.new
     if req.nil? then
-      request.username = @username
-      request.password = @password
-      request.user_id = @id
+      request.username = username
+      request.password = password
+      request.user_id = id
       request.valid?
 
       # Check if there are errors

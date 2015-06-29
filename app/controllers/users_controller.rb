@@ -13,21 +13,18 @@ include UsersHelper
 
   # Create User
   def create
-    # @password_confirmation = params[:user][:password_confirmation]
-
-    @user = User.new(user_params)
-    @user.username = params[:user][:username]
-    @user.password = params[:user][:password]
-
+    user = User.new(user_params)
+    user.username = params[:user][:username]
+    user.password = params[:user][:password]
 
     # Checks for errors
-    if @user.valid? then
-      @user.save(user_params)
+    if user.valid? then
+      user.save(user_params)
 
       # Create Session
-      session[:current_user_id] = @user.id
-      session[:current_username] = @user.username
-      session[:current_password] = @user.password
+      session[:current_user_id] = user.id
+      session[:current_username] = user.username
+      session[:current_password] = user.password
 
       # If this is the first user
       if first_user? then
@@ -42,10 +39,10 @@ include UsersHelper
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
     else
-      flash[:username] = @username
-      flash[:password] = @password
+      flash[:username] = params[:user][:username]
+      flash[:password] = params[:user][:password]
 
-      flash[:errors] = @user.errors.full_messages
+      flash[:errors] = user.errors.full_messages
       redirect_to :back
     end
   end
@@ -53,49 +50,41 @@ include UsersHelper
 
   # Login User
   def login_user
-    @username = params[:login][:username]
-    @password = params[:login][:password]
-    flash[:username] = @username
-    flash[:password] = @password
-
     user = User.new
-    user.username = @username
-    user.password = @password
-    user.valid?
+    user.username = params[:login][:username]
+    user.password = params[:login][:password]
 
+    # Check if user exists in database
+    dbuser = User.find_by(username: params[:login][:username])
+    
     # Checks for errors
-    if user.errors.empty? then
-      dbusername = User.find_by(username: @username)
-      dbpassword = User.find_by(password: @password)
+    if user.valid? && !dbuser.nil? then
+      session[:current_user_id] = dbuser.id
+      session[:current_username] = dbuser.username
+      session[:current_password] = dbuser.password
 
-      if !dbusername.nil? && !dbpassword.nil? then
 
-        session[:current_user_id] = dbusername.id
-        session[:current_username] = dbusername.username
-        session[:current_password] = dbusername.password
-
-        # If user is admin
-        astatus = User.find_by_username(@username)
-        if astatus.admin == true then
-
-          session[:admin] = true
-          if astatus.superadmin == true then
-            session[:super_admin] = true
-          end
-
-          redirect_to :admin_home
-
-        else
-          # If user is not admin
-          redirect_to :root
-        end
-
-      else
-        redirect_to login_path(:display => 'The username and password do not match')
+      status = User.find_by_username(params[:login][:username])
+      # If user is admin
+      if status.admin == true then
+        session[:admin] = true
       end
+
+      # login as super admin
+      if status.superadmin == true then
+        session[:super_admin] = true
+      end
+
+      redirect_to :root unless admin?
+      redirect_to :admin_home unless !admin?
     else
-      redirect_to login_path(:errors => user.errors.full_messages)
+      flash[:username] = params[:login][:username]
+      flash[:password] = params[:login][:password]
+
+      flash[:errors] = user.errors.full_messages
+      redirect_to :back
     end
+
   end
 
 
@@ -106,7 +95,9 @@ include UsersHelper
     @_current_user = session[:current_password] = nil      
     @_current_user = session[:admin] = nil   
     @_current_user = session[:super_admin] = nil  
-    redirect_to root_path(:display => 'Logout Sucessful')
+
+    flash[:error] = 'Logout successful'
+    redirect_to :root
   end
 
 
