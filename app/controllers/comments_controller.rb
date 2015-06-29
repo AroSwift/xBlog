@@ -15,26 +15,20 @@ include CommentsHelper
 
   # Create Comment
   def create
-
     @com = Comment.new
     @com.comment = params[:com][:comment]
-    @com.post_id = params[:post_id]
+    @com.post_id = params[:com][:post_id]
     @com.user = session[:current_username]
 
     # Check for validation errors
     if @com.valid? then
-        com.save(comment_params)
-
-      redirect_to :home unless admin?
-      redirect_to :admin_home unless !admin?
-      
+      com.save(comment_params)
     else
-      render :root unless admin?
-      render :admin_home unless !admin?
-
-      #redirect_to home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless admin?
-      #redirect_to admin_home_path(:errors => com.errors.full_messages, :comment => @comment, :post_id => @post_id) unless !admin?
+      flash[:errors] = @com.errors.full_messages
     end
+
+    redirect_to :home unless admin?
+    redirect_to :admin_home unless !admin?
   end
 
 

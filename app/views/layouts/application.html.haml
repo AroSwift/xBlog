@@ -46,11 +46,13 @@
       - else
         %h2= yield :current_page
         
-      - if !params[:errors].nil?
-        - params[:errors].each do |msg|
+      - if !flash[:errors].nil?
+        - flash[:errors].each do |msg|
           = content_tag :div, msg, class: "error_msg"
+
       - if !params[:display].nil?
         = content_tag :div, params[:display], class: "error_msg"
+
       = yield
     %footer
       barlowat@ORNL.gov

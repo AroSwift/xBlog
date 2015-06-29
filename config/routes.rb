@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # bundle exec rake routes
+  # rake routes
 
   root 'users#index'
 
@@ -12,9 +12,6 @@ Rails.application.routes.draw do
   # Restricted Functions
   # get     'post'                => 'posts#post'
   # get     'edit_post'           => 'posts#edit_post'
-
-  # post    'comment'             => 'comments#create'
-  # delete  'comment'             => 'comments#destroy'
 
   # put     'account'             => 'requests#request_admin'
   # post    'admin_users'         => 'requests#accept_request'
@@ -39,10 +36,9 @@ Rails.application.routes.draw do
   # Create defualt routes
   resources :posts
 
-  # Pull controller functions
-    resources :comments
-    # , only: [:create, :destroy]
-    # resources :requests
+  resources :comments, only: [:create, :destroy, :new]
+  # , only: [:create, :destroy]
+  # resources :requests
 
 
   # If no page exists, redirect to home
