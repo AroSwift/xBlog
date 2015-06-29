@@ -49,6 +49,7 @@
         %p
           = f.label :comment, "Comment", class: 'comment'
           %br/
+          = f.hidden_field :post_id, :value => post.id
           = f.text_field :comment, :maxlength => 250
           = f.submit "Comment", class: 'comment button'
 

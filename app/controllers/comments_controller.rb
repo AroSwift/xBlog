@@ -22,7 +22,7 @@ include CommentsHelper
 
     # Check for validation errors
     if @com.valid? then
-      com.save(comment_params)
+      @com.save(comment_params)
     else
       flash[:errors] = @com.errors.full_messages
     end

@@ -35,24 +35,23 @@
           = link_to 'Sign Up', new_user_path, :class => ("it" unless !current_page?(:new_user))
 
     %section
-    
-      - if logged_in? then
-        %h2
-          = yield :current_page
+      %h2
+        -# Title of current page
+        = yield :current_page
+        
+        - if logged_in? then
           - if current_page?(account_user_path(session[:current_user_id]))|| current_page?(:admin_edit_users) then
             = link_to 'Account', account_user_path(session[:current_user_id]), :class => 'cur_account'
           -else
             = link_to 'Account', account_user_path(session[:current_user_id]), :class => 'account'
-      - else
-        %h2= yield :current_page
+        - else
         
+      -# Display error messages
       - if !flash[:errors].nil?
         - flash[:errors].each do |msg|
           = content_tag :div, msg, class: "error_msg"
 
-      - if !params[:display].nil?
-        = content_tag :div, params[:display], class: "error_msg"
-
+      -# Display content and footer
       = yield
     %footer
       barlowat@ORNL.gov
