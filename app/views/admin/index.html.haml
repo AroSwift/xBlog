@@ -33,7 +33,7 @@
       %p.content= post.content
 
       - Comment.where(post_id: post.id).order("created_at DESC LIMIT 15").each do |com|
-        %p.comsec{:name => "jump#{com.post_id}",}
+        %p.comsec
           %b
             = com.user + ':'
           = com.comment

@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   # Create defualt routes
   resources :users do 
     member do
-      #get '/account', to: 'users#show'
+      get 'account'
     end
   end
 
@@ -40,9 +40,9 @@ Rails.application.routes.draw do
   resources :posts
 
   # Pull controller functions
-    resources :comments, only: [:create, :destroy]
-    resources :accounts, only: [:show, :index, :new]
-    resources :requests
+    resources :comments
+    # , only: [:create, :destroy]
+    # resources :requests
 
 
   # If no page exists, redirect to home
