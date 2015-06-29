@@ -34,22 +34,23 @@ include CommentsHelper
 
   # Delete Comment
   def destroy
-    
-      @user = params[:user]
-      @comment = params[:comment]
-      @post_id = params[:post_id]
 
-      Comment.where(:user => @user, :comment => @comment, :post_id => @post_id).destroy_all
-        
-      redirect_to home_path(:display => "The comment was successfully deleted") unless admin?
-      redirect_to admin_home_path(:display => "The comment was successfully deleted") unless !admin?
+    Comment.find_by_post_id(params[:id]).destroy
 
+    if !Comment.exists?(:post_id => @post_id) then
+      flash[:error] = 'The comment was successfully deleted'
+    else
+      flash[:error] = 'The comment was NOT successfully deleted'
+    end
+
+    redirect_to :home unless admin?
+    redirect_to :admin_home unless !admin?
   end
 
   # What is allowed in database
+  private
   def comment_params
     params.require(:com).permit(:comment, :post_id, :user)
   end
-
 
 end

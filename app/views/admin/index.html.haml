@@ -27,7 +27,7 @@
             - User.where(username: post.author).each do |user|
               - if user.admin == false && user.superadmin == false
                 = link_to 'Delete', post_path(:title => post.title, :author => post.author, :id => post.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
-                = link_to 'Edit', edit_posts_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
+                = link_to 'Edit', edit_post_path(:title => post.title, :author => post.author, :content => post.content, :id => post.id), class: "pedit"   
 
       .small= 'posted ' + compare_time(post.created_at)
       %p.content= post.content
@@ -39,11 +39,11 @@
           = com.comment
           %b
             - if com.user == session[:current_username] || super_admin?
-              = link_to 'Delete', comment_path(com), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
+              = link_to 'Delete', comment_path(com.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
             - else admin?
               - User.where(username: com.user).each do |user|
                 - if user.admin == false && user.superadmin == false
-                  = link_to 'Delete', comment_path(:user => com.user, :comment => com.comment, :post_id => com.post_id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"          
+                  = link_to 'Delete', comment_path(com.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"          
 
       = form_for :com, url: comments_path do |f|
         %p

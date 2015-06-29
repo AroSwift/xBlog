@@ -47,9 +47,12 @@
         - else
         
       -# Display error messages
-      - if !flash[:errors].nil?
+      - if !flash[:errors].nil? then
         - flash[:errors].each do |msg|
           = content_tag :div, msg, class: "error_msg"
+
+      - if !flash[:error].nil? then
+        = content_tag :div, flash[:error], class: "error_msg"
 
       -# Display content and footer
       = yield
