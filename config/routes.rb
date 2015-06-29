@@ -35,10 +35,7 @@ Rails.application.routes.draw do
 
   # Create defualt routes
   resources :posts
-
   resources :comments, only: [:create, :destroy, :new]
-  # , only: [:create, :destroy]
-  # resources :requests
 
 
   # If no page exists, redirect to home

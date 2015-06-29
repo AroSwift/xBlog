@@ -9,12 +9,7 @@ include PostsHelper
 
 
   # Updates Post
-  def edit
-
-      # @title = params[:title]
-      # @content = params[:content]
-      # @id = params[:id]
-
+  def update
       @post = Post.find_by_id(params[:id])
       @post.title = params[:title]
       @post.content = params[:content]
@@ -23,15 +18,14 @@ include PostsHelper
       @post.valid?
 
       # Checks for errors
-      if post.save? then
-        post.save(post_params)
-
-        redirect_to root_path(:display => 'Your post was successfully updated') unless admin?
-        redirect_to admin_home_path(:display => 'Your post was successfully updated') unless !admin?
-
+      if @post.save? then
+        @post.save(post_params)
+        flash[:error] = 'Your post was successfully updated'
+        redirect_to :home unless admin?
+        redirect_to :admin_home unless !admin?
       else
-        render :edit_post
-        # redirect_to edit_post_path(:title => @title, :author => session[:current_username], :content => @content, :id => @id, :errors => post.errors.full_messages)
+        flash[:errors] = post.errors.full_messages
+        render edit_post_path(params[:id])
       end
 
   end
