@@ -11,20 +11,14 @@ include PostsHelper
     @posts = Post.all
   end
 
-  # def show
-  #   @post = Post.new
-  # end
-
-
 
   # Creates Post
   def create
-    @post = Post.new(post_params)
-    @post.title = params[:title]
-    @post.author = params[:author]
-    @post.content = params[:content]
+    @post = Post.new
+    @post.title = params[:post][:title]
+    @post.author = session[:current_username]
+    @post.content = params[:post][:content]
     @post.author_id = session[:current_user_id]
-    @post.valid?
 
     # Checks for errors
     if @post.valid? then
@@ -35,12 +29,11 @@ include PostsHelper
       redirect_to :admin_home unless !admin?
     else
       # Populates fields in view
-      flash[:title] = params[:title]
-      flash[:author] = params[:author]
-      flash[:content] = params[:content]
+      flash[:title] = params[:post][:title]
+      flash[:content] = params[:post][:content]
 
       flash[:errors] = @post.errors.full_messages
-      render "/posts/new" #(:errors => @post.errors.full_messages)
+      redirect_to :back
     end
   end
 
