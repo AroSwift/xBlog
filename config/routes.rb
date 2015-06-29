@@ -10,8 +10,6 @@ Rails.application.routes.draw do
   
 
   # Restricted Functions
-  # get     'post'                => 'posts#post'
-  # get     'edit_post'           => 'posts#edit_post'
 
   # put     'account'             => 'requests#request_admin'
   # post    'admin_users'         => 'requests#accept_request'
@@ -26,20 +24,18 @@ Rails.application.routes.draw do
   delete  'delete_users'          => 'admin#destroy'
 
 
-  # Create defualt routes
+  # Create defualt rail routes
   resources :users do 
     member do
       get 'account'
     end
   end
 
-  # Create defualt routes
-  resources :posts
+  resources :posts, except: [:show]
   resources :comments, only: [:create, :destroy, :new]
-  # resources :admin, only: [:edit, :update]
 
 
-  # If no page exists, redirect to home
+  # If no page exists, redirect to root
   get '*a' => redirect("/")
 
   

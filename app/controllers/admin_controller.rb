@@ -74,58 +74,6 @@ include UsersHelper
 
     end
 
-    
-
-
-    # .save
-    # if success
-      # # Update session to match new identity if it is current user
-      # invoke some other method on user? to updates posts and comments
-      # redirect to admin_home_path
-    # else (failure)
-      # Print message
-      # render action: admin_edit
-    # end
-
-
-    # Check for errors
-    # .save knows about user.errors.empty already
-    if user.errors.empty? then
-      # if passwords match OR if admin bypass
-    	if @confirm_password == @password || admin? then
-        user.save(user_params)
-
-        
-        # Updates Posts and Comments user and author to match new username
-        Post.where(:author => @prename).update_all(author: @username)
-        Comment.where(:user => @prename).update_all(user: @username)
-        Request.where(:accepted_by => @prename).update_all(accepted_by: @username)
-
-
-        # Update session to match new identity if it is current user
-        if @prename == session[:current_username] then
-          @prename = 'changed'
-          session[:current_username] = @username
-          session[:current_password] = @password
-        end
-
-        # Where to send user after updated
-        if admin? && @prename != 'changed' then
-          redirect_to admin_home_path(:display => "The user '#{@username}' was updated")
-        else
-          redirect_to home_path(:display => "Your username and password were successfully updated") unless admin?
-          redirect_to admin_home_path(:display => "Your username and password were successfully updated") unless !admin?
-        end
-
-    	else
-    		redirect_to admin_edit_users_path(:display => 'Your passwords do not match', :username => @username, :password => @password, :admin => @admin, :id => @id,)
-    	end
-
-    # If there are validation errors
-    else
-      redirect_to admin_edit_users_path(:username => @username, :password => @password, :admin => @admin, :id => @id, :errors => user.errors.full_messages)
-    end
-
 	end
 
 

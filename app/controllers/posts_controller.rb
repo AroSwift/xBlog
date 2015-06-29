@@ -7,61 +7,63 @@ include PostsHelper
     @post = Post.new
   end
 
-
-  # Updates Post
-  def update
-      @post = Post.find_by_id(params[:id])
-      @post.title = params[:title]
-      @post.content = params[:content]
-      @post.author = session[:current_username]
-      @post.author_id = session[:current_user_id]
-      @post.valid?
-
-      # Checks for errors
-      if @post.save? then
-        @post.save(post_params)
-        flash[:error] = 'Your post was successfully updated'
-        redirect_to :home unless admin?
-        redirect_to :admin_home unless !admin?
-      else
-        flash[:errors] = @post.errors.full_messages
-        render edit_post_path(params[:id])
-      end
-
+  def index
+    @posts = Post.all
   end
+
+  # def show
+  #   @post = Post.new
+  # end
+
 
 
   # Creates Post
   def create
-
-
-
-    @title = params[:title]
-    @author = params[:author]
-    @content = params[:content]
-
-    # Populates fields in view
-    flash[:title] = @title
-    flash[:author] = @author
-    flash[:content] = @content
-
-
     @post = Post.new(post_params)
-    @post.title = @title
-    @post.content = @content
-    @post.author = @author
+    @post.title = params[:title]
+    @post.author = params[:author]
+    @post.content = params[:content]
     @post.author_id = session[:current_user_id]
     @post.valid?
 
     # Checks for errors
-    if @post.errors.empty? then
+    if @post.valid? then
       @post.save(post_params)
-      
-      redirect_to home_path(:display => 'Your post was created') unless admin?
-      redirect_to admin_home_path(:display => 'Your post was created') unless !admin?
+      flash[:error] = 'Your post was created'
 
+      redirect_to :home unless admin?
+      redirect_to :admin_home unless !admin?
     else
-      redirect_to new_post_path(:errors => @post.errors.full_messages)
+      # Populates fields in view
+      flash[:title] = params[:title]
+      flash[:author] = params[:author]
+      flash[:content] = params[:content]
+
+      flash[:errors] = @post.errors.full_messages
+      render "/posts/new" #(:errors => @post.errors.full_messages)
+    end
+  end
+
+
+  # Updates Post
+  def update
+    @post = Post.find_by_id(params[:id])
+    @post.title = params[:title]
+    @post.content = params[:content]
+    @post.author = session[:current_username]
+    @post.author_id = session[:current_user_id]
+    @post.valid?
+    @post.save(post_params)
+
+
+    # Checks if saved
+    if @post.save? then
+      flash[:error] = 'Your post was successfully updated'
+      redirect_to :home unless admin?
+      redirect_to :admin_home unless !admin?
+    else
+      flash[:errors] = @post.errors.full_messages
+      render edit_post_path(params[:id])
     end
   end
 
@@ -86,6 +88,7 @@ include PostsHelper
   end
 
 
+  private
   # What fields can be saved to Database
   def post_params
     params.permit(:title, :author, :content, :id, :author_id)
