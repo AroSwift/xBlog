@@ -29,7 +29,7 @@ include PostsHelper
       @post.save(post_params)
       flash[:error] = 'Your post was created'
 
-      redirect_to :home unless admin?
+      redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
     else
       # Populates fields in view
@@ -52,7 +52,7 @@ include PostsHelper
     if @post.valid? then
       @post.save(post_params)
       flash[:error] = 'Your post was successfully updated'
-      redirect_to :home unless admin?
+      redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
     else
       # Populates fields in view
@@ -71,7 +71,7 @@ include PostsHelper
     Comment.where(:post_id => params[:id]).destroy_all
 
     flash[:error] = "The post '#{params[:title]}' was successfully deleted"
-    redirect_to :home unless admin?
+    redirect_to :root unless admin?
     redirect_to :admin_home unless !admin?
   end
 
@@ -79,7 +79,7 @@ include PostsHelper
   private
   # What fields can be saved to Database
   def post_params
-    params.permit(:title, :author, :content, :id, :author_id)
+    params.require(:post).permit(:title, :author, :content, :id, :author_id)
   end
 
 end

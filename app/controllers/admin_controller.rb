@@ -46,8 +46,8 @@ include UsersHelper
     user = User.find(@id)
     @prename = user.username
   
-    user.username = @username
-    user.password = @password
+    # user.username = @username
+    # user.password = @password
     if !admin? || @prename != session[:current_username] then 
       user.admin = @admin
     end
@@ -56,6 +56,7 @@ include UsersHelper
     @user.save(user_params)
     @user.valid?
 
+    # If user successfully updated
     if @user.changed? then
       flash[:error] = "The user '#{@username}' was updated."
 
@@ -64,16 +65,12 @@ include UsersHelper
       Comment.where(:user => @prename).update_all(user: @username)
       Request.where(:accepted_by => @prename).update_all(accepted_by: @username)
 
-
-    redirect_to account_user_path(session[:current_user_id]) unless admin?
-    redirect_to :admin_users unless !admin?
-
+      redirect_to account_user_path(session[:current_user_id]) unless admin?
+      redirect_to :admin_users unless !admin?
     else
       flash[:errors] = @user.errors.full_messages
-
-
+      redirect_to :back
     end
-
 	end
 
 

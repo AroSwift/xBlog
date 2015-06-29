@@ -27,7 +27,7 @@ include CommentsHelper
       flash[:errors] = @com.errors.full_messages
     end
 
-    redirect_to :home unless admin?
+    redirect_to :root unless admin?
     redirect_to :admin_home unless !admin?
   end
 
@@ -43,7 +43,7 @@ include CommentsHelper
       flash[:error] = 'The comment was NOT successfully deleted'
     end
 
-    redirect_to :home unless admin?
+    redirect_to :root unless admin?
     redirect_to :admin_home unless !admin?
   end
 

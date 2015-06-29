@@ -25,8 +25,8 @@
           = link_to 'Post', new_post_path, :class => ("it" if current_page?(:new_post) || current_page?(edit_post_path(params[:id] || session[:current_user_id])))
           = link_to 'Logout', logout_path, :method => :delete
         - elsif logged_in? then
-          = link_to 'Home', home_path, :class => ("it" unless !current_page?(:root))
-          = link_to 'Post', new_post_path, :class => ("it" if current_page?(:post) || current_page?(:edit_post))
+          = link_to 'Home', root_path, :class => ("it" unless !current_page?(:root))
+          = link_to 'Post', new_post_path, :class => ("it" if current_page?(:new_post) || current_page?(edit_post_path(params[:id] || session[:current_user_id])))
           = link_to 'Logout', logout_path, :method => :delete
         - else
           = link_to 'Home', root_path, :class => ("it" if current_page?(:root))

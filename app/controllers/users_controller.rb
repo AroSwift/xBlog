@@ -13,63 +13,40 @@ include UsersHelper
 
   # Create User
   def create
-
-    @username = params[:username]
-    @password = params[:password]
-    @password_confirmation = params[:password_confirmation]
-    flash[:username] = @username
-    flash[:password] = @password
-
-    # If this is the first user
-    if first_user? then
-      @firstu = 'true'
-    end
-
+    # @password_confirmation = params[:user][:password_confirmation]
 
     @user = User.new(user_params)
-    @user.username = @username
-    @user.password = @password
-    @user.valid?
-    @user.save
+    @user.username = params[:user][:username]
+    @user.password = params[:user][:password]
 
 
     # Checks for errors
-    if user.errors.empty? then
+    if @user.valid? then
+      @user.save(user_params)
 
-      cname = User.find_by(username: @username)
-      if cname.nil? then
+      # Create Session
+      session[:current_user_id] = @user.id
+      session[:current_username] = @user.username
+      session[:current_password] = @user.password
 
-        user = User.create(user_params)
-        if(request.post? && user.save)
-          user.save(user_params)
-
-          # Create Session
-          session[:current_user_id] = user.id
-          session[:current_username] = user.username
-          session[:current_password] = user.password
-
-          # If this is the first user
-          if @firstu == 'true' then
-            admin_user = User.find_by(username: @username, password: @password)
-            admin_user.admin = true
-            admin_user.superadmin = true
-            admin_user.save(user_params)
-            session[:admin] = true
-            session[:super_admin] = true
-          end
-
-          redirect_to root_path(:display => 'Your account has been successfully created') unless admin?
-          redirect_to admin_home_path(:display => 'Your account has been successfully created') unless !admin?
-
-        else
-          redirect_to new_user_path(:errors => user.errors.full_messages)
-        end
-
-      else
-        redirect_to new_user_path(:display => 'Username already exists')
+      # If this is the first user
+      if first_user? then
+        admin_user = User.find_by(username: @username)
+        admin_user.admin = true
+        admin_user.superadmin = true
+        admin_user.save(user_params)
+        session[:admin] = true
+        session[:super_admin] = true
       end
+
+      redirect_to :root unless admin?
+      redirect_to :admin_home unless !admin?
     else
-      redirect_to new_user_path(:errors => user.errors.full_messages)
+      flash[:username] = @username
+      flash[:password] = @password
+
+      flash[:errors] = @user.errors.full_messages
+      redirect_to :back
     end
   end
 
@@ -122,12 +99,6 @@ include UsersHelper
   end
 
 
-  # What fields can be saved to Database
-  def user_params
-    params.permit(:username, :password, :admin, :superadmin, :id, :created_at, :updated_at)
-  end
-
-
   # Logout User
   def logout 
     @_current_user = session[:current_user_id] = nil
@@ -136,6 +107,13 @@ include UsersHelper
     @_current_user = session[:admin] = nil   
     @_current_user = session[:super_admin] = nil  
     redirect_to root_path(:display => 'Logout Sucessful')
+  end
+
+
+  private
+  # What fields can be saved to Database
+  def user_params
+    params.require(:user).permit(:username, :password, :admin, :superadmin)
   end
 
 end
