@@ -61,23 +61,14 @@ include PostsHelper
   end
 
 
-  # Deletes post
+  # Deletes post and comments within
  def destroy
-    if delete_post_params_exist? then
-      @title = params[:title]
-      @author = params[:author]
-      @content = params[:content]
+    Post.where(:id => params[:id]).destroy_all
+    Comment.where(:post_id => params[:id]).destroy_all
 
-      Post.where(:title => @title, :author => @author, :content => @content).destroy_all
-
-      redirect_to root_path(:display => "The post '#{@title}' was successfully deleted") unless admin?
-      redirect_to admin_home_path(:display => "The post '#{@title}' was successfully deleted") unless !admin?
-    
-    # If the paramaters are not set
-    else
-      redirect_to root_path(:display => "Something went wrong. Please try again.") unless admin?
-      redirect_to admin_home_path(:display => "Something went wrong. Please try again.") unless !admin?
-    end
+    flash[:error] = "The post '#{params[:title]}' was successfully deleted"
+    redirect_to :home unless admin?
+    redirect_to :admin_home unless !admin?
   end
 
 

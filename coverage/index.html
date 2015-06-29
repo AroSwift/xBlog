@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-06-29T14:50:57-04:00">2015-06-29T14:50:57-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-06-29T14:58:48-04:00">2015-06-29T14:58:48-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">26.42%</span></span>
+    (<span class="covered_percent"><span class="red">28.57%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.26
+         0.27
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>3</b> files in total.
-    <b>53</b> relevant lines. 
+    <b>49</b> relevant lines. 
     <span class="green"><b>14</b> lines covered</span> and
-    <span class="red"><b>39</b> lines missed </span>
+    <span class="red"><b>35</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -62,11 +62,11 @@
       
       <tr>
         <td class="strong"><a href="#b318b1e3aab4c3eccd0385f3f7eb8816c62618b3" class="src_link" title="app/controllers/posts_controller.rb">app/controllers/posts_controller.rb</a></td>
-        <td class="red strong">20.41 %</td>
-        <td>90</td>
-        <td>49</td>
+        <td class="red strong">22.22 %</td>
+        <td>81</td>
+        <td>45</td>
         <td>10</td>
-        <td>39</td>
+        <td>35</td>
         <td>0.2</td>
       </tr>
       
@@ -141,11 +141,11 @@
         <div class="source_table" id="b318b1e3aab4c3eccd0385f3f7eb8816c62618b3">
   <div class="header">
     <h3>app/controllers/posts_controller.rb</h3>
-    <h4><span class="red">20.41 %</span> covered</h4>
+    <h4><span class="red">22.22 %</span> covered</h4>
     <div>
-      <b>49</b> relevant lines. 
+      <b>45</b> relevant lines. 
       <span class="green"><b>10</b> lines covered</span> and
-      <span class="red"><b>39</b> lines missed.</span>
+      <span class="red"><b>35</b> lines missed.</span>
     </div>
   </div>
   
@@ -533,7 +533,7 @@
         <li class="never" data-hits="" data-linenumber="64">
           
           
-          <code class="ruby">  # Deletes post</code>
+          <code class="ruby">  # Deletes post and comments within</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="65">
@@ -545,148 +545,94 @@
         <li class="missed" data-hits="0" data-linenumber="66">
           
           
-          <code class="ruby">    if delete_post_params_exist? then</code>
+          <code class="ruby">    Post.where(:id =&gt; params[:id]).destroy_all</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="67">
           
           
-          <code class="ruby">      @title = params[:title]</code>
+          <code class="ruby">    Comment.where(:post_id =&gt; params[:id]).destroy_all</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="68">
+        <li class="never" data-hits="" data-linenumber="68">
           
           
-          <code class="ruby">      @author = params[:author]</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="69">
           
           
-          <code class="ruby">      @content = params[:content]</code>
+          <code class="ruby">    flash[:error] = &quot;The post &#39;#{params[:title]}&#39; was successfully deleted&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="70">
+        <li class="missed" data-hits="0" data-linenumber="70">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    redirect_to :home unless admin?</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="71">
           
           
-          <code class="ruby">      Post.where(:title =&gt; @title, :author =&gt; @author, :content =&gt; @content).destroy_all</code>
+          <code class="ruby">    redirect_to :admin_home unless !admin?</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="72">
           
           
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="73">
-          
-          
-          <code class="ruby">      redirect_to root_path(:display =&gt; &quot;The post &#39;#{@title}&#39; was successfully deleted&quot;) unless admin?</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="74">
-          
-          
-          <code class="ruby">      redirect_to admin_home_path(:display =&gt; &quot;The post &#39;#{@title}&#39; was successfully deleted&quot;) unless !admin?</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="75">
-          
-          
-          <code class="ruby">    </code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="76">
-          
-          
-          <code class="ruby">    # If the paramaters are not set</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="77">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="78">
-          
-          
-          <code class="ruby">      redirect_to root_path(:display =&gt; &quot;Something went wrong. Please try again.&quot;) unless admin?</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="79">
-          
-          
-          <code class="ruby">      redirect_to admin_home_path(:display =&gt; &quot;Something went wrong. Please try again.&quot;) unless !admin?</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="80">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="81">
-          
-          
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="82">
+        <li class="never" data-hits="" data-linenumber="73">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="83">
+        <li class="never" data-hits="" data-linenumber="74">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="84">
+        <li class="covered" data-hits="1" data-linenumber="75">
           <span class="hits">1</span>
           
           <code class="ruby">  private</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="85">
+        <li class="never" data-hits="" data-linenumber="76">
           
           
           <code class="ruby">  # What fields can be saved to Database</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="86">
+        <li class="covered" data-hits="1" data-linenumber="77">
           <span class="hits">1</span>
           
           <code class="ruby">  def post_params</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="87">
+        <li class="missed" data-hits="0" data-linenumber="78">
           
           
           <code class="ruby">    params.permit(:title, :author, :content, :id, :author_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="88">
+        <li class="never" data-hits="" data-linenumber="79">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="89">
+        <li class="never" data-hits="" data-linenumber="80">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="90">
+        <li class="never" data-hits="" data-linenumber="81">
           
           
           <code class="ruby">end</code>
