@@ -58,7 +58,7 @@ include UsersHelper
     dbuser = User.find_by(username: params[:login][:username])
     
     # Checks for errors
-    if user.valid? && !dbuser.nil? then
+    if !dbuser.nil? then
       session[:current_user_id] = dbuser.id
       session[:current_username] = dbuser.username
       session[:current_password] = dbuser.password
@@ -81,7 +81,7 @@ include UsersHelper
       flash[:username] = params[:login][:username]
       flash[:password] = params[:login][:password]
 
-      flash[:errors] = user.errors.full_messages
+      flash[:error] = 'The username and password do not match'
       redirect_to :back
     end
 

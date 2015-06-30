@@ -19,9 +19,9 @@
       
     - if !admin? then
       %p
-        = f.label :confirm_password, "confirm Password"
+        = f.label :password_confirmation, "confirm Password"
         %br/
-        = f.text_field :confirm_password
+        = f.text_field :password_confirmation
 
     - if admin? && params[:username] != session[:current_username] then
       %p
