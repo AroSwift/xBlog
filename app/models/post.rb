@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 
-	belongs_to :users, dependent: :destroy
+	has_one :users
 	has_many :comments, dependent: :destroy
 
 	validates :title, :content, :author, :author_id, presence: true

@@ -18,15 +18,15 @@ include PostsHelper
 
   # Creates Post
   def create
-    @post = Post.new
-    @post.title = params[:post][:title]
-    @post.author = session[:current_username]
-    @post.content = params[:post][:content]
-    @post.author_id = session[:current_user_id]
+    post = Post.new
+    post.title = params[:post][:title]
+    post.author = session[:current_username]
+    post.content = params[:post][:content]
+    post.author_id = session[:current_user_id]
 
     # Checks for errors
-    if @post.valid? then
-      @post.save(post_params)
+    if post.valid? then
+      post.save(post_params)
       flash[:error] = 'Your post was created'
 
       redirect_to :root unless admin?
@@ -36,7 +36,7 @@ include PostsHelper
       flash[:title] = params[:post][:title]
       flash[:content] = params[:post][:content]
 
-      flash[:errors] = @post.errors.full_messages
+      flash[:errors] = post.errors.full_messages
       redirect_to :back
     end
   end
@@ -44,13 +44,13 @@ include PostsHelper
 
   # Updates Post
   def update
-    @post = Post.find(params[:id])
-    @post.title = params[:post][:title]
-    @post.content = params[:post][:content]
+    post = Post.find(params[:id])
+    post.title = params[:post][:title]
+    post.content = params[:post][:content]
 
     # Checks if saved
-    if @post.valid? then
-      @post.save(post_params)
+    if post.valid? then
+      post.save(post_params)
       flash[:error] = 'Your post was successfully updated'
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
@@ -59,7 +59,7 @@ include PostsHelper
       flash[:title] = params[:post][:title]
       flash[:content] = params[:post][:content]
       
-      flash[:errors] = @post.errors.full_messages
+      flash[:errors] = post.errors.full_messages
       render :back
     end
   end
