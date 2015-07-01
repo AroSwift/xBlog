@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   resources :posts, except: [:show]
   resources :comments, only: [:create, :destroy, :new]
+  resources :requests, only: [:create, :destroy, :edit, :new]
 
 
   # If no page exists, redirect to root

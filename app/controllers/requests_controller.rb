@@ -2,14 +2,23 @@ class RequestsController < ApplicationController
 include UsersHelper
 
 
+  def new
+     @request = Request.new
+  end 
+
+  def edit
+    @request = Request.find(params[:id])
+  end
+
+
   # Request to become admin
-  def request_admin
-    previous_request = Request.find_by(username: username)
+  def create
+    previous_request = Request.find_by_username(session[:current_username])
 
     # If user has already submitted a request
     if !previous_request.nil? then
-      flash[:error] 'You have already submitted a request'
-      render :account
+      flash[:error] = 'You have already submitted a request'
+      redirect_to account_user_path(session[:current_user_id])
       return
     end
 
@@ -22,7 +31,7 @@ include UsersHelper
     if req.valid? then
       req.save(request_params)
       flash[:error] = 'Your request has been submitted'
-      redirect_to :account
+      redirect_to account_user_path(session[:current_user_id])
     else
       flash[:errors] = user.errors.full_messages
       redirect_to :back
@@ -31,7 +40,7 @@ include UsersHelper
 
 
   # Accept request for norm user to become admin
-  def accept_request
+  def update
     # requeset = Request.find(session[:current_user_id])
 
     user = User.find_by(username: params[:username])
@@ -48,7 +57,7 @@ include UsersHelper
 
 
   # accept or reject request
-  def delete_request
+  def destroy
     request = Request.find(params[:id])
 
     # If super admin is rejecting for final time

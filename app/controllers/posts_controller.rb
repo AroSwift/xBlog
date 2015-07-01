@@ -60,17 +60,16 @@ include PostsHelper
       flash[:content] = params[:post][:content]
       
       flash[:errors] = post.errors.full_messages
-      render :back
+      redirect_to :back
     end
   end
 
 
   # Deletes post and comments within
  def destroy
-    Post.where(:id => params[:id]).destroy_all
-    Comment.where(:post_id => params[:id]).destroy_all
-
-    flash[:error] = "The post '#{params[:title]}' was successfully deleted"
+    Post.destroy(params[:id])
+    flash[:error] = "The post was successfully deleted"
+    
     redirect_to :root unless admin?
     redirect_to :admin_home unless !admin?
   end

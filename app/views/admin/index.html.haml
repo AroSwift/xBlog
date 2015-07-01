@@ -21,12 +21,12 @@
           = post.author
 
           - if post.author == session[:current_username] || super_admin?
-            = link_to 'Delete', posts_path(:id => post.id, :title => post.title), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+            = link_to 'Delete', post_path(post.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
             = link_to 'Edit', edit_post_path(post.id), class: "pedit"   
           - elsif admin?
             - User.where(username: post.author).each do |user|
               - if user.admin == false && user.superadmin == false
-                = link_to 'Delete', posts_path(:id => post.id, :title => post.title), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+                = link_to 'Delete', post_path(post.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
                 = link_to 'Edit', edit_post_path(post.id), class: "pedit"   
 
       .small= 'posted ' + compare_time(post.created_at)

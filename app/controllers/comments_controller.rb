@@ -23,7 +23,7 @@ include CommentsHelper
     if com.valid? then
       com.save(comment_params)
     else
-      flash[:errors] = @com.errors.full_messages
+      flash[:errors] = com.errors.full_messages
     end
 
     redirect_to :root unless admin?
@@ -33,7 +33,7 @@ include CommentsHelper
 
   # Delete Comment
   def destroy
-    Comment.find_by_post_id(params[:id]).destroy
+    Comment.destroy(params[:id])
 
     # => # => # => # =>  dirty class .changed? database
     flash[:error] = 'The comment was successfully deleted'
