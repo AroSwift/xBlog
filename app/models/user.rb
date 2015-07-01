@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
 
 	# Validates characteristics of user
 	validates :username, uniqueness: true
+	validates :password, confirmation: true
 	validates :username, :password, presence: true
 	validates :username, length: { in: 5..12 }
 	validates :password, length: { in: 8..20 }
-
 
 	# Fat model begins here:
 

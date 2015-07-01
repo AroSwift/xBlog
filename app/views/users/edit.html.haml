@@ -11,17 +11,17 @@
     %p
       = f.label :username, "Username"
       %br/
-      = f.text_field :username, :value => flash[:username] || @user.username
+      = f.text_field :username, :maxlength => 12, :value => flash[:username] || @user.username
     %p
       = f.label :password, "Password"
       %br/
-      = f.text_field :password, :value => flash[:password] || @user.password
+      = f.text_field :password, :maxlength => 20, :value => flash[:password] || @user.password
       
     - if !admin? then
       %p
         = f.label :password_confirmation, "confirm Password"
         %br/
-        = f.text_field :password_confirmation
+        = f.text_field :password_confirmation, :maxlength => 20
 
     - if admin? && @user.username != session[:current_username] then
       %p

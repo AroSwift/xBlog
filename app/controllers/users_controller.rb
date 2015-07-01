@@ -24,19 +24,28 @@ include UsersHelper
     user = User.new
     user.username = params[:user][:username]
     user.password = params[:user][:password]
+    
+    flash[:username] = params[:user][:username]
+    flash[:password] = params[:user][:password]
 
-    # User first user?
-    if first_user? then
-      user.admin = true
-      user.superadmin = true
-
-      # Create session for super admin
-      session[:admin] = true
-      session[:super_admin] = true
+    if params[:user][:password] != params[:user][:password_confirmation] then
+      flash[:error] = 'Your passwords do not match'
+      redirect_to :back
+      return
     end
 
     # Checks for errors
     if user.valid? then
+      # User first user?
+      if first_user? then
+        user.admin = true
+        user.superadmin = true
+
+        # Create session for super admin
+        session[:admin] = true
+        session[:super_admin] = true
+      end
+
       # Save user to db
       user.save(user_params)
 
@@ -47,10 +56,9 @@ include UsersHelper
 
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
-    else
-      flash[:username] = params[:user][:username]
-      flash[:password] = params[:user][:password]
 
+    # If errors
+    else
       flash[:errors] = user.errors.full_messages
       redirect_to :back
     end
@@ -60,6 +68,7 @@ include UsersHelper
 
   # Admin Updates User
   def update
+    @password_confirmation = params[:user][:password_confirmation]
     user = User.find(params[:id])
     prename = user.username
 
@@ -93,7 +102,7 @@ include UsersHelper
       redirect_to :admin_users unless !admin?
     else
       flash[:username] = params[:user][:username]
-      flash[:password] = params[:user][:username]
+      flash[:password] = params[:user][:password]
       flash[:admin] = params[:user][:admin]
 
       flash[:errors] = user.errors.full_messages
@@ -137,10 +146,6 @@ include UsersHelper
 
   # Login User
   def login_user
-    user = User.new
-    user.username = params[:login][:username]
-    user.password = params[:login][:password]
-
     # Check if user exists in db
     dbuser = User.find_by(username: params[:login][:username], password: params[:login][:password])
     
@@ -171,7 +176,6 @@ include UsersHelper
       flash[:error] = 'The username and password do not match'
       redirect_to :back
     end
-
   end
 
 
@@ -193,7 +197,11 @@ include UsersHelper
   private
   # What fields can be saved to Database
   def user_params
-    params.require(:user).permit(:username, :password, :admin, :superadmin)
+    params.require(:user).permit(:username, :password, :admin, :superadmin, :id)
+  end
+
+  def post_params
+    params.require(:user).permit(:author, :title, :content, :id, :author_id)
   end
 
 end
