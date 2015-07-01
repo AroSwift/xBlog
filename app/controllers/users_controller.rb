@@ -13,33 +13,29 @@ include UsersHelper
 
   # Create User
   def create
-    user = User.new()
+    user = User.new
     user.username = params[:user][:username]
     user.password = params[:user][:password]
 
-    # User first user?
-    if first_user? then
-      first = true
-    end
-
     # Checks for errors
     if user.valid? then
+      # User first user?
+      if first_user? then
+        user.admin = true
+        user.superadmin = true
+
+        # Create session for super admin
+        session[:admin] = true
+        session[:super_admin] = true
+      end
+
+      # Save user to db
       user.save(user_params)
 
       # Create Session
       session[:current_user_id] = user.id
       session[:current_username] = user.username
       session[:current_password] = user.password
-
-      # If this is the first user
-      if first == true then
-        admin_user = User.find_by(username: @username)
-        admin_user.admin = true
-        admin_user.superadmin = true
-        admin_user.save(user_params)
-        session[:admin] = true
-        session[:super_admin] = true
-      end
 
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?

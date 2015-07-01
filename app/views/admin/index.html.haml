@@ -7,7 +7,7 @@
   - if first_post? && logged_in?
     %h3
       %center
-        = link_to "Create First Post", post_path, :class => 'firstup' 
+        = link_to "Create First Post", new_post_path, :class => 'firstup' 
 
   - content_for :current_page do
     Admin

@@ -5,7 +5,7 @@
 - if first_user?
   %h3
     %center
-      = link_to "Setup Up Account as Admin", signup_path, :class => 'firstup'
+      = link_to "Setup Up Account as Admin", new_user_path, :class => 'firstup'
 
 - if first_post? && logged_in?
   %h3
