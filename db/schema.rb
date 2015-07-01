@@ -14,40 +14,40 @@
 ActiveRecord::Schema.define(version: 20150618191312) do
 
   create_table "comments", force: :cascade do |t|
-    t.text     "comment"
-    t.integer  "post_id"
-    t.string   "user"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "comment",    limit: 65535
+    t.integer  "post_id",    limit: 4
+    t.string   "user",       limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.string   "author"
-    t.integer  "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 65535
+    t.string   "author",     limit: 255
+    t.integer  "author_id",  limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "requests", force: :cascade do |t|
-    t.string   "username"
-    t.string   "password"
-    t.integer  "user_id"
-    t.boolean  "status",      default: false, null: false
-    t.string   "accepted_by"
-    t.string   "rejected_by"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "username",    limit: 255
+    t.string   "password",    limit: 255
+    t.integer  "user_id",     limit: 4
+    t.boolean  "status",      limit: 1,   default: false, null: false
+    t.string   "accepted_by", limit: 255
+    t.string   "rejected_by", limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username"
-    t.string   "password"
-    t.boolean  "admin",      default: false, null: false
-    t.boolean  "superadmin", default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "username",   limit: 255
+    t.string   "password",   limit: 255
+    t.boolean  "admin",      limit: 1,   default: false, null: false
+    t.boolean  "superadmin", limit: 1,   default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
 end

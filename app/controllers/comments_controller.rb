@@ -36,11 +36,7 @@ include CommentsHelper
     Comment.find_by_post_id(params[:id]).destroy
 
     # => # => # => # =>  dirty class .changed? database
-    if !Comment.exists?(:post_id => @post_id) then
-      flash[:error] = 'The comment was successfully deleted'
-    else
-      flash[:error] = 'The comment was NOT successfully deleted'
-    end
+    flash[:error] = 'The comment was successfully deleted'
 
     redirect_to :root unless admin?
     redirect_to :admin_home unless !admin?

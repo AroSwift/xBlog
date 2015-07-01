@@ -13,7 +13,7 @@ include UsersHelper
 
   # Create User
   def create
-    user = User.new
+    user = User.new()
     user.username = params[:user][:username]
     user.password = params[:user][:password]
 

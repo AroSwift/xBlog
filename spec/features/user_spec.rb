@@ -17,8 +17,8 @@ describe 'the user login process' do
 			fill_in "login_password", with: @user.password
 			click_button "Login"
 
-       # Then I expect to be logged in
-       expect(   ).to eql(  )
+      # Then I expect to be logged in
+      expect(   ).to eql(  )
 		end
 
 end
@@ -38,6 +38,22 @@ describe 'the user signup process' do
 			fill_in "signup_confirm_password", with: @user.password
 			click_button "Sign Up"
 
+      # expect ?
+		end
+
+end
+
+
+
+
+describe 'deleting user' do
+
+		before :each do
+			@user = FactoryGirl.create(:user) # Completely valid user
+		end
+		
+		it "successfully deletes a user given acceptable user id" do
+			# visit :signup
       # expect ?
 		end
 

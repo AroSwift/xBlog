@@ -45,7 +45,7 @@ RSpec.describe UsersController, :type => :controller do
 
 
 
-	describe 'Login' do
+	describe '#login_user' do
 
 			# it "validates presence of username and password" do
 
@@ -77,7 +77,7 @@ RSpec.describe UsersController, :type => :controller do
 	end
 
 
-	describe 'Logout' do	
+	describe '#logout' do	
 
 			it "deletes cookies and redirect" do
 
