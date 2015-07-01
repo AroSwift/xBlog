@@ -28,6 +28,7 @@ include UsersHelper
     flash[:username] = params[:user][:username]
     flash[:password] = params[:user][:password]
 
+    # Checks if pass is not equal to confrim pass
     if params[:user][:password] != params[:user][:password_confirmation] then
       flash[:error] = 'Your passwords do not match'
       redirect_to :back
@@ -56,21 +57,31 @@ include UsersHelper
 
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
-
-    # If errors
-    else
+    else # If errors
       flash[:errors] = user.errors.full_messages
       redirect_to :back
     end
   end
 
 
-
-  # Admin Updates User
+  # Updates User
   def update
-    @password_confirmation = params[:user][:password_confirmation]
     user = User.find(params[:id])
     prename = user.username
+    user.username = params[:user][:username]
+    user.password = params[:user][:password]
+
+    # Populate fields
+    flash[:username] = params[:user][:username]
+    flash[:password] = params[:user][:password]
+    flash[:admin] = params[:user][:admin]
+
+    # Checks if pass is not equal to confrim pass
+    if params[:user][:password] != params[:user][:password_confirmation] then
+      flash[:error] = 'Your passwords do not match'
+      redirect_to :back
+      return
+    end
 
     # Determines if admin wants edited user to be admin
     if params[:user][:admin] == '1' || params[:user][:admin] == 'true' then
@@ -78,10 +89,6 @@ include UsersHelper
     else
       params[:user][:admin] = false
     end
-
-    user.username = params[:user][:username]
-    user.password = params[:user][:password]
-
 
     # If not admin and not current user, update selected user to admin
     if !admin? || prename != session[:current_username] then 
@@ -101,10 +108,6 @@ include UsersHelper
       redirect_to account_user_path(session[:current_user_id]) unless admin?
       redirect_to :admin_users unless !admin?
     else
-      flash[:username] = params[:user][:username]
-      flash[:password] = params[:user][:password]
-      flash[:admin] = params[:user][:admin]
-
       flash[:errors] = user.errors.full_messages
       redirect_to :back
     end
@@ -123,11 +126,6 @@ include UsersHelper
 
     # Sign out if current user
     if @dusername == session[:current_username] then
-      # @_current_user = session[:current_user_id] = nil
-      # @_current_user = session[:current_username] = nil 
-      # @_current_user = session[:current_password] = nil      
-      # @_current_user = session[:admin] = nil
-      # @_current_user = session[:super_admin] = nil 
       reset_session
     end 
 
@@ -147,23 +145,21 @@ include UsersHelper
   # Login User
   def login_user
     # Check if user exists in db
-    dbuser = User.find_by(username: params[:login][:username], password: params[:login][:password])
+    user = User.find_by(username: params[:login][:username], password: params[:login][:password])
     
     # Checks if user exists in db
-    if !dbuser.nil? then
-      session[:current_user_id] = dbuser.id
-      session[:current_username] = dbuser.username
-      session[:current_password] = dbuser.password
+    if !user.nil? then
+      session[:current_user_id] = user.id
+      session[:current_username] = user.username
+      session[:current_password] = user.password
 
-
-      status = User.find_by_username(params[:login][:username])
       # If user is admin
-      if status.admin == true then
+      if user.admin == true then
         session[:admin] = true
       end
 
       # if user is super admin
-      if status.superadmin == true then
+      if user.superadmin == true then
         session[:super_admin] = true
       end
 
@@ -181,14 +177,7 @@ include UsersHelper
 
   # Logout User
   def logout 
-    # @_current_user = session[:current_user_id] = nil
-    # @_current_user = session[:current_username] = nil 
-    # @_current_user = session[:current_password] = nil      
-    # @_current_user = session[:admin] = nil   
-    # @_current_user = session[:super_admin] = nil  
-
     reset_session
-
     flash[:error] = 'Logout successful'
     redirect_to :root
   end

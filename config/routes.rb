@@ -9,11 +9,9 @@ Rails.application.routes.draw do
   delete  'logout'                => 'users#logout'
 
   # Admin functions
+  # => # => # =>  ADD THESE TO THE USERS RESOURCE
   get     'admin_home'            => 'admin#index'
   get     'admin_users'           => 'admin#users'
-  # delete  'delete_users'          => 'admin#destroy'
-  # put     'admin_update_users'      => 'admin#update'
-  # get     '/admin_edit_users/:id', to: 'admin#edit', as: 'admin_edit_users'
 
   # Create defualt rail routes
   resources :users do 
@@ -24,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :comments, only: [:create, :destroy, :new, :index]
-  resources :requests, only: [:create, :destroy, :edit, :new]
+  resources :requests, only: [:create, :destroy, :update, :edit, :new]
 
 
   # If no page exists, redirect to root

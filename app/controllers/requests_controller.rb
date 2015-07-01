@@ -43,16 +43,17 @@ include UsersHelper
   def update
     # requeset = Request.find(session[:current_user_id])
 
-    user = User.find_by(username: params[:username])
+    user = User.find(params[:id])
     user.admin = true
 
     # Make user admin
     user.save(request_params)
 
-    Request.where(:username => params[:username]).destroy_all unless !super_admin?
-    Request.where(:username => params[:username]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
+    Request.where(:id => params[:id]).destroy_all unless !super_admin?
+    Request.where(:id => params[:id]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
 
-    flash[:error] = "#{@username} is now an administrator"
+    flash[:error] = "#{user.username} is now an administrator"
+    redirect_to :admin_users
   end
 
 
