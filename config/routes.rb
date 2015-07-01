@@ -7,22 +7,13 @@ Rails.application.routes.draw do
   get     'login'                 => 'users#login'
   post    'login_user'            => 'users#login_user'
   delete  'logout'                => 'users#logout'
-  
-
-  # Restricted Functions
-
-  # put     'account'             => 'requests#request_admin'
-  # post    'admin_users'         => 'requests#accept_request'
-  # delete  'admin_users'         => 'requests#delete_request'
-
 
   # Admin functions
   get     'admin_home'            => 'admin#index'
   get     'admin_users'           => 'admin#users'
-  get     'admin_edit_users'      => 'admin#edit'
-  put     'admin_edit_users'      => 'admin#update'
-  delete  'delete_users'          => 'admin#destroy'
-
+  # delete  'delete_users'          => 'admin#destroy'
+  # put     'admin_update_users'      => 'admin#update'
+  # get     '/admin_edit_users/:id', to: 'admin#edit', as: 'admin_edit_users'
 
   # Create defualt rail routes
   resources :users do 
@@ -31,8 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, except: [:show]
-  resources :comments, only: [:create, :destroy, :new]
+  resources :posts
+  resources :comments, only: [:create, :destroy, :new, :index]
   resources :requests, only: [:create, :destroy, :edit, :new]
 
 

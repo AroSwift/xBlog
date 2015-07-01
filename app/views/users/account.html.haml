@@ -10,9 +10,9 @@
   %article.posts
     %center  
       %p.title
-        = link_to 'Edit Username or Password', admin_edit_users_path(:username => session[:current_username], :password => session[:current_password], :admin => session[:admin], :id => session[:current_user_id]), class: "acc_link"
+        = link_to 'Edit Username or Password', edit_user_path(session[:current_user_id]), class: "acc_link"
       - if !admin?  
         %p.title   
           = link_to 'Request to be an admin', requests_path, :method => :create, class: "acc_link"  
       %p.title   
-        = link_to 'Delete Account', delete_users_path(:dusername => session[:current_username], :dpassword => session[:current_password], :dadmin => session[:admin], :dtype => 'all'), :method => :delete, :data => {:confirm => "Are you sure you want to delete your account and all your posts?"}, class: "acc_link delete"
+        = link_to 'Delete Account', users_path(session[:current_user_id]), :method => :delete, :data => {:confirm => "Are you sure you want to delete your account and all your posts?"}, class: "acc_link delete"

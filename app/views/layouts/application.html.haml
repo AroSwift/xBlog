@@ -39,7 +39,7 @@
         = yield :current_page
         
         - if logged_in? then
-          - if current_page?(account_user_path(session[:current_user_id]))|| current_page?(:admin_edit_users) then
+          - if current_page?(account_user_path(session[:current_user_id])) then
             = link_to 'Account', account_user_path(session[:current_user_id]), :class => 'cur_account'
           -else
             = link_to 'Account', account_user_path(session[:current_user_id]), :class => 'account'

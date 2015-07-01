@@ -7,15 +7,15 @@
   - content_for :current_page do
     Edit User
   %br
-  = form_for :users, url: admin_edit_users_path(:username => params[:username], :password => params[:password], :admin => params[:admin], :id => params[:id]), :method => :put do |f|
+  = form_for :user, url: user_path(params[:id]), :method => :put do |f|
     %p
       = f.label :username, "Username"
       %br/
-      = f.text_field :username, :value => flash[:username] || params[:username] || @user.username
+      = f.text_field :username, :value => flash[:username] || @user.username
     %p
       = f.label :password, "Password"
       %br/
-      = f.text_field :password, :value => flash[:password] || params[:password]
+      = f.text_field :password, :value => flash[:password] || @user.password
       
     - if !admin? then
       %p
@@ -23,7 +23,7 @@
         %br/
         = f.text_field :password_confirmation
 
-    - if admin? && params[:username] != session[:current_username] then
+    - if admin? && @user.username != session[:current_username] then
       %p
         = f.label :admin, "Admin Privileges?"
         %br/
