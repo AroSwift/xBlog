@@ -77,7 +77,7 @@ include UsersHelper
     flash[:admin] = params[:user][:admin]
 
     # Checks if pass is not equal to confrim pass
-    if params[:user][:password] != params[:user][:password_confirmation] then
+    if params[:user][:password] != params[:user][:password_confirmation] && user.admin != admin? then
       flash[:error] = 'Your passwords do not match'
       redirect_to :back
       return

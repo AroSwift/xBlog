@@ -49,8 +49,8 @@ include UsersHelper
     # Make user admin
     user.save(request_params)
 
-    Request.where(:id => params[:id]).destroy_all unless !super_admin?
-    Request.where(:id => params[:id]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
+    Request.where(:user_id => params[:id]).destroy_all unless !super_admin?
+    Request.where(:user_id => params[:id]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
 
     flash[:error] = "#{user.username} is now an administrator"
     redirect_to :admin_users
@@ -63,13 +63,13 @@ include UsersHelper
 
     # If super admin is rejecting for final time
     if params[:adminreject] == 'true' then
-      User.where(:username => params[:username]).update_all(admin: false)
-      Request.where(:username => params[:username]).destroy_all
+      User.where(:id => params[:id]).update_all(admin: false)
+      Request.where(:user_id => params[:id]).destroy_all
     end
 
     # if normal admin is rejecting
     if params[:reject] == 'true' then
-      Request.where(:username => params[:username]).update_all(status: true, rejected_by: session[:current_username])
+      Request.where(:user_id => params[:id]).update_all(status: true, rejected_by: session[:current_username])
     end  
 
     redirect_to :admin_users
