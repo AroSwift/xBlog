@@ -28,8 +28,8 @@
         = f.label :admin, "Admin Privileges?"
         %br/
         - if params[:admin] == 'true' then
-          = f.check_box :admin, :value => params[:admin], :checked => 'checked'
+          = f.check_box :admin, :value => flash[:admin], :checked => 'checked'
         - else
-          = f.check_box :admin, :value => params[:admin]
+          = f.check_box :admin, :value => flash[:admin]
     %p
       = f.submit "Change"

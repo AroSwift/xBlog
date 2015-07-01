@@ -25,15 +25,15 @@ include UsersHelper
     user.username = params[:user][:username]
     user.password = params[:user][:password]
 
-      # User first user?
-      if first_user? then
-        user.admin = true
-        user.superadmin = true
+    # User first user?
+    if first_user? then
+      user.admin = true
+      user.superadmin = true
 
-        # Create session for super admin
-        session[:admin] = true
-        session[:super_admin] = true
-      end
+      # Create session for super admin
+      session[:admin] = true
+      session[:super_admin] = true
+    end
 
     # Checks for errors
     if user.valid? then
@@ -82,7 +82,7 @@ include UsersHelper
     # If user successfully updated
     if user.valid? then  
       user.save(user_params)
-      flash[:error] = "The user '#{params[:user][:username]}' was updated."
+      flash[:error] = "The user was successfully updated."
 
       # Updates Posts and Comments user and author to match new username
       Post.where(:author => prename).update_all(author: params[:user][:username])
@@ -92,6 +92,10 @@ include UsersHelper
       redirect_to account_user_path(session[:current_user_id]) unless admin?
       redirect_to :admin_users unless !admin?
     else
+      flash[:username] = params[:user][:username]
+      flash[:password] = params[:user][:username]
+      flash[:admin] = params[:user][:admin]
+
       flash[:errors] = user.errors.full_messages
       redirect_to :back
     end
@@ -138,7 +142,7 @@ include UsersHelper
     user.password = params[:login][:password]
 
     # Check if user exists in db
-    dbuser = User.find_by(username: params[:login][:username])
+    dbuser = User.find_by(username: params[:login][:username], password: params[:login][:password])
     
     # Checks if user exists in db
     if !dbuser.nil? then
