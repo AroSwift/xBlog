@@ -1,6 +1,6 @@
 class Request < ActiveRecord::Base
 
-	belongs_to :users
+	has_one :users
 
 	validates :username, :password, :user_id, presence: true
 	validates :username, length: { in: 5..12 }

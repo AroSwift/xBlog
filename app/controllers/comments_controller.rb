@@ -16,6 +16,7 @@ include UsersHelper
     com = Comment.new
     com.comment = params[:com][:comment]
     com.post_id = params[:com][:post_id]
+    com.user_id = session[:current_user_id]
     com.user = session[:current_username]
 
     # Check for validation errors
