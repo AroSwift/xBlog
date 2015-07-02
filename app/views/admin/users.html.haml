@@ -10,7 +10,7 @@
 
     - Request.all.order("created_at asc LIMIT 1").each do |request|
       - if request.status == true && super_admin? then
-        %center
+        %center.request
           The user
           %b
             = request.username
@@ -34,12 +34,9 @@
           %br
           = link_to 'Yes', request_path(request.id), :method => :put, class: "request"
           = link_to 'No', request_path(request.id, :adminreject => 'true'), :method => :delete, class: "request"
-          %br
-          %br
-          %br
 
-      - elsif request.status == false
-        %center
+      - elsif request.status == false then
+        %center.request
           The user
           %b
             = request.username
@@ -50,9 +47,6 @@
           = link_to 'Yes', request_path(request.id), :method => :put, class: "request"
           = link_to 'No', request_path(request.id, :reject => 'true'), :method => :delete, class: "request" unless super_admin?
           = link_to 'No', request_path(request.id, :adminreject => 'true'), :method => :delete, class: "request" unless !super_admin?
-          %br
-          %br
-          %br
 
 
   - User.all.order("id desc LIMIT 50").each do |user|

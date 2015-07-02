@@ -10,6 +10,10 @@ include UsersHelper
     @request = Request.find(params[:id])
   end
 
+  def show
+    @request = Request.all
+  end
+
 
   # Request to become admin
   def create

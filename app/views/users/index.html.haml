@@ -7,7 +7,7 @@
     %center
       = link_to "Setup Up Account as Admin", new_user_path, :class => 'firstup'
 
-- if first_post? && logged_in?
+- if first_post? && logged_in? then
   %h3
     %center
       = link_to "Create First Post", posts_path, :class => 'firstup' 
@@ -19,9 +19,9 @@
       by
       = post.author
 
-      - if logged_in? || admin? then
+      - if logged_in? then
         - if post.author == session[:current_username] then
-          = link_to 'Delete', posts_path(:id => post.id, :title => post.title), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
+          = link_to 'Delete', post_path(post.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
           = link_to 'Edit', edit_post_path(post.id), class: "pedit"
           
   .small= 'posted ' + compare_time(post.created_at)

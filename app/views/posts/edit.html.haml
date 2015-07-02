@@ -16,7 +16,7 @@
     %p
       = f.label :author, "Author"
       %br/
-      = f.text_field :author, :maxlength => 12, :readonly => true, :value => params[:author] || @post.author
+      = f.text_field :author, :maxlength => 12, :readonly => true, :value => @post.author
     %p
       = f.label :pcontent, "Post"
       %br/
