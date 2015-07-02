@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
 	has_many :posts, dependent: :destroy
 	has_many :comments, dependent: :destroy
-	has_one :requests, dependent: :destroy
+	has_many :requests, dependent: :destroy
 
 	attr_accessor :password_confirmation # sets password_confirmation for one time use
 	validates_confirmation_of :password # validates password == password_confirmation

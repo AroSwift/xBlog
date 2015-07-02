@@ -112,6 +112,8 @@ include UsersHelper
         else
           flash[:errors] = r.errors.full_messages
         end
+      elsif params[:user][:admin] == '1' && super_admin? then
+        Request.where(:user_id => params[:id]).destroy_all
       end
 
       redirect_to account_user_path(session[:current_user_id]) unless admin?
@@ -125,6 +127,7 @@ include UsersHelper
 
   # Admin Deletes User and/or their posts
   def destroy
+    name = User.find(params[:id])
     User.destroy(params[:id])
 
 
@@ -134,7 +137,7 @@ include UsersHelper
       reset_session
       redirect_to :root
     else
-      flash[:error] = 'The user #{user.username} and all their posts and comments were successfully deleted'
+      flash[:error] = 'The user #{name} and all their posts and comments were successfully deleted'
       redirect_to :root unless admin?
       redirect_to :admin_users unless !admin?
     end
