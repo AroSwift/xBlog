@@ -77,22 +77,17 @@ include UsersHelper
     flash[:admin] = params[:user][:admin]
 
     # Checks if pass is not equal to confrim pass
-    if params[:user][:password] != params[:user][:password_confirmation] && user.admin != admin? then
+    if params[:user][:password] != params[:user][:password_confirmation] && !admin? then
       flash[:error] = 'Your passwords do not match'
       redirect_to :back
       return
     end
 
-    # Determines if admin wants edited user to be admin
-    if params[:user][:admin] == '1' || params[:user][:admin] == 'true' then
-      params[:user][:admin] = true
-    else
-      params[:user][:admin] = false
-    end
 
-    # If not admin and not current user, update selected user to admin
-    if !admin? || prename != session[:current_username] then 
-      user.admin = params[:user][:admin]
+    # If admin AND not current user, update selected user to admin
+    if admin? && prename != session[:current_username] then 
+      user.admin = true unless params[:user][:admin] == '0'
+      user.admin = false unless params[:user][:admin] == '1'
     end
 
     # If user successfully updated
@@ -103,7 +98,17 @@ include UsersHelper
       # Updates Posts and Comments user and author to match new username
       Post.where(:author => prename).update_all(author: params[:user][:username])
       Comment.where(:user => prename).update_all(user: params[:user][:username])
-      Request.where(:accepted_by => prename).update_all(accepted_by: params[:user][:username])
+      
+      # Creates new request to be checked by super admin
+      if params[:user][:admin] == '1' && !super_admin? then
+        r = Request.new
+        r.status = true
+        r.accepted_by = session[:current_username]
+        r.save(request_params)
+      else
+        Request.destroy(:user_id => params[:id]) unless !super_admin?
+        Request.where(:user_id => params[:id]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
+      end
 
       redirect_to account_user_path(session[:current_user_id]) unless admin?
       redirect_to :admin_users unless !admin?
@@ -191,6 +196,10 @@ include UsersHelper
 
   def post_params
     params.require(:user).permit(:author, :title, :content, :id, :author_id)
+  end
+
+  def request_params
+    params.permit(:username, :password, :user_id, :status)
   end
 
 end

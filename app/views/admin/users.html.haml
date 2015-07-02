@@ -48,7 +48,8 @@
           %br
           %br
           = link_to 'Yes', request_path(request.id), :method => :put, class: "request"
-          = link_to 'No', request_path(request.id, :reject => 'true'), :method => :delete, class: "request"
+          = link_to 'No', request_path(request.id, :reject => 'true'), :method => :delete, class: "request" unless super_admin?
+          = link_to 'No', request_path(request.id, :adminreject => 'true'), :method => :delete, class: "request" unless !super_admin?
           %br
           %br
           %br
