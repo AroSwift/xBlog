@@ -8,17 +8,6 @@ RSpec.describe UsersController, :type => :controller do
 
 	describe '#create' do
 
-			# it "validates presence of username and password" do
-			# 	visit :signup
-
-			# 	# Valid User
-			# 	expect(@user.valid?).to be (true)
-
-			# 	# Invalid User
-			# 	@user.username = ''
-			# 	expect(@user.valid?).to be (false)
-			# end
-
 			it "confims password and confirm password are equal" do
 				expect(@user.password).to eq(@user.password)
 			end
@@ -27,6 +16,7 @@ RSpec.describe UsersController, :type => :controller do
 			end
 
 			it "checks if user already exists in database" do
+				# expect(@user.count).to eq
 			end
 
 			it "gives the current user a session and redirects" do
@@ -37,8 +27,25 @@ RSpec.describe UsersController, :type => :controller do
 				expect(session[:current_user_id]).to be == @user.id
 	      expect(session[:current_username]).to be == @user.username
 	      expect(session[:current_password]).to be == @user.password
-	      
-				#expect(response).to redirect_to :admin_home
+			end
+
+	end
+
+
+
+	describe '#update' do
+
+			it "sets new username and password for selected user" do
+
+			end
+
+	end
+
+
+
+	describe '#destroy' do
+
+			it "deletes user and all their posts, comments, and requests" do
 			end
 
 	end
@@ -46,23 +53,6 @@ RSpec.describe UsersController, :type => :controller do
 
 
 	describe '#login_user' do
-
-			# it "validates presence of username and password" do
-
-			# 	visit :login
-
-			# 	# Valid User
-			# 	expect(@user.username).not_to be_empty
-			# 	expect(@user.password).not_to be_empty
-			# 	expect(@user.valid?).to be (true)
-
-			# 	# Invalid User
-			# 	@user.username = ''
-			# 	@user.password = ''
-			# 	expect(@user.username).to be_empty
-			# 	expect(@user.password).to be_empty
-			# 	expect(@user.valid?).to be (false)
-			# end
 
 			it "creates a session" do
 				session[:current_user_id] = @user.id
@@ -77,13 +67,10 @@ RSpec.describe UsersController, :type => :controller do
 	end
 
 
+
 	describe '#logout' do	
 
 			it "deletes cookies and redirect" do
-
-				#session[:current_user_id] = @user.id
-	      #session[:current_username] = @user.username
-	      #session[:current_password] = @user.password
 
 				visit :admin_home
 				expect(session[:current_user_id]).to eq(nil)
