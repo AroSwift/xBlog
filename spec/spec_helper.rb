@@ -9,7 +9,6 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
-require 'simplecov'
 
 # Keep up to the number of screenshots specified in the hash
 Capybara::Screenshot.prune_strategy = :keep_last_run

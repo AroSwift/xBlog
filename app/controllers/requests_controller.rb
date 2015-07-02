@@ -22,22 +22,22 @@ include UsersHelper
     # If user has already submitted a request
     if !prev_request.nil? then
       flash[:error] = 'You have already submitted a request'
-      redirect_to account_user_path(session[:current_user_id])
+      redirect_to :back
       return
     end
 
-    req = Request.new
-    req.username = session[:current_username]
-    req.password = session[:current_password]
-    req.user_id = session[:current_user_id]
+    r = Request.new
+    r.username = session[:current_username]
+    r.password = session[:current_password]
+    r.user_id = session[:current_user_id]
 
     # Check if there are errors
-    if req.valid? then
-      req.save(request_params)
+    if r.valid? then
+      r.save(request_params)
       flash[:error] = 'Your request has been submitted'
       redirect_to account_user_path(session[:current_user_id])
-    else
-      flash[:errors] = user.errors.full_messages
+    else # If validation errors
+      flash[:errors] = r.errors.full_messages
       redirect_to :back
     end
   end
@@ -47,9 +47,7 @@ include UsersHelper
   def update
     user = User.find(params[:id])
     user.admin = true
-
-    # Make user admin
-    user.save(request_params)
+    user.save(user_params)
 
     Request.destroy(params[:id]) unless !super_admin?
     Request.where(:user_id => params[:id]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
@@ -79,7 +77,11 @@ include UsersHelper
   private
   # What fields can be saved to Database
   def request_params
-    params.permit(:username, :password, :user_id, :status)
+    params.permit(:username, :password, :user_id, :status, :accepted_by, :rejected_by)
+  end
+
+  def user_params
+    params.permit(:admin)
   end
 
 end

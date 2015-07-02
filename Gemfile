@@ -64,7 +64,6 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-  gem 'simplecov', require: false
   # END CUSTOM
 
 end

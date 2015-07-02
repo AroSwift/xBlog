@@ -24,9 +24,6 @@ include UsersHelper
     user = User.new
     user.username = params[:user][:username]
     user.password = params[:user][:password]
-    
-    flash[:username] = params[:user][:username]
-    flash[:password] = params[:user][:password]
 
     # Checks if password is not equal
     if !equal_password? then
@@ -41,7 +38,6 @@ include UsersHelper
       if first_user? then
         user.admin = true
         user.superadmin = true
-
         # Create session for super admin
         session[:admin] = true
         session[:super_admin] = true
@@ -57,7 +53,10 @@ include UsersHelper
 
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
-    else # If errors
+    else # If validation errors
+      flash[:username] = params[:user][:username]
+      flash[:password] = params[:user][:password]
+
       flash[:errors] = user.errors.full_messages
       redirect_to :back
     end
@@ -67,14 +66,8 @@ include UsersHelper
   # Updates User
   def update
     user = User.find(params[:id])
-    prename = user.username
     user.username = params[:user][:username]
     user.password = params[:user][:password]
-
-    # Populate fields
-    flash[:username] = params[:user][:username]
-    flash[:password] = params[:user][:password]
-    flash[:admin] = params[:user][:admin]
 
     # Checks if password is not equal
     if !equal_password? && !admin? then
@@ -85,7 +78,7 @@ include UsersHelper
 
 
     # If admin AND not current user, update selected user to admin
-    if admin? && prename != session[:current_username] then 
+    if admin? then 
       user.admin = true unless params[:user][:admin] == '0'
       user.admin = false unless params[:user][:admin] == '1'
     end
@@ -95,9 +88,9 @@ include UsersHelper
       user.save(user_params)
       flash[:error] = "The user was successfully updated."
 
-      # Updates Posts and Comments user and author to match new username
-      Post.where(:author => prename).update_all(author: params[:user][:username])
-      Comment.where(:user => prename).update_all(user: params[:user][:username])
+      # Updates Posts and Comments user and post author to match new username
+      Post.where(:user_id => params[:id]).update_all(author: params[:user][:username])
+      Comment.where(:user_id => params[:id]).update_all(user: params[:user][:username])
       
       # Creates new request to be checked by super admin
       if params[:user][:admin] == '1' && admin? && !super_admin? then
@@ -107,18 +100,19 @@ include UsersHelper
         r.username = params[:user][:username]
         r.password = params[:user][:password]
         r.user_id = params[:id]
-        if r.valid? then
-          r.save(request_params)
-        else
-          flash[:errors] = r.errors.full_messages
-        end
+        r.save(request_params)
+      # Deletes any request if user is super admin
       elsif params[:user][:admin] == '1' && super_admin? then
         Request.where(:user_id => params[:id]).destroy_all
       end
 
       redirect_to account_user_path(session[:current_user_id]) unless admin?
       redirect_to :admin_users unless !admin?
-    else
+    else # If validation errors
+      flash[:username] = params[:user][:username]
+      flash[:password] = params[:user][:password]
+      flash[:admin] = params[:user][:admin]
+
       flash[:errors] = user.errors.full_messages
       redirect_to :back
     end
