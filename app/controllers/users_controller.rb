@@ -125,26 +125,16 @@ include UsersHelper
 
   # Admin Deletes User and/or their posts
   def destroy
-    @user = User.find(params[:id])
-    @dusername = params[:dusername]
-
-    # Delete user and all their posts and comments
-    User.where(:username => @dusername).destroy_all
-    Post.where(:author => @dusername).destroy_all
-    Comment.where(:user => @dusername).destroy_all
-
-    # Sign out if current user
-    if @dusername == session[:current_username] then
-      reset_session
-    end 
+    User.destroy(params[:id])
 
 
     # If current user is deleting their account, posts and comments
-    if @dusername == session[:current_username] then   
+    if params[:id] == session[:current_user_id] then   
       flash[:error] = 'You have successfully deleted your account, posts, and comments'
+      reset_session
       redirect_to :root
     else
-      flash[:error] = 'The user #{@dusername} and all their posts and comments were successfully deleted'
+      flash[:error] = 'The user #{user.username} and all their posts and comments were successfully deleted'
       redirect_to :root unless admin?
       redirect_to :admin_users unless !admin?
     end
@@ -199,7 +189,7 @@ include UsersHelper
   end
 
   def post_params
-    params.require(:user).permit(:author, :title, :content, :id, :author_id)
+    params.require(:user).permit(:author, :title, :content, :id, :user_id)
   end
 
   def request_params

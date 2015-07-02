@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150618191312) do
     t.string   "title",      limit: 255
     t.text     "content",    limit: 65535
     t.string   "author",     limit: 255
-    t.integer  "author_id",  limit: 4
+    t.integer  "user_id",    limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end

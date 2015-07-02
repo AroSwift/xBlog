@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
 include UsersHelper
-include PostsHelper
 
 
   def new
@@ -22,7 +21,7 @@ include PostsHelper
     post.title = params[:post][:title]
     post.author = session[:current_username]
     post.content = params[:post][:content]
-    post.author_id = session[:current_user_id]
+    post.user_id = session[:current_user_id]
 
     # Checks for errors
     if post.valid? then
@@ -78,7 +77,7 @@ include PostsHelper
   private
   # What fields can be saved to Database
   def post_params
-    params.require(:post).permit(:title, :author, :content, :id, :author_id)
+    params.require(:post).permit(:title, :author, :content, :id, :user_id)
   end
 
 end

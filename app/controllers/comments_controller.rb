@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
 include UsersHelper
-include CommentsHelper
 
 
   def new

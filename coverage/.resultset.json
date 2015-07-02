@@ -645,20 +645,10 @@
         null,
         1,
         0,
-        0,
         null,
-        null,
-        0,
-        0,
-        0,
         null,
         null,
         0,
-        0,
-        null,
-        null,
-        null,
-        null,
         0,
         0,
         0,
@@ -6525,25 +6515,6 @@
       ],
       "/Users/a73/Desktop/xBlog/app/controllers/admin_controller.rb": [
         1,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         null
       ],
       "/Users/a73/Desktop/xBlog/vendor/ruby/2.1.0/gems/activesupport-4.2.1/lib/active_support/message_encryptor.rb": [
@@ -7052,6 +7023,6 @@
         null
       ]
     },
-    "timestamp": 1435848309
+    "timestamp": 1435849724
   }
 }
