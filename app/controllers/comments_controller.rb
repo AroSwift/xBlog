@@ -34,8 +34,6 @@ include UsersHelper
   # Delete Comment
   def destroy
     Comment.destroy(params[:id])
-
-    # => # => # => # =>  dirty class .changed? database
     flash[:error] = 'The comment was successfully deleted'
 
     redirect_to :root unless admin?
@@ -46,7 +44,7 @@ include UsersHelper
   # What is allowed in database
   private
   def comment_params
-    params.require(:com).permit(:comment, :post_id, :user)
+    params.require(:com).permit(:comment, :post_id, :user_id, :user)
   end
 
 end

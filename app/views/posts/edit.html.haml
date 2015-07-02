@@ -12,7 +12,7 @@
     %p
       = f.label :title, "Title"
       %br/
-      = f.text_field :title, :maxlength => 40, :value => params[:title] || @post.title
+      = f.text_field :title, :maxlength => 40, :value => flash[:title] || @post.title
     %p
       = f.label :author, "Author"
       %br/
@@ -20,6 +20,6 @@
     %p
       = f.label :pcontent, "Post"
       %br/
-      = f.text_area :content, :maxlength => 1500, :value => params[:content] || @post.content
+      = f.text_area :content, :maxlength => 1500, :value => flash[:content] || @post.content
     %p
       = f.submit "Post"

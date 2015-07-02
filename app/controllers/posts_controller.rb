@@ -30,8 +30,7 @@ include UsersHelper
 
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
-    else
-      # Populates fields in view
+    else # If validation errors
       flash[:title] = params[:post][:title]
       flash[:content] = params[:post][:content]
 
@@ -51,10 +50,10 @@ include UsersHelper
     if post.valid? then
       post.save(post_params)
       flash[:error] = 'Your post was successfully updated'
+
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
-    else
-      # Populates fields in view
+    else # If validation errors
       flash[:title] = params[:post][:title]
       flash[:content] = params[:post][:content]
       
