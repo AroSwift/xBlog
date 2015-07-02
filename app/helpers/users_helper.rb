@@ -15,16 +15,14 @@ module UsersHelper
     session[:current_user_id].present? && session[:current_username].present? && session[:current_password].present?
   end
 
+  # Checks if password is equal to confirm password
+  def equal_password?
+    params[:user][:password] == params[:user][:password_confirmation]
+  end
+  
+  # Checks if first user
   def first_user?
-  	User.count.zero? 
-  end
-
-  def update_user_params_exist?
-    params[:username].present? && params[:password].present? && params[:id].present?
-  end
-
-  def delete_user_params_exist?
-    params[:dusername].present? && params[:dpassword].present? && params[:dadmin].present?
+    User.count.zero? 
   end
   
 end

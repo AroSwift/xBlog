@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   delete  'logout'                => 'users#logout'
 
   # Admin functions
-  # => # => # =>  ADD THESE TO THE USERS RESOURCE
   get     'admin_home'            => 'admin#index'
   get     'admin_users'           => 'admin#users'
 

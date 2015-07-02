@@ -28,8 +28,8 @@ include UsersHelper
     flash[:username] = params[:user][:username]
     flash[:password] = params[:user][:password]
 
-    # Checks if pass is not equal to confrim pass
-    if params[:user][:password] != params[:user][:password_confirmation] then
+    # Checks if password is not equal
+    if !equal_password? then
       flash[:error] = 'Your passwords do not match'
       redirect_to :back
       return
@@ -76,8 +76,8 @@ include UsersHelper
     flash[:password] = params[:user][:password]
     flash[:admin] = params[:user][:admin]
 
-    # Checks if pass is not equal to confrim pass
-    if params[:user][:password] != params[:user][:password_confirmation] && !admin? then
+    # Checks if password is not equal
+    if !equal_password? && !admin? then
       flash[:error] = 'Your passwords do not match'
       redirect_to :back
       return
@@ -100,14 +100,18 @@ include UsersHelper
       Comment.where(:user => prename).update_all(user: params[:user][:username])
       
       # Creates new request to be checked by super admin
-      if params[:user][:admin] == '1' && !super_admin? then
+      if params[:user][:admin] == '1' && admin? && !super_admin? then
         r = Request.new
         r.status = true
         r.accepted_by = session[:current_username]
-        r.save(request_params)
-      else
-        Request.destroy(:user_id => params[:id]) unless !super_admin?
-        Request.where(:user_id => params[:id]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?
+        r.username = params[:user][:username]
+        r.password = params[:user][:password]
+        r.user_id = params[:id]
+        if r.valid? then
+          r.save(request_params)
+        else
+          flash[:errors] = r.errors.full_messages
+        end
       end
 
       redirect_to account_user_path(session[:current_user_id]) unless admin?
@@ -199,7 +203,7 @@ include UsersHelper
   end
 
   def request_params
-    params.permit(:username, :password, :user_id, :status)
+    params.permit(:username, :password, :user_id, :status, :accepted_by)
   end
 
 end

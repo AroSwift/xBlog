@@ -14,14 +14,14 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-07-02T09:28:32-04:00">2015-07-02T09:28:32-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-07-02T10:45:09-04:00">2015-07-02T10:45:09-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">48.89%</span></span>
+    (<span class="covered_percent"><span class="red">48.84%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
@@ -32,9 +32,9 @@
   <a name="AllFiles"></a>
   <div>
     <b>49</b> files in total.
-    <b>2757</b> relevant lines. 
+    <b>2760</b> relevant lines. 
     <span class="green"><b>1348</b> lines covered</span> and
-    <span class="red"><b>1409</b> lines missed </span>
+    <span class="red"><b>1412</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -72,18 +72,18 @@
       
       <tr>
         <td class="strong"><a href="#13f25fc2b5ee6e7401235fb29911a859b1122970" class="src_link" title="app/controllers/users_controller.rb">app/controllers/users_controller.rb</a></td>
-        <td class="red strong">14.15 %</td>
-        <td>205</td>
-        <td>106</td>
+        <td class="red strong">13.76 %</td>
+        <td>209</td>
+        <td>109</td>
         <td>15</td>
-        <td>91</td>
+        <td>94</td>
         <td>0.1</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#6c1d9f00a11be8998f87c20a45e55a34b36040e3" class="src_link" title="app/models/user.rb">app/models/user.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>23</td>
+        <td>22</td>
         <td>11</td>
         <td>11</td>
         <td>0</td>
@@ -745,11 +745,11 @@
         <div class="source_table" id="13f25fc2b5ee6e7401235fb29911a859b1122970">
   <div class="header">
     <h3>app/controllers/users_controller.rb</h3>
-    <h4><span class="red">14.15 %</span> covered</h4>
+    <h4><span class="red">13.76 %</span> covered</h4>
     <div>
-      <b>106</b> relevant lines. 
+      <b>109</b> relevant lines. 
       <span class="green"><b>15</b> lines covered</span> and
-      <span class="red"><b>91</b> lines missed.</span>
+      <span class="red"><b>94</b> lines missed.</span>
     </div>
   </div>
   
@@ -939,13 +939,13 @@
         <li class="never" data-hits="" data-linenumber="31">
           
           
-          <code class="ruby">    # Checks if pass is not equal to confrim pass</code>
+          <code class="ruby">    # Checks if password is not equal</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="32">
           
           
-          <code class="ruby">    if params[:user][:password] != params[:user][:password_confirmation] then</code>
+          <code class="ruby">    if !equal_password? then</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="33">
@@ -1227,13 +1227,13 @@
         <li class="never" data-hits="" data-linenumber="79">
           
           
-          <code class="ruby">    # Checks if pass is not equal to confrim pass</code>
+          <code class="ruby">    # Checks if password is not equal</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="80">
           
           
-          <code class="ruby">    if params[:user][:password] != params[:user][:password_confirmation] &amp;&amp; !admin? then</code>
+          <code class="ruby">    if !equal_password? &amp;&amp; !admin? then</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="81">
@@ -1371,7 +1371,7 @@
         <li class="missed" data-hits="0" data-linenumber="103">
           
           
-          <code class="ruby">      if params[:user][:admin] == &#39;1&#39; &amp;&amp; !super_admin? then</code>
+          <code class="ruby">      if params[:user][:admin] == &#39;1&#39; &amp;&amp; admin? &amp;&amp; !super_admin? then</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="104">
@@ -1395,553 +1395,553 @@
         <li class="missed" data-hits="0" data-linenumber="107">
           
           
-          <code class="ruby">        r.save(request_params)</code>
+          <code class="ruby">        r.username = params[:user][:username]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="108">
+        <li class="missed" data-hits="0" data-linenumber="108">
           
           
-          <code class="ruby">      else</code>
+          <code class="ruby">        r.password = params[:user][:password]</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="109">
           
           
-          <code class="ruby">        Request.destroy(:user_id =&gt; params[:id]) unless !super_admin?</code>
+          <code class="ruby">        r.user_id = params[:id]</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="110">
           
           
-          <code class="ruby">        Request.where(:user_id =&gt; params[:id]).update_all(status: true, accepted_by: session[:current_username]) unless super_admin?</code>
+          <code class="ruby">        if r.valid? then</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="111">
+        <li class="missed" data-hits="0" data-linenumber="111">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby">          r.save(request_params)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="112">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">        else</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="113">
           
           
-          <code class="ruby">      redirect_to account_user_path(session[:current_user_id]) unless admin?</code>
+          <code class="ruby">          flash[:errors] = r.errors.full_messages</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="114">
+        <li class="never" data-hits="" data-linenumber="114">
           
           
-          <code class="ruby">      redirect_to :admin_users unless !admin?</code>
+          <code class="ruby">        end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="115">
           
           
-          <code class="ruby">    else</code>
+          <code class="ruby">      end</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="116">
+        <li class="never" data-hits="" data-linenumber="116">
           
           
-          <code class="ruby">      flash[:errors] = user.errors.full_messages</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="117">
           
           
-          <code class="ruby">      redirect_to :back</code>
+          <code class="ruby">      redirect_to account_user_path(session[:current_user_id]) unless admin?</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="118">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="119">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="120">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="121">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="122">
-          
-          
-          <code class="ruby">  # Admin Deletes User and/or their posts</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="123">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def destroy</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="124">
-          
-          
-          <code class="ruby">    @user = User.find(params[:id])</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="125">
-          
-          
-          <code class="ruby">    @dusername = params[:dusername]</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="126">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="127">
-          
-          
-          <code class="ruby">    # Delete user and all their posts and comments</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="128">
-          
-          
-          <code class="ruby">    User.where(:username =&gt; @dusername).destroy_all</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="129">
-          
-          
-          <code class="ruby">    Post.where(:author =&gt; @dusername).destroy_all</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="130">
-          
-          
-          <code class="ruby">    Comment.where(:user =&gt; @dusername).destroy_all</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="131">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="132">
-          
-          
-          <code class="ruby">    # Sign out if current user</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="133">
-          
-          
-          <code class="ruby">    if @dusername == session[:current_username] then</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="134">
-          
-          
-          <code class="ruby">      reset_session</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="135">
-          
-          
-          <code class="ruby">    end </code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="136">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="137">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="138">
-          
-          
-          <code class="ruby">    # If current user is deleting their account, posts and comments</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="139">
-          
-          
-          <code class="ruby">    if @dusername == session[:current_username] then   </code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="140">
-          
-          
-          <code class="ruby">      flash[:error] = &#39;You have successfully deleted your account, posts, and comments&#39;</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="141">
-          
-          
-          <code class="ruby">      redirect_to :root</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="142">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="143">
-          
-          
-          <code class="ruby">      flash[:error] = &#39;The user #{@dusername} and all their posts and comments were successfully deleted&#39;</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="144">
-          
-          
-          <code class="ruby">      redirect_to :root unless admin?</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="145">
+        <li class="missed" data-hits="0" data-linenumber="118">
           
           
           <code class="ruby">      redirect_to :admin_users unless !admin?</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="146">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="147">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="148">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="149">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="150">
-          
-          
-          <code class="ruby">  # Login User</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="151">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def login_user</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="152">
-          
-          
-          <code class="ruby">    # Check if user exists in db</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="153">
-          
-          
-          <code class="ruby">    user = User.find_by(username: params[:login][:username], password: params[:login][:password])</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="154">
-          
-          
-          <code class="ruby">    </code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="155">
-          
-          
-          <code class="ruby">    # Checks if user exists in db</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="156">
-          
-          
-          <code class="ruby">    if !user.nil? then</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="157">
-          
-          
-          <code class="ruby">      session[:current_user_id] = user.id</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="158">
-          
-          
-          <code class="ruby">      session[:current_username] = user.username</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="159">
-          
-          
-          <code class="ruby">      session[:current_password] = user.password</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="160">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="161">
-          
-          
-          <code class="ruby">      # If user is admin</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="162">
-          
-          
-          <code class="ruby">      if user.admin == true then</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="163">
-          
-          
-          <code class="ruby">        session[:admin] = true</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="164">
-          
-          
-          <code class="ruby">      end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="165">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="166">
-          
-          
-          <code class="ruby">      # if user is super admin</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="167">
-          
-          
-          <code class="ruby">      if user.superadmin == true then</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="168">
-          
-          
-          <code class="ruby">        session[:super_admin] = true</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="169">
-          
-          
-          <code class="ruby">      end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="170">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="171">
-          
-          
-          <code class="ruby">      redirect_to :root unless admin?</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="172">
-          
-          
-          <code class="ruby">      redirect_to :admin_home unless !admin?</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="173">
+        <li class="never" data-hits="" data-linenumber="119">
           
           
           <code class="ruby">    else</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="174">
+        <li class="missed" data-hits="0" data-linenumber="120">
           
           
-          <code class="ruby">      flash[:username] = params[:login][:username]</code>
+          <code class="ruby">      flash[:errors] = user.errors.full_messages</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="175">
-          
-          
-          <code class="ruby">      flash[:password] = params[:login][:password]</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="176">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="177">
-          
-          
-          <code class="ruby">      flash[:error] = &#39;The username and password do not match&#39;</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="178">
+        <li class="missed" data-hits="0" data-linenumber="121">
           
           
           <code class="ruby">      redirect_to :back</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="179">
+        <li class="never" data-hits="" data-linenumber="122">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="180">
+        <li class="never" data-hits="" data-linenumber="123">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="181">
+        <li class="never" data-hits="" data-linenumber="124">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="182">
+        <li class="never" data-hits="" data-linenumber="125">
           
           
           <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="126">
+          
+          
+          <code class="ruby">  # Admin Deletes User and/or their posts</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="127">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def destroy</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="128">
+          
+          
+          <code class="ruby">    @user = User.find(params[:id])</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="129">
+          
+          
+          <code class="ruby">    @dusername = params[:dusername]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="130">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="131">
+          
+          
+          <code class="ruby">    # Delete user and all their posts and comments</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="132">
+          
+          
+          <code class="ruby">    User.where(:username =&gt; @dusername).destroy_all</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="133">
+          
+          
+          <code class="ruby">    Post.where(:author =&gt; @dusername).destroy_all</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="134">
+          
+          
+          <code class="ruby">    Comment.where(:user =&gt; @dusername).destroy_all</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="135">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="136">
+          
+          
+          <code class="ruby">    # Sign out if current user</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="137">
+          
+          
+          <code class="ruby">    if @dusername == session[:current_username] then</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="138">
+          
+          
+          <code class="ruby">      reset_session</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="139">
+          
+          
+          <code class="ruby">    end </code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="140">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="141">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="142">
+          
+          
+          <code class="ruby">    # If current user is deleting their account, posts and comments</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="143">
+          
+          
+          <code class="ruby">    if @dusername == session[:current_username] then   </code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="144">
+          
+          
+          <code class="ruby">      flash[:error] = &#39;You have successfully deleted your account, posts, and comments&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="145">
+          
+          
+          <code class="ruby">      redirect_to :root</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="146">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="147">
+          
+          
+          <code class="ruby">      flash[:error] = &#39;The user #{@dusername} and all their posts and comments were successfully deleted&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="148">
+          
+          
+          <code class="ruby">      redirect_to :root unless admin?</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="149">
+          
+          
+          <code class="ruby">      redirect_to :admin_users unless !admin?</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="150">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="151">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="152">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="153">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="154">
+          
+          
+          <code class="ruby">  # Login User</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="155">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def login_user</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="156">
+          
+          
+          <code class="ruby">    # Check if user exists in db</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="157">
+          
+          
+          <code class="ruby">    user = User.find_by(username: params[:login][:username], password: params[:login][:password])</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="158">
+          
+          
+          <code class="ruby">    </code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="159">
+          
+          
+          <code class="ruby">    # Checks if user exists in db</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="160">
+          
+          
+          <code class="ruby">    if !user.nil? then</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="161">
+          
+          
+          <code class="ruby">      session[:current_user_id] = user.id</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="162">
+          
+          
+          <code class="ruby">      session[:current_username] = user.username</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="163">
+          
+          
+          <code class="ruby">      session[:current_password] = user.password</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="164">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="165">
+          
+          
+          <code class="ruby">      # If user is admin</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="166">
+          
+          
+          <code class="ruby">      if user.admin == true then</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="167">
+          
+          
+          <code class="ruby">        session[:admin] = true</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="168">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="169">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="170">
+          
+          
+          <code class="ruby">      # if user is super admin</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="171">
+          
+          
+          <code class="ruby">      if user.superadmin == true then</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="172">
+          
+          
+          <code class="ruby">        session[:super_admin] = true</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="173">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="174">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="175">
+          
+          
+          <code class="ruby">      redirect_to :root unless admin?</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="176">
+          
+          
+          <code class="ruby">      redirect_to :admin_home unless !admin?</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="177">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="178">
+          
+          
+          <code class="ruby">      flash[:username] = params[:login][:username]</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="179">
+          
+          
+          <code class="ruby">      flash[:password] = params[:login][:password]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="180">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="181">
+          
+          
+          <code class="ruby">      flash[:error] = &#39;The username and password do not match&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="182">
+          
+          
+          <code class="ruby">      redirect_to :back</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="183">
           
           
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="184">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="185">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="186">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="187">
+          
+          
           <code class="ruby">  # Logout User</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="184">
+        <li class="covered" data-hits="1" data-linenumber="188">
           <span class="hits">1</span>
           
           <code class="ruby">  def logout </code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="185">
+        <li class="missed" data-hits="0" data-linenumber="189">
           
           
           <code class="ruby">    reset_session</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="186">
+        <li class="missed" data-hits="0" data-linenumber="190">
           
           
           <code class="ruby">    flash[:error] = &#39;Logout successful&#39;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="187">
+        <li class="missed" data-hits="0" data-linenumber="191">
           
           
           <code class="ruby">    redirect_to :root</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="188">
+        <li class="never" data-hits="" data-linenumber="192">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="189">
+        <li class="never" data-hits="" data-linenumber="193">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="190">
+        <li class="never" data-hits="" data-linenumber="194">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="191">
+        <li class="covered" data-hits="1" data-linenumber="195">
           <span class="hits">1</span>
           
           <code class="ruby">  private</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="192">
+        <li class="never" data-hits="" data-linenumber="196">
           
           
           <code class="ruby">  # What fields can be saved to Database</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="193">
+        <li class="covered" data-hits="1" data-linenumber="197">
           <span class="hits">1</span>
           
           <code class="ruby">  def user_params</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="194">
-          
-          
-          <code class="ruby">    params.require(:user).permit(:username, :password, :admin, :superadmin, :id)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="195">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="196">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="197">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def post_params</code>
-        </li>
-      
         <li class="missed" data-hits="0" data-linenumber="198">
           
           
-          <code class="ruby">    params.require(:user).permit(:author, :title, :content, :id, :author_id)</code>
+          <code class="ruby">    params.require(:user).permit(:username, :password, :admin, :superadmin, :id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="199">
@@ -1959,13 +1959,13 @@
         <li class="covered" data-hits="1" data-linenumber="201">
           <span class="hits">1</span>
           
-          <code class="ruby">  def request_params</code>
+          <code class="ruby">  def post_params</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="202">
           
           
-          <code class="ruby">    params.permit(:username, :password, :user_id, :status)</code>
+          <code class="ruby">    params.require(:user).permit(:author, :title, :content, :id, :author_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="203">
@@ -1980,7 +1980,31 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="205">
+        <li class="covered" data-hits="1" data-linenumber="205">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def request_params</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="206">
+          
+          
+          <code class="ruby">    params.permit(:username, :password, :user_id, :status, :accepted_by)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="207">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="208">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="209">
           
           
           <code class="ruby">end</code>
@@ -2131,12 +2155,6 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="22">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">end</code>

@@ -13,10 +13,10 @@ include UsersHelper
 
   # Request to become admin
   def create
-    previous_request = Request.find_by_username(session[:current_username])
+    prev_request = Request.find_by_username(session[:current_username])
 
     # If user has already submitted a request
-    if !previous_request.nil? then
+    if !prev_request.nil? then
       flash[:error] = 'You have already submitted a request'
       redirect_to account_user_path(session[:current_user_id])
       return
@@ -41,8 +41,6 @@ include UsersHelper
 
   # Accept request for norm user to become admin
   def update
-    # requeset = Request.find(session[:current_user_id])
-
     user = User.find(params[:id])
     user.admin = true
 
@@ -57,10 +55,8 @@ include UsersHelper
   end
 
 
-  # accept or reject request
+  # reject request
   def destroy
-    request = Request.find(params[:id])
-
     # If super admin is rejecting for final time
     if params[:adminreject] == 'true' then
       User.where(:id => params[:id]).update_all(admin: false)

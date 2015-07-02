@@ -27,7 +27,7 @@
       %p
         = f.label :admin, "Admin Privileges?"
         %br/
-        - if params[:admin] == 'true' then
+        - if flash[:admin] == '1' then
           = f.check_box :admin, :value => flash[:admin], :checked => 'checked'
         - else
           = f.check_box :admin, :value => flash[:admin]
