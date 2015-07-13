@@ -10,7 +10,7 @@
         = link_to "Create First Post", new_post_path, :class => 'firstup' 
 
   - content_for :current_page do
-    Admin
+    Home
   %br
 
     - Post.all.order("updated_at DESC LIMIT 20").each do |post|
