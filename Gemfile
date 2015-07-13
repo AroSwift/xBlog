@@ -64,7 +64,6 @@ group :development, :test do
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-  gem "show_me_the_cookies" # makes cookies work in rspec
   # END CUSTOM
 
 end

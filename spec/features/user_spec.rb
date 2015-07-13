@@ -9,12 +9,12 @@ describe 'the user signup process' do
 		
 		it "successfully creates a new user given acceptable username and password" do
 			visit new_user_path
-				fill_in "user_username", with: @user.username
-				fill_in "user_password", with: @user.password
-				fill_in "user_password_confirmation", with: @user.password
-				click_button "Sign Up"
+			fill_in "user_username", with: @user.username
+			fill_in "user_password", with: @user.password
+			fill_in "user_password_confirmation", with: @user.password
+			click_button "Sign Up"
 
-				expect(page).to have_text("Create First Post")
+			expect(page).to have_text("Create First Post")
 		end
 
 end

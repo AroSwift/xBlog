@@ -32,11 +32,11 @@ describe 'Checking Logged In Routes' do
 			@user = FactoryGirl.create(:user) # Completely valid user
 			@post = FactoryGirl.create(:post)
 
+			# Set Cookies
 			visit :login
 			fill_in "login_username", with: @user.username
 			fill_in "login_password", with: @user.password
 			click_button "Login"
-
 		end
 
 
