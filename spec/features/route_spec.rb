@@ -49,6 +49,13 @@ describe 'Checking Logged In Routes' do
 
 
 		it "successfully accesses Edit Post page", type: :request  do
+
+			cookies[:current_username] = @user.username
+			cookies[:current_password] = @user.password
+			cookies[:current_user_id] = @user.id
+			cookies[:admin] = @user.admin
+			cookies[:super_admin] = @user.superadmin
+			
 			expect(cookies[:current_username]).to eq(@user.username)
 			expect(cookies[:current_password]).to eq(@user.password)
 			expect(cookies[:current_user_id]).to eq(@user.id)

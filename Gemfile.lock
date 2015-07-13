@@ -224,6 +224,8 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    show_me_the_cookies (3.0.0)
+      capybara (~> 2.0)
     slop (3.6.0)
     sprockets (3.2.0)
       rack (~> 1.0)
@@ -272,6 +274,7 @@ DEPENDENCIES
   sass-rails
   sdoc
   shoulda-matchers
+  show_me_the_cookies
   turbolinks
   uglifier
 
