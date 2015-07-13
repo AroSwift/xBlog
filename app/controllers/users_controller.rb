@@ -24,13 +24,7 @@ include UsersHelper
     user = User.new
     user.username = params[:user][:username]
     user.password = params[:user][:password]
-
-    # Checks if password is not equal
-    if !equal_password? then
-      flash[:error] = 'Your passwords do not match'
-      redirect_to :back
-      return
-    end
+    user.password_confirmation = params[:user][:password_confirmation]
 
     # Checks for errors
     if user.valid? then
@@ -69,18 +63,12 @@ include UsersHelper
     preuser = user.username
     user.username = params[:user][:username]
     user.password = params[:user][:password]
+    user.password_confirmation = params[:user][:password_confirmation]
 
     flash[:username] = params[:user][:username]
     flash[:password] = params[:user][:password]
     flash[:admin] = params[:user][:admin]
-
-    # Checks if password is not equal
-    if !equal_password? && !admin? then
-      flash[:error] = 'Your passwords do not match'
-      redirect_to :back
-      return
-    end
-
+    
 
     # If admin AND not current user, update selected user to admin
     if admin? then 
@@ -200,7 +188,7 @@ include UsersHelper
   private
   # What fields can be saved to Database
   def user_params
-    params.require(:user).permit(:username, :password, :admin, :superadmin, :id)
+    params.require(:user).permit(:username, :password, :password_confirmation, :admin, :superadmin, :id)
   end
 
   def post_params

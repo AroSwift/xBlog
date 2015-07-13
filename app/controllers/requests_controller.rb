@@ -31,7 +31,7 @@ include UsersHelper
     r.password = cookies.signed[:current_password]
     r.user_id = cookies.signed[:current_user_id]
 
-    # Check if there are errors
+    # Check for errors
     if r.valid? then
       r.save(request_params)
       flash[:error] = 'Your request has been submitted'

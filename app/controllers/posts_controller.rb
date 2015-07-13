@@ -46,7 +46,7 @@ include UsersHelper
     post.title = params[:post][:title]
     post.content = params[:post][:content]
 
-    # Checks if saved
+    # Checks for errors
     if post.valid? then
       post.save(post_params)
       flash[:error] = 'Your post was successfully updated'
