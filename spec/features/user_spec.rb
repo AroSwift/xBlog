@@ -15,6 +15,7 @@ describe 'the user signup process' do
 			click_button "Sign Up"
 
 			expect(page).to have_text("Create First Post")
+			expect(page).to have_text("Account")
 		end
 
 end
@@ -35,6 +36,7 @@ describe 'the user login process' do
 
       # Then I expect to be logged in
 			expect(page).to have_text("Create First Post")
+			expect(page).to have_text("Account")
 		end
 
 end
@@ -44,11 +46,18 @@ describe 'deleting user process' do
 
 		before :each do
 			@user = FactoryGirl.create(:user) # Completely valid user
+
+			# Set Cookies
+			visit :login
+			fill_in "login_username", with: @user.username
+			fill_in "login_password", with: @user.password
+			click_button "Login"
 		end
 		
 		it "successfully deletes a user given acceptable user id" do
-			# visit :signup
-      # expect ?
+			visit :admin_users
+			expect { click_link('Delete') }.to change(User, :count).by(-1)
+			expect(page).to have_text("deleted")
 		end
 
 end

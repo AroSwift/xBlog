@@ -32,8 +32,8 @@ include UsersHelper
       if first_user? then
         user.admin = true
         user.superadmin = true
-        # Create cookies for super admin
 
+        # Create cookies for super admin
         cookies.signed[:admin] = { value: "true", expires: 12.hours.from_now }
         cookies.signed[:super_admin] = { value: "true", expires: 12.hours.from_now }
       end
@@ -78,6 +78,8 @@ include UsersHelper
 
     # If user successfully updated
     if user.valid? then  
+      user.save(user_params)
+      flash[:error] = "The user was successfully updated."
 
       # Current user?
       if preuser == cookies.signed[:current_username] then
@@ -85,10 +87,7 @@ include UsersHelper
         cookies.signed[:current_password] = { value: user.password, expires: 12.hours.from_now }
       end
 
-      user.save(user_params)
-      flash[:error] = "The user was successfully updated."
-
-      # Updates Posts and Comments user and post author to match new username
+      # Updates Posts and Comments author and post author to match new username
       Post.where(:user_id => params[:id]).update_all(author: params[:user][:username])
       Comment.where(:user_id => params[:id]).update_all(user: params[:user][:username])
       
