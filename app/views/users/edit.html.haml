@@ -16,12 +16,6 @@
       = f.label :password, "Password"
       %br/
       = f.text_field :password, :maxlength => 20, :value => flash[:password] || @user.password
-      
-    - if !admin? then
-      %p
-        = f.label :password_confirmation, "confirm Password"
-        %br/
-        = f.text_field :password_confirmation, :maxlength => 20
 
     - if admin? && @user.username != cookies.signed[:current_username] then
       %p

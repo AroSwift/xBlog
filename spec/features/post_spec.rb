@@ -30,4 +30,5 @@ describe 'New post' do
 			# expect(find_field("post_author").text).to eq(@user.username)
 		end
 
+
 end

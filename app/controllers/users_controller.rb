@@ -63,7 +63,7 @@ include UsersHelper
     preuser = user.username
     user.username = params[:user][:username]
     user.password = params[:user][:password]
-    user.password_confirmation = params[:user][:password_confirmation]
+
 
     flash[:username] = params[:user][:username]
     flash[:password] = params[:user][:password]

@@ -13,12 +13,10 @@ class User < ActiveRecord::Base
 	validates :password, length: { in: 8..20 }
 	# has_secure_password
 
+
 	# validates password == password_confirmation
-  validates_presence_of :password_confirmation
-  validates_confirmation_of :password
-
-
-
+	validates_presence_of :password_confirmation, on: :create
+	validates_confirmation_of :password, on: :create
 
 
 	# ####### # # # # # # # ### # # # ## # # 
