@@ -19,9 +19,9 @@ include UsersHelper
   def create
     post = Post.new
     post.title = params[:post][:title]
-    post.author = session[:current_username]
+    post.author = cookies.signed[:current_username]
     post.content = params[:post][:content]
-    post.user_id = session[:current_user_id]
+    post.user_id = cookies.signed[:current_user_id]
 
     # Checks for errors
     if post.valid? then

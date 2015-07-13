@@ -23,7 +23,7 @@
         %br/
         = f.text_field :password_confirmation, :maxlength => 20
 
-    - if admin? && @user.username != session[:current_username] then
+    - if admin? && @user.username != cookies.signed[:current_username] then
       %p
         = f.label :admin, "Admin Privileges?"
         %br/

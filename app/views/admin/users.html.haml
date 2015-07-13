@@ -56,7 +56,7 @@
         = user.username
         %br
 
-        - if user.admin == false && user.superadmin == false || user.username == session[:current_username] || super_admin? 
+        - if user.admin == false && user.superadmin == false || user.username == cookies.signed[:current_username] || super_admin? 
           Password:
           =user.password
           - if admin? || super_admin? then

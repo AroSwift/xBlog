@@ -16,8 +16,8 @@ include UsersHelper
     com = Comment.new
     com.comment = params[:com][:comment]
     com.post_id = params[:com][:post_id]
-    com.user_id = session[:current_user_id]
-    com.user = session[:current_username]
+    com.user_id = cookies.signed[:current_user_id]
+    com.user = cookies.signed[:current_username]
 
     # Check for validation errors
     if com.valid? then

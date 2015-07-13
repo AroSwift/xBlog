@@ -20,7 +20,7 @@
       = post.author
 
       - if logged_in? then
-        - if post.author == session[:current_username] then
+        - if post.author == cookies.signed[:current_username] then
           = link_to 'Delete', post_path(post.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete '#{post.title}?'"}, class: "dpost"
           = link_to 'Edit', edit_post_path(post.id), class: "pedit"
           
@@ -34,7 +34,7 @@
           = com.user + ':'
         = com.comment
         %b
-          - if com.user == session[:current_username]
+          - if com.user == cookies.signed[:current_username]
             = link_to 'Delete', comment_path(com.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
 
   - if logged_in? then

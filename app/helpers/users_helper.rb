@@ -2,17 +2,17 @@ module UsersHelper
 
   # Checks if super admin
   def super_admin?
-    session[:current_user_id].present? && session[:current_username].present? && session[:current_password].present? && session[:admin] == true && session[:super_admin] == true
+    cookies.signed[:current_user_id].present? && cookies.signed[:current_username].present? && cookies.signed[:current_password].present? && cookies.signed[:admin] == true && cookies.signed[:super_admin] == true
   end
 
 	# Checks if logged in and admin
 	def admin?
-    session[:current_user_id].present? && session[:current_username].present? && session[:current_password].present? && session[:admin] == true
+    cookies.signed[:current_user_id].present? && cookies.signed[:current_username].present? && cookies.signed[:current_password].present? && cookies.signed[:admin] == true
   end
 
   # Checks if logged in
   def logged_in?
-    session[:current_user_id].present? && session[:current_username].present? && session[:current_password].present?
+    cookies.signed[:current_user_id].present? && cookies.signed[:current_username].present? && cookies.signed[:current_password].present?
   end
 
   # Checks if password is equal to confirm password

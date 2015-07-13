@@ -16,7 +16,7 @@
     %p
       = f.label :author, "Author"
       %br/
-      = f.text_field :author, :maxlength => 12, :readonly => true, :value => session[:current_username]
+      = f.text_field :author, :maxlength => 12, :readonly => true, :value => cookies.signed[:current_username]
     %p
       = f.label :content, "Post"
       %br/

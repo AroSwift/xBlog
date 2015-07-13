@@ -38,18 +38,18 @@ include UsersHelper
       if first_user? then
         user.admin = true
         user.superadmin = true
-        # Create session for super admin
-        session[:admin] = true
-        session[:super_admin] = true
+        # Create cookies for super admin
+
+        cookies.signed[:admin] = { value: true, expires: 12.hours.from_now }
+        cookies.signed[:super_admin] = { value: true, expires: 12.hours.from_now }
       end
 
       # Save user to db
       user.save(user_params)
 
-      # Create Session
-      session[:current_user_id] = user.id
-      session[:current_username] = user.username
-      session[:current_password] = user.password
+      cookies.signed[:current_user_id] = { value: user.id, expires: 12.hours.from_now }
+      cookies.signed[:current_username] = { value: user.username, expires: 12.hours.from_now }
+      cookies.signed[:current_password] = { value: user.password, expires: 12.hours.from_now }
 
       redirect_to :root unless admin?
       redirect_to :admin_home unless !admin?
@@ -96,7 +96,7 @@ include UsersHelper
       if params[:user][:admin] == '1' && admin? && !super_admin? then
         r = Request.new
         r.status = true
-        r.accepted_by = session[:current_username]
+        r.accepted_by = cookies.signed[:current_username]
         r.username = params[:user][:username]
         r.password = params[:user][:password]
         r.user_id = params[:id]
@@ -106,7 +106,7 @@ include UsersHelper
         Request.where(:user_id => params[:id]).destroy_all
       end
 
-      redirect_to account_user_path(session[:current_user_id]) unless admin?
+      redirect_to account_user_path(cookies.signed[:current_user_id]) unless admin?
       redirect_to :admin_users unless !admin?
     else # If validation errors
       flash[:username] = params[:user][:username]
@@ -126,9 +126,9 @@ include UsersHelper
 
 
     # If current user is deleting their account, posts and comments
-    if params[:id] == session[:current_user_id] then   
+    if params[:id] == cookies.signed[:current_user_id] then   
       flash[:error] = 'You have successfully deleted your account, posts, and comments'
-      reset_session
+      reset_cookies.signed
       redirect_to :root
     else
       flash[:error] = 'The user #{name} and all their posts and comments were successfully deleted'
@@ -145,18 +145,18 @@ include UsersHelper
     
     # Checks if user exists in db
     if !user.nil? then
-      session[:current_user_id] = user.id
-      session[:current_username] = user.username
-      session[:current_password] = user.password
+      cookies.signed[:current_user_id] = user.id
+      cookies.signed[:current_username] = user.username
+      cookies.signed[:current_password] = user.password
 
       # If user is admin
       if user.admin == true then
-        session[:admin] = true
+        cookies.signed[:admin] = true
       end
 
       # if user is super admin
       if user.superadmin == true then
-        session[:super_admin] = true
+        cookies.signed[:super_admin] = true
       end
 
       redirect_to :root unless admin?
@@ -173,7 +173,7 @@ include UsersHelper
 
   # Logout User
   def logout 
-    reset_session
+    reset_cookies.signed
     flash[:error] = 'Logout successful'
     redirect_to :root
   end
