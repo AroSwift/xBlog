@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+ 	before_save :super_admin
+
 	has_many :posts, dependent: :destroy
 	has_many :comments, dependent: :destroy
 	has_many :requests, dependent: :destroy
@@ -17,6 +19,14 @@ class User < ActiveRecord::Base
 	# Fat model begins here:
 
 
+
+
+
+private
+
+  def super_admin
+    self.admin = true if self.superadmin == true
+  end
 
 
 end

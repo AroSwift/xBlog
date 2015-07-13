@@ -2,12 +2,12 @@ module UsersHelper
 
   # Checks if super admin
   def super_admin?
-    cookies.signed[:current_user_id].present? && cookies.signed[:current_username].present? && cookies.signed[:current_password].present? && cookies.signed[:admin] == true && cookies.signed[:super_admin] == true
+    cookies.signed[:current_user_id].present? && cookies.signed[:current_username].present? && cookies.signed[:current_password].present? && cookies.signed[:admin] == "true" && cookies.signed[:super_admin] == "true"
   end
 
 	# Checks if logged in and admin
 	def admin?
-    cookies.signed[:current_user_id].present? && cookies.signed[:current_username].present? && cookies.signed[:current_password].present? && cookies.signed[:admin] == true
+    cookies.signed[:current_user_id].present? && cookies.signed[:current_username].present? && cookies.signed[:current_password].present? && cookies.signed[:admin] == "true"
   end
 
   # Checks if logged in
