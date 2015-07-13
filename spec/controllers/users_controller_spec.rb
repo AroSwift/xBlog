@@ -20,14 +20,14 @@ RSpec.describe UsersController, :type => :controller do
 				# expect(@user.count).to eq
 			end
 
-			it "gives the current user a session and redirects" do
-				session[:current_user_id] = @user.id
-				session[:current_username] = @user.username
-				session[:current_password] = @user.password
+			it "gives the current user a cookies.signed and redirects" do
+				cookies.signed[:current_user_id] = @user.id
+				cookies.signed[:current_username] = @user.username
+				cookies.signed[:current_password] = @user.password
 
-				expect(session[:current_user_id]).to be == @user.id
-	      expect(session[:current_username]).to be == @user.username
-	      expect(session[:current_password]).to be == @user.password
+				expect(cookies.signed[:current_user_id]).to be == @user.id
+	      expect(cookies.signed[:current_username]).to be == @user.username
+	      expect(cookies.signed[:current_password]).to be == @user.password
 			end
 
 	end
@@ -55,14 +55,14 @@ RSpec.describe UsersController, :type => :controller do
 
 	describe '#login_user' do
 
-			it "creates a session" do
-				session[:current_user_id] = @user.id
-	      session[:current_username] = @user.username
-	      session[:current_password] = @user.password
+			it "creates a cookies.signed" do
+				cookies.signed[:current_user_id] = @user.id
+	      cookies.signed[:current_username] = @user.username
+	      cookies.signed[:current_password] = @user.password
 
-	      expect(session[:current_user_id]).to eq(@user.id)
-				expect(session[:current_username]).to eq(@user.username)
-				expect(session[:current_password]).to eq(@user.password)
+	      expect(cookies.signed[:current_user_id]).to eq(@user.id)
+				expect(cookies.signed[:current_username]).to eq(@user.username)
+				expect(cookies.signed[:current_password]).to eq(@user.password)
 			end
 
 	end
@@ -74,11 +74,11 @@ RSpec.describe UsersController, :type => :controller do
 			it "deletes cookies and redirect" do
 
 				visit :admin_home
-				expect(session[:current_user_id]).to eq(nil)
-	      expect(session[:current_username]).to eq(nil)
-	      expect(session[:current_password]).to eq(nil)
-	      expect(session[:admin]).to eq(nil)
-	      expect(session[:super_admin]).to eq(nil)
+				expect(cookies.signed[:current_user_id]).to eq(nil)
+	      expect(cookies.signed[:current_username]).to eq(nil)
+	      expect(cookies.signed[:current_password]).to eq(nil)
+	      expect(cookies.signed[:admin]).to eq(nil)
+	      expect(cookies.signed[:super_admin]).to eq(nil)
 
 	      #expect(response).to redirect_to :home
 			end

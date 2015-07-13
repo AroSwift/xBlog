@@ -2,7 +2,7 @@ RSpec.describe UsersHelper, type: :helper do
 
 
 
-describe "User helper" do
+describe "" do
 		
 		before :each do
 			@user = FactoryGirl.create(:user) # Completely valid user

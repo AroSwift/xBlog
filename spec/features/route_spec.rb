@@ -1,7 +1,7 @@
 describe 'Checking Public Routes' do
 
-		before :each do
-		end
+		# before :each do
+		# end
 		
 		it "successfully accesses Root page" do
 			visit :root
@@ -32,18 +32,14 @@ describe 'Checking Logged In Routes' do
 			@user = FactoryGirl.create(:user) # Completely valid user
 			@post = FactoryGirl.create(:post)
 
-			# Create cookies to simulated logged in state
-			# cookies[:current_username] = @user.username
-			# cookies[:current_password] = @user.password
-			# cookies[:current_user_id] = @user.id
-			# cookies[:admin] = @user.admin
-			# cookies[:super_admin] = @user.superadmin
-			# request.cookies[:current_user_id] = @user.id
-			# request.cookies[:admin] = @user.admin
-			# request.cookies[:super_admin] = @user.superadmin
-
-			page.driver.browser.set_cookie 'username=jhendrix'
+			cookies[:current_username] = @user.username
+			cookies[:current_password] = @user.password
+			cookies[:current_user_id] = @user.id
+			cookies[:admin] = @user.admin
+			cookies[:super_admin] = @user.superadmin
 		end
+
+
 
 		it "successfully accesses New Post page", type: :request  do
 
@@ -53,11 +49,11 @@ describe 'Checking Logged In Routes' do
 
 
 		it "successfully accesses Edit Post page", type: :request  do
-			@request.cookies['current_username'] = @user.username
-			cookies[:current_password] = @user.password
-			cookies[:current_user_id] = @user.id
-			cookies[:admin] = @user.admin
-			cookies[:super_admin] = @user.superadmin
+			expect(cookies[:current_username]).to eq(@user.username)
+			expect(cookies[:current_password]).to eq(@user.password)
+			expect(cookies[:current_user_id]).to eq(@user.id)
+			expect(cookies[:super_admin]).to eq(@user.superadmin)
+			expect(cookies[:admin]).to eq(@user.admin)
 
 			visit edit_post_path(@id)
 			expect(page).to have_text("Edit Post")
