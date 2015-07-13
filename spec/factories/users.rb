@@ -3,8 +3,8 @@ FactoryGirl.define do
   factory :user do
    	username			'FooFighter'
     password			'121096H7'
-    admin					'f'
-    superadmin		'f'
+    admin					'true'
+    superadmin		'true'
     id						1
   end
   

@@ -3,6 +3,7 @@ RSpec.describe PostsController, type: :controller do
 
 	before :each do
 		@post = FactoryGirl.build(:post) # Completely valid user
+		cookies[:current_username] = @post.author
 	end
 
 

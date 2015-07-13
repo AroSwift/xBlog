@@ -3,6 +3,7 @@ RSpec.describe UsersController, :type => :controller do
 
 	before :each do
 		@user = FactoryGirl.build(:user) # Completely valid user
+		# cookies[:current_username] = @user.username
 	end
 
 
