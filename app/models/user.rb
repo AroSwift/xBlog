@@ -18,14 +18,15 @@ class User < ActiveRecord::Base
 
 	# Fat model begins here:
 
-
-
-
-
 private
 
   def super_admin
     self.admin = true if self.superadmin == true
+    # if self.superadmin.count == 0 then
+    # 	self.superadmin = true
+    # else
+    # 	self.superadmin = false
+    # end
   end
 
 
