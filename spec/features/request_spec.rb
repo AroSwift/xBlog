@@ -31,11 +31,11 @@ end
 
 
 
+describe 'Admin Reviews Request' do
 
-describe 'Accepts Request to be Admin' do
 
 		before :each do			
-			FactoryGirl.create(:request_other_user)
+			FactoryGirl.create(:request, username: "MannyDanny")
 			@user = FactoryGirl.create(:user, admin: true)
 
 			# Set Cookies
@@ -44,13 +44,19 @@ describe 'Accepts Request to be Admin' do
 			fill_in "login_password", with: @user.password
 			click_button "Login"
 		end
-		
+
 		it "successfully accepts request to be admin when administrator" do
-			# @admin = FactoryGirl.build(:user, admin: true, superadmin: false) # Admin
 			visit :admin_users
 			click_on("Yes")
 
-			expect(page).to have_text("#{@admin.username} is now an administrator")
+			expect(page).to have_text("#{@user.username} is now an administrator")
+		end
+		
+		it "successfully rejects request to be admin when administrator" do
+			visit :admin_users
+			click_on("No")
+
+			expect(page).to have_text("#{@user.username} has been rejected administratorship")
 		end
 
 end
@@ -58,31 +64,35 @@ end
 
 
 
-describe 'Reject Request to be Admin' do
+describe 'Super Admin Reviews Request' do
 
-		# before :each do			
-		# 	@admin = FactoryGirl.create(:user, admin: true, superadmin: false) # Admin
-		# 	@super_admin = FactoryGirl.create(:user, admin: true, superadmin: true) # Super Admin
-		# 	FactoryGirl.create(:request, )
-		# end
+
+		before :each do			
+			@user = FactoryGirl.create(:user, admin: true, superadmin: true) # super admin
+			@requester = FactoryGirl.create(:user, username: "MannyDanny", id: 3) # user wanting adminship
+			@admin = FactoryGirl.create(:user, username: "AdminDude", admin: true, id: 2) # another admin
+
+			# Set Cookies
+			visit :login
+			fill_in "login_username", with: @user.username
+			fill_in "login_password", with: @user.password
+			click_button "Login"
+		end
+
+		it "successfully accepts request to be admin when administrator" do
+			FactoryGirl.create(:request, username: @requester.username, accepted_by: @admin.username, user_id: 3)
+			visit :admin_users
+			click_on("Yes")
+
+			expect(page).to have_text("#{@requester.username} is now an administrator")
+		end
 		
-		# it "successfully creates a request to be an admin" do
-		# 	visit new_user_path
-		# 	fill_in "user_username", with: @user.username
-		# 	fill_in "user_password", with: @user.password
-		# 	fill_in "user_password_confirmation", with: @user.password
-		# 	click_button "Sign Up"
+		it "successfully rejects request to be admin when administrator" do
+			FactoryGirl.create(:request, username: @requester.username, rejected_by: @admin.username, user_id: 3)
+			visit :admin_users
+			click_on("No")
 
-		# 	expect(page).to have_text("Create First Post")
-		# 	expect(page).to have_text("Account")
-		# end
-
-
-		# it "fails to create a request to be admin" do
-		# 	visit account_user(@user.id)
-		# 	click_button "Request to be an admin"
-
-		# 	expect(page).to have_text("You have already submitted a request")
-		# end
+			expect(page).to have_text("#{@requester.username} has been rejected administratorship")
+		end
 
 end

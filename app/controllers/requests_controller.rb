@@ -64,16 +64,15 @@ include UsersHelper
     # If super admin is rejecting for final time
     if params[:adminreject] == 'true' then
       User.where(:id => params[:id]).update_all(admin: false)
-      Request.destroy(params[:id])
-      flash[:error] = "#{user.username} has been rejected administratorship"
+      Request.where(:user_id => params[:id]).destroy_all
     end
 
     # if normal admin is rejecting
     if params[:reject] == 'true' then
       Request.where(:user_id => params[:id]).update_all(status: true, rejected_by: cookies.signed[:current_username])
-      flash[:error] = "#{user.username} has been rejected administratorship"
     end  
 
+    flash[:error] = "#{user.username} has been rejected administratorship"
     redirect_to :admin_users
   end
 
