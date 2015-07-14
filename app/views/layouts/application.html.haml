@@ -21,7 +21,7 @@
       %nav
         - if admin? then
           = link_to 'Home', admin_home_path, :class => ("it" unless !current_page?(:admin_home))
-          = link_to 'Users', admin_users_path, :class => ("it" if current_page?(:admin_users))
+          = link_to 'Users', admin_users_path, :class => ("it" if current_page?(:admin_users) || current_page?(edit_user_path(params[:id] || cookies.signed[:current_user_id])))
           = link_to 'Post', new_post_path, :class => ("it" if current_page?(:new_post) || current_page?(edit_post_path(params[:id] || cookies.signed[:current_user_id])))
           = link_to 'Logout', logout_path, :method => :delete
         - elsif logged_in? then
