@@ -1,6 +1,3 @@
-require 'Factory_Girl'
-
-
 describe 'New post' do	
 
 		before :each do

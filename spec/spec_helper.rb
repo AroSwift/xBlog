@@ -9,6 +9,8 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
+require 'factory_girl_rails'
+require 'rails_helper'
 
 # Keep up to the number of screenshots specified in the hash
 Capybara::Screenshot.prune_strategy = :keep_last_run

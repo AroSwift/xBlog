@@ -5,6 +5,7 @@ require 'rspec/rails'
 
 # My code
 require 'spec_helper'
+require 'factory_girl_rails'
 
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

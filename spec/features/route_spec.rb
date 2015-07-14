@@ -23,6 +23,8 @@ describe 'Not Logged In Route' do
 		end
 
 
+
+		# ::::::Pages non-logged in user should NOT be able to access:::::: #
 		it "fails to accesses Admin Home page" do
 			visit :admin_home
 			expect(page).to have_text("You don't have access to this page")
@@ -60,7 +62,8 @@ describe 'Not Logged In Route' do
 		end
 
 
-		it "fails to accesses any pages" do
+		# If no page exist; go to root
+		it "redirects to root when page doesn't exist" do
 			visit :no_page_exists
 			expect(page).to have_text("Home")
 		end
@@ -70,10 +73,10 @@ end
 
 
 
-describe 'Regular Logged In Route' do
+describe ' Non-admin Logged In Route' do
 
 		before :each do
-			@user = FactoryGirl.create(:user) # Completely valid user
+			@user = FactoryGirl.create(:user) # admin/super_admin set to false by default
 			@post = FactoryGirl.create(:post)
 
 			# Set Cookies
@@ -108,15 +111,73 @@ describe 'Regular Logged In Route' do
 			expect(page).to have_text("Edit User")
 		end
 
+
+
+
+		# ::::::Pages non-admin user should NOT be able to access:::::: #
+		it "fails to accesses Admin Home page" do
+			visit :admin_home
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Admin Users page" do
+			visit admin_users_path
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Signup page" do
+			visit new_user_path
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Login page" do
+			visit :login
+			expect(page).to have_text("You don't have access to this page")
+		end
+
 end
 
 
 
-describe 'Checking Admin Routes' do
+describe 'Admin Routes' do
+
+		before :each do
+			@user = FactoryGirl.create(:user, admin: true, superadmin: false)
+			@post = FactoryGirl.create(:post)
+
+			# Set Cookies
+			visit :login
+			fill_in "login_username", with: @user.username
+			fill_in "login_password", with: @user.password
+			click_button "Login"
+		end
+
+
+		it "successfully accesses Users page" do
+			visit :admin_users
+			expect(page).to have_text("Users")
+		end
+
+
+		it "successfully accesses Admin Home page" do
+			visit :admin_home
+			expect(page).to have_text("Home")
+		end
+
+
+end
+
+
+
+
+describe 'Super Admin Routes' do
 
 
 		before :each do
-			@user = FactoryGirl.create(:user) # Completely valid user
+			@user = FactoryGirl.create(:user, admin: true, superadmin: true) # Completely valid user
 			# @post = FactoryGirl.create(:post)
 
 			# Set Cookies

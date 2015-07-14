@@ -1,6 +1,3 @@
-require 'Factory_Girl'
-
-
 describe 'the user signup process' do
 
 		before :each do
@@ -45,7 +42,7 @@ end
 describe 'deleting user process' do
 
 		before :each do
-			@user = FactoryGirl.create(:user) # Completely valid user
+			@user = FactoryGirl.create(:user, admin: true, superadmin: false) # Completely valid user
 
 			# Set Cookies
 			visit :login
