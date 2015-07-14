@@ -9,12 +9,12 @@ describe 'New post' do
 			fill_in "login_username", with: @user.username
 			fill_in "login_password", with: @user.password
 			click_button "Login"
+
+			visit new_post_path
 		end
 		
 
 		it "successfully creates new post given title, author, and post content" do
-			visit new_post_path
-
 			expect(page).to have_field("post_author", with: @user.username)
 
 			fill_in "post_title", with: @post.title
@@ -26,8 +26,6 @@ describe 'New post' do
 
 
 		it "fails to create new post when title and content are blank" do
-			visit new_post_path
-
 			fill_in "post_title", with: ""
 			fill_in "post_content", with: ""
 			click_button "Post"
@@ -51,12 +49,12 @@ describe 'Edit post' do
 			fill_in "login_username", with: @user.username
 			fill_in "login_password", with: @user.password
 			click_button "Login"
+
+			visit edit_post_path(@post1.id)		
 		end
 		
 
 		it "successfully updates post given title, author, and post content" do
-			visit edit_post_path(@post1.id)
-
 			expect(page).to have_field("post_author", with: @user.username)
 
 			fill_in "post_title", with: @post2.title
@@ -68,8 +66,6 @@ describe 'Edit post' do
 
 
 		it "fails to create update post when title and content are blank" do
-			visit edit_post_path(@post1.id)
-
 			fill_in "post_title", with: ""
 			fill_in "post_content", with: ""
 			click_button "Post"

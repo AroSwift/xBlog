@@ -39,11 +39,11 @@
           = com.comment
           %b
             - if com.user == cookies.signed[:current_username] || super_admin?
-              = link_to 'Delete', comment_path(com.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"
+              = link_to 'Delete', comment_path(com.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment", id: "spec_com"
             - else admin?
               - User.where(username: com.user).each do |user|
                 - if user.admin == false && user.superadmin == false
-                  = link_to 'Delete', comment_path(com.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment"          
+                  = link_to 'Delete', comment_path(com.id), :method => :delete, :data => {:confirm => "Are you sure you want to delete this comment?"}, class: "dcomment", id: "spec_com"     
 
       = form_for :com, url: comments_path do |f|
         %p
