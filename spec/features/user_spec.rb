@@ -1,4 +1,4 @@
-describe 'User signup process' do
+describe 'User signup' do
 
 		before :each do
 			@user = FactoryGirl.build(:user) # Completely valid user
@@ -11,7 +11,6 @@ describe 'User signup process' do
 			fill_in "user_password_confirmation", with: @user.password
 			click_button "Sign Up"
 
-			expect(page).to have_text("Create First Post")
 			expect(page).to have_text("Account")
 		end
 
@@ -25,10 +24,44 @@ describe 'User signup process' do
 			expect(page).to have_text("can't be blank")
 		end
 
+
+		it "fails to create a new user when password and confirm password do not match" do
+			fill_in "user_username", with: @user.username
+			fill_in "user_password", with: @user.password
+			fill_in "user_password_confirmation", with: @user.password + "nope"
+			click_button "Sign Up"
+
+			expect(page).to have_text("Password confirmation doesn't match Password")
+		end
+
 end
 
 
-describe 'User login process' do
+describe 'Edit User' do
+
+		before :each do
+			@user = FactoryGirl.create(:user) # Normal User
+			FactoryGirl.create(:post)
+
+			# Set Cookies
+			visit :login
+			fill_in "login_username", with: @user.username
+			fill_in "login_password", with: @user.password
+			click_button "Login"
+		end
+		
+		it "successfully edits selected user" do
+			click_on("Account")
+			click_on("Edit Username or Password")
+
+			expect(page).to have_field("user_username", with: @user.username)
+			expect(page).to have_field("user_password", with: @user.password)
+		end
+
+end
+
+
+describe 'User login' do
 
 		before :each do
 			@user = FactoryGirl.create(:user) # Completely valid user
@@ -57,7 +90,7 @@ describe 'User login process' do
 end
 
 
-describe 'Delete user process' do
+describe 'Delete User' do
 
 		before :each do
 			@user = FactoryGirl.create(:user, admin: true, superadmin: false) # Completely valid user
@@ -70,7 +103,7 @@ describe 'Delete user process' do
 		end
 		
 		it "successfully deletes a user given acceptable user id" do
-			visit :admin_users
+			click_on("Users")
 			expect { click_link('Delete') }.to change(User, :count).by(-1)
 			expect(page).to have_text("deleted")
 		end

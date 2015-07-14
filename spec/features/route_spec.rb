@@ -3,22 +3,23 @@ describe 'Not Logged In Route' do
 		before :each do
 			@id = 1
 			FactoryGirl.create(:user)
+			visit :root
 		end
 		
 		it "successfully accesses Root page" do
-			visit :root
+			click_link("Home")
 			expect(page).to have_text("Home")
 		end
 
 
 		it "successfully accesses Login page" do
-			visit :login
+			click_link("Login")
 			expect(page).to have_text("Login")
 		end
 
 
 		it "successfully accesses Signup page" do
-			visit new_user_path
+			click_link("Sign Up")
 			expect(page).to have_text("Sign Up")
 		end
 
@@ -73,7 +74,7 @@ end
 
 
 
-describe ' Non-admin Logged In Route' do
+describe ' User Logged In Route' do
 
 		before :each do
 			@user = FactoryGirl.create(:user) # admin/super_admin set to false by default
@@ -89,32 +90,33 @@ describe ' Non-admin Logged In Route' do
 
 
 		it "successfully accesses New Post page" do
-			visit new_post_path
+			click_link("Post")
 			expect(page).to have_text("Post")
 		end
 
 
 		it "successfully accesses Edit Post page" do
-			visit edit_post_path(@post.id)
+			click_link("Edit")
 			expect(page).to have_text("Edit Post")
 		end
 
 
 		it "successfully accesses Account page" do
-			visit account_user_path(@user.id)
+			click_link("Account")
 			expect(page).to have_text("Account")
 		end
 
 
 		it "successfully accesses Edit User page" do
-			visit edit_user_path(@user.id)
+			click_link("Account")
+			click_link("Edit Username or Password")
 			expect(page).to have_text("Edit User")
 		end
 
 
 
 
-		# ::::::Pages non-admin user should NOT be able to access:::::: #
+		# ::::::Pages regular user should NOT be able to access:::::: #
 		it "fails to accesses Admin Home page" do
 			visit :admin_home
 			expect(page).to have_text("You don't have access to this page")
@@ -158,37 +160,38 @@ describe 'Admin Routes' do
 
 
 		it "successfully accesses Admin Home page" do
-			visit :admin_home
+			click_link("Home")
 			expect(page).to have_text("Home")
 		end
 
 
 		it "successfully accesses Users page" do
-			visit :admin_users
+			click_link("Users")
 			expect(page).to have_text("Users")
 		end
 
 
 		it "successfully accesses Account page" do
-			visit account_user_path(@user.id)
+			click_link("Account")
 			expect(page).to have_text("Account")
 		end
 
 
 		it "successfully accesses New Post page" do
-			visit new_post_path
+			click_link("Post")
 			expect(page).to have_text("Post")
 		end
 
 
 		it "successfully accesses Edit Post page" do
-			visit edit_post_path(@post.id)
+			click_link("Edit")
 			expect(page).to have_text("Edit Post")
 		end
 
 
 		it "successfully accesses Edit User page" do
-			visit edit_user_path(@user.id)
+			click_link("Account")
+			click_link("Edit Username or Password")
 			expect(page).to have_text("Edit User")
 		end
 
@@ -229,40 +232,40 @@ describe 'Super Admin Routes' do
 
 
 		it "successfully accesses Admin Home page" do
-			visit :admin_home
+			click_link("Home")
 			expect(page).to have_text("Home")
 		end
 
 
 		it "successfully accesses Users page" do
-			visit :admin_users
+			click_link("Users")
 			expect(page).to have_text("Users")
 		end
 
 
 		it "successfully accesses Account page" do
-			visit account_user_path(@user.id)
+			click_link("Account")
 			expect(page).to have_text("Account")
 		end
 
 
 		it "successfully accesses New Post page" do
-			visit new_post_path
+			click_link("Post")
 			expect(page).to have_text("Post")
 		end
 
 
 		it "successfully accesses Edit Post page" do
-			visit edit_post_path(@post.id)
+			click_link("Edit")
 			expect(page).to have_text("Edit Post")
 		end
 
 
 		it "successfully accesses Edit User page" do
-			visit edit_user_path(@user.id)
+			click_link("Account")
+			click_link("Edit Username or Password")
 			expect(page).to have_text("Edit User")
 		end
-
 
 
 

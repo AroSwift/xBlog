@@ -10,7 +10,7 @@ describe 'New post' do
 			fill_in "login_password", with: @user.password
 			click_button "Login"
 
-			visit new_post_path
+			click_on("Post")
 		end
 		
 
@@ -50,7 +50,8 @@ describe 'Edit post' do
 			fill_in "login_password", with: @user.password
 			click_button "Login"
 
-			visit edit_post_path(@post1.id)		
+			# visit edit_post_path(@post1.id)		
+			click_on("Edit")
 		end
 		
 
