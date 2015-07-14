@@ -2,23 +2,22 @@ RSpec.describe UsersController, :type => :controller do
 
 
 	before :each do
-		@user = FactoryGirl.build(:user) # Completely valid user
-		# cookies[:current_username] = @user.username
+		@user = FactoryGirl.build(:user)
 	end
 
 
 	describe '#create' do
 
-			it "confims password and confirm password are equal" do
+			it "confirms password and confirm password are equal" do
 				expect(@user.password).to eq(@user.password)
 			end
 
-			it "checks if this is the first account" do
-			end
+			# it "checks if this is the first account" do
+			# end
 
-			it "checks if user already exists in database" do
-				# expect(@user.count).to eq
-			end
+			# it "checks if user already exists in database" do
+			# 	# expect(@user.count).to eq
+			# end
 
 			it "gives the current user a cookies.signed and redirects" do
 				cookies.signed[:current_user_id] = @user.id
@@ -37,7 +36,6 @@ RSpec.describe UsersController, :type => :controller do
 	describe '#update' do
 
 			it "sets new username and password for selected user" do
-
 			end
 
 	end
