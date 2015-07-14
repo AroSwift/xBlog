@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get     'login'                 => 'users#login'
   post    'login_user'            => 'users#login_user'
   delete  'logout'                => 'users#logout'
+  get     'search'                => 'users#live_search'
 
   # Admin functions
   get     'admin_home'            => 'admin#index'

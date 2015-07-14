@@ -23,6 +23,18 @@ include UsersHelper
   end
 
 
+# def live_search
+#   @users = User.find_latest params[:q]
+#   render :layout => false
+# end
+
+  def live_search 
+    @users = User.search params[:q]
+    render :partial => 'list' 
+  end 
+
+
+
   # Create User
   def create
     user = User.new
@@ -37,7 +49,7 @@ include UsersHelper
         user.admin = true
         user.superadmin = true
 
-        # Create cookies for super admin
+        # Create cookies for super adminbrew inst
         cookies.signed[:admin] = { value: "true", expires: 12.hours.from_now }
         cookies.signed[:super_admin] = { value: "true", expires: 12.hours.from_now }
       end

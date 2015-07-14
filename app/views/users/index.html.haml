@@ -2,6 +2,14 @@
   Home
 %br
 
+
+  -# JUNK THAT WILL NEED TO BE DELETED
+  %form#live-search-form{:action => search_path, :method => "get"}
+    %input#big-search-box{:name => "q", :type => "text", :autocomplete => "off" }
+  #live-search-results
+
+
+
 - if first_user?
   %h3
     %center
