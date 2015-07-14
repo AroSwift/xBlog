@@ -32,8 +32,8 @@
           to be an administrator?
           %br
           %br
-          = link_to 'Yes', request_path(request.id), :method => :put, class: "request"
-          = link_to 'No', request_path(request.id, :adminreject => 'true'), :method => :delete, class: "request"
+          = link_to 'Yes', request_path(request.user_id), :method => :put, class: "request"
+          = link_to 'No', request_path(request.user_id, :adminreject => 'true'), :method => :delete, class: "request"
 
       - elsif request.status == false then
         %center.request
@@ -44,9 +44,9 @@
           = compare_time(request.created_at)
           %br
           %br
-          = link_to 'Yes', request_path(request.id), :method => :put, class: "request"
-          = link_to 'No', request_path(request.id, :reject => 'true'), :method => :delete, class: "request" unless super_admin?
-          = link_to 'No', request_path(request.id, :adminreject => 'true'), :method => :delete, class: "request" unless !super_admin?
+          = link_to 'Yes', request_path(request.user_id), :method => :put, class: "request"
+          = link_to 'No', request_path(request.user_id, :reject => 'true'), :method => :delete, class: "request" unless super_admin?
+          = link_to 'No', request_path(request.user_id, :adminreject => 'true'), :method => :delete, class: "request" unless !super_admin?
 
 
   - User.all.order("id desc LIMIT 50").each do |user|
