@@ -1,7 +1,9 @@
-describe 'Checking Public Routes' do
+describe 'Not Logged In Route' do
 
-		# before :each do
-		# end
+		before :each do
+			@id = 1
+			FactoryGirl.create(:user)
+		end
 		
 		it "successfully accesses Root page" do
 			visit :root
@@ -20,12 +22,55 @@ describe 'Checking Public Routes' do
 			expect(page).to have_text("Sign Up")
 		end
 
+
+		it "fails to accesses Admin Home page" do
+			visit :admin_home
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Admin Users page" do
+			visit admin_users_path
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Edit User page" do
+			visit edit_user_path(@id)
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Account page" do
+			visit account_user_path(@id)
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses New Post page" do
+			visit new_post_path
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Edit post page" do
+			FactoryGirl.create(:post)
+			visit edit_post_path(@id)
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses any pages" do
+			visit :no_page_exists
+			expect(page).to have_text("Home")
+		end
+
 end
 
 
 
 
-describe 'Checking Logged In Routes' do
+describe 'Regular Logged In Route' do
 
 		before :each do
 			@user = FactoryGirl.create(:user) # Completely valid user
@@ -71,7 +116,6 @@ describe 'Checking Admin Routes' do
 
 
 		before :each do
-			@id = 1 # Completely valid link number
 			@user = FactoryGirl.create(:user) # Completely valid user
 			# @post = FactoryGirl.create(:post)
 
