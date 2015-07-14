@@ -8,6 +8,10 @@ include UsersHelper
 
   def index
     @users = User.all
+    if admin? || super_admin? then
+      redirect_to :admin_home
+      return
+    end
   end
 
   def edit

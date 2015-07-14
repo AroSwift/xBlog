@@ -156,17 +156,56 @@ describe 'Admin Routes' do
 		end
 
 
-		it "successfully accesses Users page" do
-			visit :admin_users
-			expect(page).to have_text("Users")
-		end
-
 
 		it "successfully accesses Admin Home page" do
 			visit :admin_home
 			expect(page).to have_text("Home")
 		end
 
+
+		it "successfully accesses Users page" do
+			visit :admin_users
+			expect(page).to have_text("Users")
+		end
+
+
+		it "successfully accesses Account page" do
+			visit account_user_path(@user.id)
+			expect(page).to have_text("Account")
+		end
+
+
+		it "successfully accesses New Post page" do
+			visit new_post_path
+			expect(page).to have_text("Post")
+		end
+
+
+		it "successfully accesses Edit Post page" do
+			visit edit_post_path(@post.id)
+			expect(page).to have_text("Edit Post")
+		end
+
+
+		it "successfully accesses Edit User page" do
+			visit edit_user_path(@user.id)
+			expect(page).to have_text("Edit User")
+		end
+
+
+
+
+		# ::::::Pages admin user should NOT be able to access:::::: #
+		it "fails to accesses Signup page" do
+			visit new_user_path
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Login page" do
+			visit :login
+			expect(page).to have_text("You don't have access to this page")
+		end
 
 end
 
@@ -178,7 +217,7 @@ describe 'Super Admin Routes' do
 
 		before :each do
 			@user = FactoryGirl.create(:user, admin: true, superadmin: true) # Completely valid user
-			# @post = FactoryGirl.create(:post)
+			@post = FactoryGirl.create(:post)
 
 			# Set Cookies
 			visit :login
@@ -189,15 +228,54 @@ describe 'Super Admin Routes' do
 
 
 
+		it "successfully accesses Admin Home page" do
+			visit :admin_home
+			expect(page).to have_text("Home")
+		end
+
+
 		it "successfully accesses Users page" do
 			visit :admin_users
 			expect(page).to have_text("Users")
 		end
 
 
-		it "successfully accesses Admin Home page" do
-			visit :admin_home
-			expect(page).to have_text("Home")
+		it "successfully accesses Account page" do
+			visit account_user_path(@user.id)
+			expect(page).to have_text("Account")
+		end
+
+
+		it "successfully accesses New Post page" do
+			visit new_post_path
+			expect(page).to have_text("Post")
+		end
+
+
+		it "successfully accesses Edit Post page" do
+			visit edit_post_path(@post.id)
+			expect(page).to have_text("Edit Post")
+		end
+
+
+		it "successfully accesses Edit User page" do
+			visit edit_user_path(@user.id)
+			expect(page).to have_text("Edit User")
+		end
+
+
+
+
+		# ::::::Pages super admin user should NOT be able to access:::::: #
+		it "fails to accesses Signup page" do
+			visit new_user_path
+			expect(page).to have_text("You don't have access to this page")
+		end
+
+
+		it "fails to accesses Login page" do
+			visit :login
+			expect(page).to have_text("You don't have access to this page")
 		end
 
 
