@@ -1,4 +1,4 @@
-describe 'the user signup process' do
+describe 'User signup process' do
 
 		before :each do
 			@user = FactoryGirl.build(:user) # Completely valid user
@@ -15,10 +15,21 @@ describe 'the user signup process' do
 			expect(page).to have_text("Account")
 		end
 
+
+		it "fails to create a new user when username and password are blank" do
+			visit new_user_path
+			fill_in "user_username", with: ""
+			fill_in "user_password", with: ""
+			fill_in "user_password_confirmation", with: ""
+			click_button "Sign Up"
+
+			expect(page).to have_text("can't be blank")
+		end
+
 end
 
 
-describe 'the user login process' do
+describe 'User login process' do
 
 		before :each do
 			@user = FactoryGirl.create(:user) # Completely valid user
@@ -36,10 +47,20 @@ describe 'the user login process' do
 			expect(page).to have_text("Account")
 		end
 
+
+		it "fails to login user when username and password are do not match" do
+			visit :login
+			fill_in "login_username", with: ""
+			fill_in "login_password", with: ""
+			click_button "Login"
+
+			expect(page).to have_text("The username and password do not match")
+		end
+
 end
 
 
-describe 'deleting user process' do
+describe 'Delete user process' do
 
 		before :each do
 			@user = FactoryGirl.create(:user, admin: true, superadmin: false) # Completely valid user

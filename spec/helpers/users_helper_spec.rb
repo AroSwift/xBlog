@@ -1,9 +1,6 @@
 RSpec.describe UsersHelper, type: :helper do
 
 
-
-describe "" do
-		
 		before :each do
 			@user = FactoryGirl.create(:user) # Completely valid user
 	    cookies.signed[:current_user_id] = @user.id
@@ -34,6 +31,4 @@ describe "" do
 			expect(password).to eq(@user.password)
 		end
 
-
-end
 end
