@@ -114,6 +114,13 @@ describe ' User Logged In Route' do
 		end
 
 
+		# Check if logout takes user to root
+		it "redirects to root and deletes cookies" do
+			click_link("Logout")
+			expect(page).to have_text("Logout successful")
+		end
+
+
 
 
 		# ::::::Pages regular user should NOT be able to access:::::: #
