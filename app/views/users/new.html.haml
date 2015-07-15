@@ -12,14 +12,14 @@
     %p
       = f.label :username, "Username"
       %br/
-      = f.text_field :username, :maxlength => 12, :value => flash[:username]
+      = f.text_field :username, :maxlength => 12, :autocomplete => "off", :value => flash[:username]
     %p
       = f.label :password, "Password"
       %br/
-      = f.text_field :password, :maxlength => 20, :value => flash[:password]
+      = f.text_field :password, :maxlength => 20, :autocomplete => "off", :value => flash[:password]
     %p
       = f.label :password_confirmation, "Comfirm Password"
       %br/
-      = f.text_field :password_confirmation, :maxlength => 20
+      = f.text_field :password_confirmation, :autocomplete => "off", :maxlength => 20
     %p
       = f.submit "Sign Up"

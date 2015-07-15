@@ -23,14 +23,15 @@ include UsersHelper
   end
 
 
-# def live_search
-#   @users = User.find_latest params[:q]
-#   render :layout => false
-# end
-
+  # For 
   def live_search 
-    @users = User.search params[:q]
-    render :partial => 'list' 
+
+    if request.xhr? then
+      @users = User.all
+      render :partial => "list"
+    else
+      redirect_to :action => "index"
+    end
   end 
 
 
