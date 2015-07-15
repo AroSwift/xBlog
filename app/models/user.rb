@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
 	validates_confirmation_of :password, on: :create
 
 
-	# ####### # # # # # # # ### # # # ## # # 
 	### # # # # # # # # # # ##    Fat model begins here:
 
 
@@ -27,7 +26,7 @@ class User < ActiveRecord::Base
     if search
       where('username LIKE ?', "%#{search}%")
     else
-      scoped
+      all
     end
   end
 

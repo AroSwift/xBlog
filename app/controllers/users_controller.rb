@@ -23,18 +23,6 @@ include UsersHelper
   end
 
 
-  # For 
-  def live_search 
-
-    if request.xhr? then
-      @users = User.all
-      render :partial => "list"
-    else
-      redirect_to :action => "index"
-    end
-  end 
-
-
 
   # Create User
   def create
